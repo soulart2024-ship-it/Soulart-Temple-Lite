@@ -1,0 +1,209 @@
+SoulArt Doodle Room — Colouring Section (v1)
+
+1️⃣ Purpose (clear intent)
+
+The Colouring Section is for:
+	•	gentle nervous system regulation
+	•	non-decision creativity
+	•	presence without pressure
+
+It is distinct from:
+	•	Free Doodle (expression)
+	•	Mandala Symmetry (flow + structure)
+
+Colouring = receive, soften, settle
+
+⸻
+
+2️⃣ User Experience Flow
+
+Entry
+	•	User selects “Colouring Pages” mode
+	•	Canvas clears
+	•	A soft outline appears (no symmetry lines)
+	•	Brushes default to soft brush, medium size, warm colour
+
+User action
+	•	Tap / click to colour inside shapes
+	•	No pressure for precision
+	•	Undo always available
+
+Exit
+	•	Switch back to other modes without losing saved state (same as now)
+
+⸻
+
+3️⃣ UI Placement (minimal changes)
+
+Add a NEW Drawing Mode Button
+
+In your existing Drawing Modes section:
+
+<button class="mode-btn" data-mode="colouring">
+  Colouring Pages
+  <span class="mode-tooltip">
+    Gently colour sacred designs without drawing lines
+  </span>
+</button>
+
+Mobile: stacks naturally with existing mode buttons.
+
+4️⃣ Colouring Page Selector (simple + expandable)
+
+Add a new collapsible section (only visible in Colouring Mode)
+<div class="collapsible-section" data-section="colouring" id="colouringSection" style="display:none;">
+  <button class="section-header" onclick="toggleSection('colouring')" aria-expanded="true">
+    <span class="section-title">Choose a Design</span>
+    <span class="chevron">▼</span>
+  </button>
+
+  <div class="section-content" id="colouring-content">
+    <select id="colouringSelect">
+      <option value="">— Select a Colouring Page —</option>
+      <option value="lotus">Lotus Calm</option>
+      <option value="flower_of_life">Flower of Life</option>
+      <option value="heart">Sacred Heart</option>
+      <option value="mandala_simple">Soft Mandala</option>
+      <option value="leaves">Botanical Flow</option>
+    </select>
+
+    <p class="hint">
+      Let the colour arrive naturally. There is no right way.
+    </p>
+  </div>
+</div>
+
+5️⃣ How Colouring Pages Work (important)
+
+✅ Vector-style outlines rendered to canvas
+
+❌ NOT flood-fill (too fiddly on mobile)
+
+We will:
+	•	Draw thick, soft outlines
+	•	User colours freely inside
+	•	Lines act as gentle guides, not strict borders
+
+This avoids frustration and keeps it meditative.
+
+6️⃣ JS Logic (developer-ready)
+
+Add colouring mode state
+Js:
+let currentColouringPage = null;
+
+Handle mode switching
+
+Inside your existing mode switch logic:
+
+Js
+if (currentMode === 'colouring') {
+  symmetryGroup.style.display = 'none';
+  templateGroup.style.display = 'none';
+  colouringSection.style.display = 'block';
+  canvas.style.cursor = 'crosshair';
+  resetViewport();
+}
+And hide when not active.
+
+7️⃣ Colouring Page Generator (Canvas-based)
+
+Add this function:
+Js:
+function renderColouringPage(type) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  const size = Math.min(canvas.width, canvas.height) * 0.4;
+
+  ctx.save();
+  ctx.strokeStyle = '#C8C3B8'; // soft warm stone
+  ctx.lineWidth = 2.5;
+  ctx.globalAlpha = 0.9;
+
+  switch (type) {
+    case 'lotus':
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.ellipse(
+          cx + Math.cos(angle) * size * 0.3,
+          cy + Math.sin(angle) * size * 0.3,
+          size * 0.25,
+          size * 0.45,
+          angle,
+          0,
+          Math.PI * 2
+        );
+        ctx.stroke();
+      }
+      break;
+
+    case 'flower_of_life':
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.arc(
+          cx + Math.cos(angle) * size * 0.35,
+          cy + Math.sin(angle) * size * 0.35,
+          size * 0.35,
+          0,
+          Math.PI * 2
+        );
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.35, 0, Math.PI * 2);
+      ctx.stroke();
+      break;
+  }
+
+  ctx.restore();
+  saveState();
+}
+
+Hook into selector
+js:
+document.getElementById('colouringSelect').addEventListener('change', function () {
+  if (!this.value) return;
+  currentColouringPage = this.value;
+  renderColouringPage(this.value);
+});
+
+8️⃣ Brush Behaviour in Colouring Mode
+
+Defaults when entering Colouring:
+	•	Brush: Soft Brush
+	•	Opacity: 80–90%
+	•	Size: 10–14px
+	•	Colour: warm neutral (sand / gold)
+
+No eraser by default (still available).
+
+This keeps it soothing.
+
+⸻
+
+9️⃣ Mobile Experience (already aligned)
+
+Your current mobile setup already supports:
+	•	Full canvas focus
+	•	Bottom drawer tools
+	•	Touch-friendly controls
+
+Colouring mode drops straight in without layout changes.
+
+⸻
+
+10️⃣ What This Unlocks Later (important)
+
+This structure allows you to add:
+	•	Paid colouring packs
+	•	Seasonal pages (Valentine’s, Mother’s Day)
+	•	Chakra-specific colouring
+	•	Printable exports
+	•	“Colour + Journal” flows
+
+No rebuild needed.
+

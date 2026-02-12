@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a1a">
+  <title>Zen Sand Garden - SoulArt Playroom</title>
+  <link rel="stylesheet" href="../../styles/chakra-tokens.css">
+  <link rel="stylesheet" href="../../styles/legal.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(180deg, #1a1612 0%, #2d2820 50%, #1a1612 100%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      touch-action: none;
+    }
+    
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+      padding: 1rem;
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #C8963E;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      z-index: 10;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    
+    .back-btn:hover {
+      color: #e0ac4a;
+    }
+    
+    .game-title {
+      position: absolute;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .sand-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 100px rgba(139, 119, 101, 0.1);
+    }
+    
+    #sandCanvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    
+    .tools-bar {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.6rem 1rem;
+      border-radius: 40px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 95vw;
+    }
+    
+    .tool-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      background: rgba(200, 150, 62, 0.1);
+      color: #C8963E;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    .tool-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+    }
+    
+    .tool-btn.active {
+      background: rgba(200, 150, 62, 0.3);
+      border-color: #C8963E;
+    }
+    
+    .tool-divider {
+      width: 1px;
+      height: 30px;
+      background: rgba(200, 150, 62, 0.2);
+      align-self: center;
+    }
+    
+    .right-panel {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 10;
+    }
+    
+    .brush-sizes {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .size-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      background: rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .size-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+    }
+    
+    .size-btn.active {
+      border-color: #C8963E;
+      background: rgba(200, 150, 62, 0.2);
+    }
+    
+    .size-dot {
+      border-radius: 50%;
+      background: #D2B48C;
+    }
+    
+    .size-btn[data-size="small"] .size-dot { width: 6px; height: 6px; }
+    .size-btn[data-size="medium"] .size-dot { width: 10px; height: 10px; }
+    .size-btn[data-size="large"] .size-dot { width: 16px; height: 16px; }
+    
+    .color-palette {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .color-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .color-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .color-btn.active {
+      border-color: #fff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    .decor-panel {
+      display: none; /* Hidden until elements are fixed */
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.6rem;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+    
+    .decor-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      background: rgba(200, 150, 62, 0.1);
+      color: #C8963E;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .decor-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+    }
+    
+    .decor-btn.active {
+      background: rgba(200, 150, 62, 0.3);
+      border-color: #C8963E;
+    }
+    
+    .music-player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.5rem;
+      border-radius: 15px;
+      margin-top: 0.5rem;
+    }
+    
+    .music-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      background: rgba(200, 150, 62, 0.1);
+      color: #C8963E;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+    
+    .music-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+    }
+    
+    .music-btn.playing {
+      background: rgba(200, 150, 62, 0.3);
+      border-color: #C8963E;
+    }
+    
+    .track-select {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      border-radius: 15px;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      outline: none;
+    }
+    
+    .track-select option {
+      background: #1a1612;
+      color: #fff;
+    }
+    
+    .volume-slider {
+      width: 60px;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(200, 150, 62, 0.3);
+      border-radius: 2px;
+      outline: none;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #C8963E;
+      cursor: pointer;
+    }
+    
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 22, 18, 0.98);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      z-index: 100;
+    }
+    
+    .intro-overlay.hidden {
+      display: none;
+    }
+    
+    .intro-garden {
+      width: 120px;
+      height: 80px;
+      margin-bottom: 2rem;
+      position: relative;
+      border: 2px solid rgba(210, 180, 140, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .intro-line {
+      position: absolute;
+      height: 2px;
+      background: rgba(210, 180, 140, 0.5);
+      animation: sandDraw 3s ease-in-out infinite;
+    }
+    
+    .intro-line:nth-child(1) { width: 80%; top: 25%; left: 10%; animation-delay: 0s; }
+    .intro-line:nth-child(2) { width: 60%; top: 50%; left: 20%; animation-delay: 0.5s; }
+    .intro-line:nth-child(3) { width: 70%; top: 75%; left: 15%; animation-delay: 1s; }
+    
+    .intro-stone {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at 30% 30%, #5a5a5a, #2a2a2a);
+      border-radius: 50% 45% 55% 48%;
+      right: 20%;
+      top: 35%;
+    }
+    
+    @keyframes sandDraw {
+      0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+      50% { opacity: 0.8; transform: scaleX(1); }
+    }
+    
+    .intro-title {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #D2B48C 0%, #F5E6C3 50%, #D2B48C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .intro-text {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 2rem;
+    }
+    
+    .control-btn {
+      padding: 0.875rem 2rem;
+      border: 1px solid rgba(200, 150, 62, 0.4);
+      background: rgba(200, 150, 62, 0.1);
+      color: #C8963E;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn.primary {
+      background: linear-gradient(135deg, #C8963E 0%, #D4B56A 100%);
+      color: #1a1612;
+      border: none;
+    }
+    
+    @media (max-width: 600px) {
+      .game-title {
+        font-size: 0.9rem;
+        top: 1rem;
+      }
+      
+      .back-btn {
+        top: 1rem;
+        left: 1rem;
+      }
+      
+      .sand-container {
+        max-width: 85vw;
+      }
+      
+      .tools-bar {
+        bottom: 1rem;
+        padding: 0.4rem 0.6rem;
+        gap: 0.3rem;
+      }
+      
+      .tool-btn {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .tool-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .right-panel {
+        top: auto;
+        bottom: 7rem;
+        right: 0.5rem;
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+      
+      .brush-sizes {
+        flex-direction: row;
+      }
+      
+      .color-palette {
+        flex-direction: row;
+        padding: 0.4rem;
+      }
+      
+      .color-btn {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .decor-panel {
+        left: 0.5rem;
+        padding: 0.4rem;
+        gap: 0.3rem;
+      }
+      
+      .decor-btn {
+        width: 34px;
+        height: 34px;
+      }
+      
+      .music-player {
+        padding: 0.4rem;
+        gap: 0.3rem;
+        flex-direction: row;
+      }
+      
+      .music-btn {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .track-select {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+        max-width: 100px;
+      }
+      
+      .volume-slider {
+        width: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-overlay" id="introOverlay">
+    <a href="../playroom.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back
+    </a>
+    <div class="intro-garden">
+      <div class="intro-line"></div>
+      <div class="intro-line"></div>
+      <div class="intro-line"></div>
+      <div class="intro-stone"></div>
+    </div>
+    <h1 class="intro-title">Zen Sand Garden</h1>
+    <p class="intro-text">
+      Create peaceful patterns in your digital sand garden. Draw flowing lines in coloured sand, place cherry blossoms, stones, and Buddha statues. Add tranquil water features and let soothing music guide your meditation.
+    </p>
+    <button class="control-btn primary" onclick="startDrawing()">Begin Creating</button>
+  </div>
+
+  <div class="game-container">
+    <button class="back-btn" onclick="exitGame()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Exit
+    </button>
+    
+    <span class="game-title">Zen Sand Garden</span>
+    
+    <div class="right-panel">
+      <div class="brush-sizes">
+        <button class="size-btn active" data-size="small" onclick="setBrushSize(8)" title="Fine rake">
+          <span class="size-dot"></span>
+        </button>
+        <button class="size-btn" data-size="medium" onclick="setBrushSize(16)" title="Medium rake">
+          <span class="size-dot"></span>
+        </button>
+        <button class="size-btn" data-size="large" onclick="setBrushSize(28)" title="Wide rake">
+          <span class="size-dot"></span>
+        </button>
+      </div>
+      
+      <div class="color-palette">
+        <button class="color-btn active" data-color="natural" style="background: #D2B48C;" onclick="setSandColor('natural')" title="Natural Sand"></button>
+        <button class="color-btn" data-color="rose" style="background: #E8B4B8;" onclick="setSandColor('rose')" title="Rose Quartz"></button>
+        <button class="color-btn" data-color="lavender" style="background: #C4B7D6;" onclick="setSandColor('lavender')" title="Lavender"></button>
+        <button class="color-btn" data-color="jade" style="background: #A8C8A8;" onclick="setSandColor('jade')" title="Jade Green"></button>
+        <button class="color-btn" data-color="indigo" style="background: #8B9DC3;" onclick="setSandColor('indigo')" title="Indigo"></button>
+        <button class="color-btn" data-color="gold" style="background: #D4AF37;" onclick="setSandColor('gold')" title="Sacred Gold"></button>
+      </div>
+      
+      <div class="music-player">
+        <button class="music-btn" id="musicToggle" onclick="toggleMusic()" title="Play/Pause Music">
+          <span id="playIcon">▶</span>
+        </button>
+        <select class="track-select" id="trackSelect" onchange="changeTrack()">
+          <option value="meditation">432Hz</option>
+          <option value="nature">Nature</option>
+          <option value="alpha">Alpha</option>
+        </select>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="30" onchange="setVolume()" title="Volume">
+      </div>
+    </div>
+    
+    <div class="decor-panel">
+      <button class="decor-btn" id="blossomBtn" onclick="setTool('blossom')" title="Cherry Blossom Tree">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22V8"/>
+          <path d="M12 8c-2-3-5-4-7-3"/>
+          <path d="M12 8c2-3 5-4 7-3"/>
+          <circle cx="5" cy="5" r="2" fill="#FFB7C5" stroke="#FFB7C5"/>
+          <circle cx="12" cy="3" r="2" fill="#FFB7C5" stroke="#FFB7C5"/>
+          <circle cx="19" cy="5" r="2" fill="#FFB7C5" stroke="#FFB7C5"/>
+          <circle cx="7" cy="8" r="1.5" fill="#FFC0CB" stroke="#FFC0CB"/>
+          <circle cx="17" cy="8" r="1.5" fill="#FFC0CB" stroke="#FFC0CB"/>
+        </svg>
+      </button>
+      <button class="decor-btn" id="buddhaBtn" onclick="setTool('buddha')" title="Zen Buddha">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <ellipse cx="12" cy="18" rx="6" ry="3"/>
+          <ellipse cx="12" cy="12" rx="4" ry="5"/>
+          <circle cx="12" cy="6" r="3"/>
+          <path d="M9 6.5h6"/>
+        </svg>
+      </button>
+      <button class="decor-btn" id="flatStoneBtn" onclick="setTool('flatStone')" title="Flat Stepping Stone">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <ellipse cx="12" cy="12" rx="8" ry="4"/>
+        </svg>
+      </button>
+      <button class="decor-btn" id="waterBtn" onclick="setTool('water')" title="Water Pond">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 4c-4 6-6 9-6 12a6 6 0 1012 0c0-3-2-6-6-12z" fill="rgba(100,149,237,0.3)"/>
+          <path d="M12 4c-4 6-6 9-6 12a6 6 0 1012 0c0-3-2-6-6-12z"/>
+        </svg>
+      </button>
+      <button class="decor-btn" id="riverBtn" onclick="setTool('river')" title="Flowing River">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0" stroke="rgba(100,149,237,0.8)"/>
+          <path d="M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0" stroke="rgba(100,149,237,0.6)"/>
+          <path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0" stroke="rgba(100,149,237,0.6)"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="sand-container">
+      <canvas id="sandCanvas"></canvas>
+    </div>
+    
+    <div class="tools-bar">
+      <button class="tool-btn active" id="rakeBtn" onclick="setTool('rake')" title="Rake lines">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 21l4-4"/>
+          <path d="M7 17l10-10"/>
+          <path d="M11 21l2-2"/>
+          <path d="M15 17l2-2"/>
+          <path d="M19 13l2-2"/>
+        </svg>
+      </button>
+      <button class="tool-btn" id="stoneBtn" onclick="setTool('stone')" title="Place stone">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="8"/>
+        </svg>
+      </button>
+      <button class="tool-btn" id="smoothBtn" onclick="setTool('smooth')" title="Smooth sand">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18"/>
+          <path d="M3 6h18"/>
+          <path d="M3 18h18"/>
+        </svg>
+      </button>
+      <div class="tool-divider"></div>
+      <button class="tool-btn" onclick="undoStroke()" title="Undo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 10h10a5 5 0 0 1 5 5v2"/>
+          <path d="M3 10l4-4"/>
+          <path d="M3 10l4 4"/>
+        </svg>
+      </button>
+      <button class="tool-btn" onclick="clearCanvas()" title="Clear all">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18"/>
+          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        </svg>
+      </button>
+      <button class="tool-btn" onclick="downloadImage()" title="Save image">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <path d="M7 10l5 5 5-5"/>
+          <path d="M12 15V3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('sandCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let tool = 'rake';
+    let brushSize = 8;
+    let isDrawing = false;
+    let lastX = 0, lastY = 0;
+    let undoStack = [];
+    let decoratives = [];
+    
+    const sandColors = {
+      natural: { line: '#C4A574', shadow: 'rgba(139, 119, 101, 0.4)', base: '#D2B48C' },
+      rose: { line: '#D4949A', shadow: 'rgba(180, 120, 130, 0.4)', base: '#E8B4B8' },
+      lavender: { line: '#A89BC0', shadow: 'rgba(140, 130, 170, 0.4)', base: '#C4B7D6' },
+      jade: { line: '#88A888', shadow: 'rgba(100, 140, 100, 0.4)', base: '#A8C8A8' },
+      indigo: { line: '#7080A8', shadow: 'rgba(100, 120, 160, 0.4)', base: '#8B9DC3' },
+      gold: { line: '#B89628', shadow: 'rgba(160, 130, 40, 0.4)', base: '#D4AF37' }
+    };
+    
+    let currentSandColor = 'natural';
+    
+    let audio = null;
+    let isPlaying = false;
+    const tracks = {
+      meditation: '/static/audio/432hz-meditation-355839.mp3',
+      nature: '/static/audio/nature-sounds.mp3',
+      alpha: '/static/audio/alpha-music-432hz-the-third-314870.mp3'
+    };
+    
+    function resizeCanvas() {
+      const container = canvas.parentElement;
+      const size = Math.min(container.clientWidth, container.clientHeight, 500);
+      canvas.width = size * window.devicePixelRatio;
+      canvas.height = size * window.devicePixelRatio;
+      canvas.style.width = size + 'px';
+      canvas.style.height = size + 'px';
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      redrawAll();
+    }
+    
+    function drawBaseSand() {
+      const size = canvas.width / window.devicePixelRatio;
+      
+      const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size * 0.7);
+      gradient.addColorStop(0, '#D8C4A8');
+      gradient.addColorStop(0.5, '#D2B48C');
+      gradient.addColorStop(1, '#C4A070');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      ctx.fillStyle = 'rgba(139, 119, 101, 0.03)';
+      for (let i = 0; i < 2000; i++) {
+        const x = Math.random() * size;
+        const y = Math.random() * size;
+        ctx.beginPath();
+        ctx.arc(x, y, Math.random() * 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    function redrawAll() {
+      drawBaseSand();
+      decoratives.forEach(d => {
+        if (d.type === 'stone') drawStone(d);
+        else if (d.type === 'flatStone') drawFlatStone(d);
+        else if (d.type === 'blossom') drawBlossom(d);
+        else if (d.type === 'buddha') drawBuddha(d);
+        else if (d.type === 'water') drawWater(d);
+        else if (d.type === 'river') drawRiver(d);
+      });
+    }
+    
+    function saveState() {
+      if (undoStack.length >= 20) {
+        undoStack.shift();
+      }
+      undoStack.push({
+        imageData: ctx.getImageData(0, 0, canvas.width, canvas.height),
+        decoratives: JSON.parse(JSON.stringify(decoratives))
+      });
+    }
+    
+    function undoStroke() {
+      if (undoStack.length > 0) {
+        const state = undoStack.pop();
+        ctx.putImageData(state.imageData, 0, 0);
+        decoratives = state.decoratives;
+      }
+    }
+    
+    function clearCanvas() {
+      saveState();
+      decoratives = [];
+      drawBaseSand();
+    }
+    
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = (canvas.width / window.devicePixelRatio) / rect.width;
+      const scaleY = (canvas.height / window.devicePixelRatio) / rect.height;
+      
+      if (e.touches) {
+        return {
+          x: (e.touches[0].clientX - rect.left) * scaleX,
+          y: (e.touches[0].clientY - rect.top) * scaleY
+        };
+      }
+      return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY
+      };
+    }
+    
+    function handleStart(e) {
+      e.preventDefault();
+      const coords = getCanvasCoords(e);
+      isDrawing = true;
+      lastX = coords.x;
+      lastY = coords.y;
+      
+      saveState();
+      
+      if (tool === 'stone') {
+        placeStone(coords.x, coords.y);
+        isDrawing = false;
+      } else if (tool === 'flatStone') {
+        placeFlatStone(coords.x, coords.y);
+        isDrawing = false;
+      } else if (tool === 'blossom') {
+        placeBlossom(coords.x, coords.y);
+        isDrawing = false;
+      } else if (tool === 'buddha') {
+        placeBuddha(coords.x, coords.y);
+        isDrawing = false;
+      } else if (tool === 'water') {
+        placeWater(coords.x, coords.y);
+        isDrawing = false;
+      } else if (tool === 'river') {
+        placeRiver(coords.x, coords.y);
+        isDrawing = false;
+      }
+    }
+    
+    function handleMove(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      
+      const coords = getCanvasCoords(e);
+      
+      if (tool === 'rake') {
+        drawRakeLine(lastX, lastY, coords.x, coords.y);
+      } else if (tool === 'smooth') {
+        smoothSand(coords.x, coords.y);
+      }
+      
+      lastX = coords.x;
+      lastY = coords.y;
+    }
+    
+    function handleEnd() {
+      isDrawing = false;
+    }
+    
+    function drawRakeLine(x1, y1, x2, y2) {
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      const perpAngle = angle + Math.PI / 2;
+      const lines = Math.floor(brushSize / 4);
+      const spacing = brushSize / lines;
+      const colors = sandColors[currentSandColor];
+      
+      for (let i = 0; i < lines; i++) {
+        const offset = (i - (lines - 1) / 2) * spacing;
+        const offsetX = Math.cos(perpAngle) * offset;
+        const offsetY = Math.sin(perpAngle) * offset;
+        
+        ctx.beginPath();
+        ctx.moveTo(x1 + offsetX, y1 + offsetY);
+        ctx.lineTo(x2 + offsetX, y2 + offsetY);
+        ctx.strokeStyle = colors.line;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(x1 + offsetX + 1, y1 + offsetY + 1);
+        ctx.lineTo(x2 + offsetX + 1, y2 + offsetY + 1);
+        ctx.strokeStyle = colors.shadow;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+    
+    function smoothSand(x, y) {
+      const size = brushSize * 2;
+      const colors = sandColors[currentSandColor];
+      const hex = colors.base;
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+      gradient.addColorStop(0, hex);
+      gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+      
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    }
+    
+    function placeStone(x, y) {
+      const size = 15 + Math.random() * 20;
+      const stone = { type: 'stone', x, y, size, rotation: Math.random() * Math.PI * 2 };
+      decoratives.push(stone);
+      drawStone(stone);
+    }
+    
+    function drawStone(stone) {
+      const { x, y, size, rotation } = stone;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+
+      // Ground shadow
+      ctx.beginPath();
+      ctx.ellipse(2, 6, size * 0.6, size * 0.25, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,0,0,0.25)';
+      ctx.fill();
+
+      // Stone body
+      const grad = ctx.createRadialGradient(
+        -size * 0.2, -size * 0.2, size * 0.1,
+        0, 0, size
+      );
+      grad.addColorStop(0, '#8a8a85');
+      grad.addColorStop(0.5, '#6f6f6a');
+      grad.addColorStop(1, '#4a4a45');
+
+      ctx.beginPath();
+      ctx.ellipse(
+        0, 0,
+        size * (0.5 + Math.random() * 0.05),
+        size * (0.35 + Math.random() * 0.05),
+        Math.random() * 0.3,
+        0, Math.PI * 2
+      );
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Grain texture
+      for (let i = 0; i < 12; i++) {
+        ctx.beginPath();
+        ctx.arc(
+          (Math.random() - 0.5) * size * 0.6,
+          (Math.random() - 0.5) * size * 0.4,
+          Math.random() * 1.5,
+          0, Math.PI * 2
+        );
+        ctx.fillStyle = 'rgba(255,255,255,0.05)';
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+    
+    function placeFlatStone(x, y) {
+      const width = 30 + Math.random() * 30;
+      const height = width * 0.4;
+      const stone = { type: 'flatStone', x, y, width, height, rotation: Math.random() * Math.PI * 2 };
+      decoratives.push(stone);
+      drawFlatStone(stone);
+    }
+    
+    function drawFlatStone(stone) {
+      ctx.save();
+      ctx.translate(stone.x, stone.y);
+      ctx.rotate(stone.rotation);
+      
+      ctx.beginPath();
+      ctx.ellipse(3, 2, stone.width * 0.52, stone.height * 0.6, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+      ctx.fill();
+      
+      const gradient = ctx.createLinearGradient(-stone.width/2, -stone.height/2, stone.width/2, stone.height/2);
+      gradient.addColorStop(0, '#8B8B8B');
+      gradient.addColorStop(0.3, '#707070');
+      gradient.addColorStop(0.7, '#5A5A5A');
+      gradient.addColorStop(1, '#4A4A4A');
+      
+      ctx.beginPath();
+      ctx.ellipse(0, 0, stone.width * 0.5, stone.height * 0.5, 0, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(80, 80, 80, 0.5)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
+      ctx.restore();
+    }
+    
+    function placeBlossom(x, y) {
+      const size = 40 + Math.random() * 30;
+      const blossom = { type: 'blossom', x, y, size };
+      decoratives.push(blossom);
+      drawBlossom(blossom);
+    }
+    
+    function drawBlossom(blossom) {
+      const { x, y, size } = blossom;
+      
+      ctx.save();
+      
+      ctx.strokeStyle = '#5D4037';
+      ctx.lineWidth = size * 0.08;
+      ctx.lineCap = 'round';
+      
+      ctx.beginPath();
+      ctx.moveTo(x, y + size * 0.6);
+      ctx.quadraticCurveTo(x - size * 0.1, y + size * 0.2, x, y - size * 0.1);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.quadraticCurveTo(x - size * 0.3, y - size * 0.2, x - size * 0.5, y - size * 0.3);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(x, y - size * 0.1);
+      ctx.quadraticCurveTo(x + size * 0.25, y - size * 0.25, x + size * 0.4, y - size * 0.2);
+      ctx.stroke();
+      
+      const blossomPositions = [
+        { ox: -size * 0.5, oy: -size * 0.35, s: size * 0.22 },
+        { ox: -size * 0.35, oy: -size * 0.5, s: size * 0.18 },
+        { ox: size * 0.4, oy: -size * 0.25, s: size * 0.2 },
+        { ox: size * 0.25, oy: -size * 0.45, s: size * 0.16 },
+        { ox: -size * 0.1, oy: -size * 0.4, s: size * 0.15 },
+        { ox: size * 0.1, oy: -size * 0.55, s: size * 0.14 }
+      ];
+      
+      blossomPositions.forEach(pos => {
+        drawFlower(x + pos.ox, y + pos.oy, pos.s);
+      });
+      
+      ctx.restore();
+    }
+    
+    function drawFlower(fx, fy, fs) {
+      const petals = 5;
+      for (let i = 0; i < petals; i++) {
+        const angle = (i / petals) * Math.PI * 2;
+        const px = fx + Math.cos(angle) * fs * 0.4;
+        const py = fy + Math.sin(angle) * fs * 0.4;
+        
+        ctx.beginPath();
+        ctx.ellipse(px, py, fs * 0.35, fs * 0.25, angle, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 183, 197, 0.9)';
+        ctx.fill();
+      }
+      
+      ctx.beginPath();
+      ctx.arc(fx, fy, fs * 0.15, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFE4B5';
+      ctx.fill();
+    }
+    
+    function placeBuddha(x, y) {
+      const size = 50 + Math.random() * 20;
+      const buddha = { type: 'buddha', x, y, size };
+      decoratives.push(buddha);
+      drawBuddha(buddha);
+    }
+    
+    function drawBuddha(buddha) {
+      const { x, y, size } = buddha;
+
+      ctx.save();
+
+      // Ground shadow
+      ctx.beginPath();
+      ctx.ellipse(x, y + size * 0.45, size * 0.5, size * 0.15, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,0,0,0.25)';
+      ctx.fill();
+
+      // Stone gradient
+      const stoneGrad = ctx.createLinearGradient(x, y - size, x, y + size);
+      stoneGrad.addColorStop(0, '#b8b8b2');
+      stoneGrad.addColorStop(1, '#6d6d66');
+
+      ctx.fillStyle = stoneGrad;
+
+      // Base
+      ctx.beginPath();
+      ctx.ellipse(x, y + size * 0.3, size * 0.45, size * 0.18, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Torso
+      ctx.beginPath();
+      ctx.ellipse(x, y + size * 0.05, size * 0.32, size * 0.38, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Head
+      ctx.beginPath();
+      ctx.arc(x, y - size * 0.35, size * 0.16, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Crown bump
+      ctx.beginPath();
+      ctx.arc(x, y - size * 0.52, size * 0.06, 0, Math.PI * 2);
+      ctx.fillStyle = '#8a8a85';
+      ctx.fill();
+
+      ctx.restore();
+    }
+    
+    function placeWater(x, y) {
+      const width = 50 + Math.random() * 40;
+      const height = width * 0.7;
+      const water = { type: 'water', x, y, width, height, phase: Math.random() * Math.PI * 2 };
+      decoratives.push(water);
+      drawWater(water);
+    }
+    
+    function drawWater(water) {
+      const { x, y, width, height } = water;
+      
+      ctx.save();
+      
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, width * 0.5);
+      gradient.addColorStop(0, 'rgba(100, 149, 237, 0.6)');
+      gradient.addColorStop(0.5, 'rgba(70, 130, 180, 0.5)');
+      gradient.addColorStop(1, 'rgba(65, 105, 145, 0.3)');
+      
+      ctx.beginPath();
+      ctx.ellipse(x, y, width * 0.5, height * 0.5, 0, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      ctx.strokeStyle = 'rgba(100, 149, 237, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(x, y, width * 0.5, height * 0.5, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.ellipse(x - width * 0.15, y - height * 0.1, width * 0.15, height * 0.08, -0.3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.fill();
+      
+      ctx.restore();
+    }
+    
+    function placeRiver(x, y) {
+      const river = {
+        type: 'river',
+        x,
+        y,
+        length: 80 + Math.random() * 60,
+        width: 12 + Math.random() * 8,
+        angle: Math.random() * Math.PI * 2,
+        phase: Math.random() * Math.PI * 2
+      };
+      decoratives.push(river);
+      drawRiver(river);
+    }
+    
+    function drawRiver(r) {
+      ctx.save();
+      ctx.translate(r.x, r.y);
+      ctx.rotate(r.angle);
+
+      const grad = ctx.createLinearGradient(-r.length/2, 0, r.length/2, 0);
+      grad.addColorStop(0, 'rgba(80,140,200,0.2)');
+      grad.addColorStop(0.5, 'rgba(120,180,240,0.5)');
+      grad.addColorStop(1, 'rgba(80,140,200,0.2)');
+
+      ctx.beginPath();
+      ctx.moveTo(-r.length/2, -r.width/2);
+      ctx.quadraticCurveTo(
+        0, Math.sin(r.phase) * 8,
+        r.length/2, r.width/2
+      );
+      ctx.quadraticCurveTo(
+        0, Math.sin(r.phase + 1) * -8,
+        -r.length/2, -r.width/2
+      );
+
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.restore();
+    }
+    
+    function setTool(newTool) {
+      tool = newTool;
+      document.querySelectorAll('.tool-btn, .decor-btn').forEach(btn => btn.classList.remove('active'));
+      const btn = document.getElementById(newTool + 'Btn');
+      if (btn) btn.classList.add('active');
+    }
+    
+    function setBrushSize(size) {
+      brushSize = size;
+      document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-size="${size === 8 ? 'small' : size === 16 ? 'medium' : 'large'}"]`).classList.add('active');
+    }
+    
+    function setSandColor(color) {
+      currentSandColor = color;
+      document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-color="${color}"]`).classList.add('active');
+    }
+    
+    function toggleMusic() {
+      if (!audio) {
+        const trackId = document.getElementById('trackSelect').value;
+        audio = new Audio(tracks[trackId]);
+        audio.loop = true;
+        audio.volume = document.getElementById('volumeSlider').value / 100;
+      }
+      
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        document.getElementById('playIcon').textContent = '▶';
+        document.getElementById('musicToggle').classList.remove('playing');
+      } else {
+        audio.play().catch(e => console.log('Audio play failed:', e));
+        isPlaying = true;
+        document.getElementById('playIcon').textContent = '❚❚';
+        document.getElementById('musicToggle').classList.add('playing');
+      }
+    }
+    
+    function changeTrack() {
+      const trackId = document.getElementById('trackSelect').value;
+      const wasPlaying = isPlaying;
+      
+      if (audio) {
+        audio.pause();
+        isPlaying = false;
+      }
+      
+      audio = new Audio(tracks[trackId]);
+      audio.loop = true;
+      audio.volume = document.getElementById('volumeSlider').value / 100;
+      
+      if (wasPlaying) {
+        audio.play().catch(e => console.log('Audio play failed:', e));
+        isPlaying = true;
+        document.getElementById('playIcon').textContent = '❚❚';
+        document.getElementById('musicToggle').classList.add('playing');
+      }
+    }
+    
+    function setVolume() {
+      if (audio) {
+        audio.volume = document.getElementById('volumeSlider').value / 100;
+      }
+    }
+    
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.download = 'zen-sand-garden.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+    
+    function startDrawing() {
+      document.getElementById('introOverlay').classList.add('hidden');
+    }
+    
+    function exitGame() {
+      if (audio && isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        document.getElementById('playIcon').textContent = '▶';
+        document.getElementById('musicToggle').classList.remove('playing');
+      }
+      document.getElementById('introOverlay').classList.remove('hidden');
+    }
+    
+    canvas.addEventListener('mousedown', handleStart);
+    canvas.addEventListener('mousemove', handleMove);
+    canvas.addEventListener('mouseup', handleEnd);
+    canvas.addEventListener('mouseleave', handleEnd);
+    canvas.addEventListener('touchstart', handleStart, { passive: false });
+    canvas.addEventListener('touchmove', handleMove, { passive: false });
+    canvas.addEventListener('touchend', handleEnd);
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

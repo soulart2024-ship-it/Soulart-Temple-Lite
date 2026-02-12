@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your SoulArt Temple — Healing & Vibration Art</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* ===== Global styles ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #FAF9F6;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    /* ===== Hero Section ===== */
+    #hero {
+      text-align: center;
+      padding: 80px 20px;
+      background-color: #FAF9F6;
+    }
+    #hero h1 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      margin-bottom: 0.5em;
+      color: #1E1E3F;
+    }
+    #hero p {
+      font-size: 1.25rem;
+      margin-bottom: 1.5em;
+      color: #555;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #hero .btn-primary {
+      background-color: #D4B56A;
+      color: #fff;
+      padding: 1em 2em;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+    #hero .btn-primary:hover {
+      background-color: #c9af58;
+    }
+    /* ===== Benefits Section ===== */
+    #benefits {
+      padding: 60px 20px;
+      background-color: #fff;
+    }
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .benefit-card {
+      background-color: #FAF9F6;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+    .benefit-card:hover {
+      transform: translateY(-5px);
+    }
+    .benefit-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5em;
+      color: #1E1E3F;
+    }
+    .benefit-card p {
+      font-size: 1rem;
+      color: #444;
+    }
+    /* ===== Testimonials Section ===== */
+    #testimonials {
+      background-color: #FAF9F6;
+      padding: 60px 20px;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .testimonial-card p {
+      font-style: italic;
+      color: #555;
+    }
+    .testimonial-card .author {
+      margin-top: 1em;
+      text-align: right;
+      font-weight: bold;
+      color: #1E1E3F;
+    }
+    /* ===== Founder / About Section ===== */
+    #about {
+      padding: 60px 20px;
+      background-color: #fff;
+    }
+    #about .about-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #about h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5em;
+      color: #1E1E3F;
+    }
+    #about p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+    /* ===== Contact / Booking Form ===== */
+    #contact {
+      padding: 60px 20px;
+      background-color: #FAF9F6;
+    }
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .contact-form label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+      color: #1E1E3F;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.75em;
+      margin-bottom: 1.2em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    .contact-form button {
+      background-color: #D4B56A;
+      color: #fff;
+      padding: 1em 2em;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .contact-form button:hover {
+      background-color: #c9af58;
+    }
+    /* ===== Responsive handling ===== */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1E1E2D;
+        color: #ddd;
+      }
+      #hero {
+        background-color: #1E1E2D;
+      }
+      .benefit-card {
+        background-color: #262635;
+      }
+      .testimonial-card {
+        background-color: #1E1E2D;
+      }
+      #about {
+        background-color: #262635;
+      }
+      #contact .contact-form {
+        background-color: #1E1E2D;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section id="hero">
+    <h1>Embody Your Inner Vibration Through Art & Energy</h1>
+    <p>Spiritual Kinesiology + Vibration Art — release trapped energy and awaken your authentic self.</p>
+    <a href="#benefits" class="btn-primary">Start Your Journey</a>
+  </section>
+
+  <!-- BENEFITS / VALUE PROPOSITION -->
+  <section id="benefits">
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <h2>Release Emotional Blocks</h2>
+        <p>Transform old trapped emotions into clarity and inner peace using gentle kinesiology and energy work.</p>
+      </div>
+      <div class="benefit-card">
+        <h2>Create Vibration-Based Art</h2>
+        <p>Express your inner resonance through art that captures your energetic signature and personal journey.</p>
+      </div>
+      <div class="benefit-card">
+        <h2>Awaken Inner Voice</h2>
+        <p>Gain clarity, direction, and authenticity by decoding your body's wisdom and aligning with your true path.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS / SOCIAL PROOF -->
+  <section id="testimonials">
+    <h2 style="text-align:center; margin-bottom: 1em; color:#1E1E3F;">What Clients Say</h2>
+    <div class="testimonials-grid">
+      <!-- Example testimonial — duplicate as needed -->
+      <div class="testimonial-card">
+        <p>"After a session with SoulArt Temple, I felt a release of energy and a newfound sense of calm inside me."</p>
+        <div class="author">— Client Name, Location</div>
+      </div>
+      <!-- More testimonial-cards here -->
+    </div>
+  </section>
+
+  <!-- ABOUT / FOUNDER BIO -->
+  <section id="about">
+    <div class="about-container">
+      <h2>Meet the Soul Behind the Art</h2>
+      <p>Hello! I'm [Your Name], a Spiritual Kinesiologist and Vibration Artist. I blend gentle energy work with creative expression to guide you through emotional release, inner clarity and soulful art creation. My work is rooted in compassion, intention and transformation — I believe that healing + art help you rediscover your truest self.</p>
+      <!-- Optionally add an image: <img src="path-to-photo.jpg" alt="Founder photo"> -->
+    </div>
+  </section>
+
+  <!-- CONTACT / BOOKING FORM -->
+  <section id="contact">
+    <div class="contact-form">
+      <h2 style="text-align:center; margin-bottom: 1em; color:#1E1E3F;">Get in Touch</h2>
+      <form action="YOUR_FORM_HANDLER_URL" method="post">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Your Message / What You're Seeking</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <!-- Optional: more fields like phone, preferred session type, etc. -->
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FINAL CALL TO ACTION (optional second prompt) -->
+  <section id="final-cta" style="text-align:center; padding: 40px 20px;">
+    <a href="#contact" class="btn-primary">Begin Your Transformation</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background-color:#1E1E3F; color:#eee; padding: 40px 20px; text-align:center;">
+    <p>&copy; 2025 SoulArt Temple — All rights reserved.</p>
+    <p><a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms & Conditions</a></p>
+  </footer>
+
+</body>
+</html>

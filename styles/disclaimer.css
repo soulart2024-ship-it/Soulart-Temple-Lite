@@ -1,0 +1,247 @@
+.disclaimer-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.disclaimer-modal.active {
+  display: flex;
+}
+
+.disclaimer-content {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: disclaimerSlideIn 0.3s ease;
+  position: relative;
+}
+
+.disclaimer-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #C8963E;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.disclaimer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+@keyframes disclaimerSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.disclaimer-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+  color: #C8963E;
+  padding: 24px 30px;
+  border-radius: 16px 16px 0 0;
+  text-align: center;
+}
+
+.disclaimer-header h2 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.disclaimer-header .icon {
+  font-size: 28px;
+}
+
+.disclaimer-body {
+  padding: 30px;
+}
+
+.disclaimer-body h3 {
+  color: #1a1a2e;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  margin: 0 0 15px 0;
+}
+
+.disclaimer-body p {
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.disclaimer-body ul {
+  color: #444;
+  line-height: 1.8;
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.disclaimer-body li {
+  margin-bottom: 8px;
+}
+
+.disclaimer-highlight {
+  background: #FEF3C7;
+  border-left: 4px solid #C8963E;
+  padding: 15px 20px;
+  margin: 20px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.disclaimer-highlight p {
+  margin: 0;
+  color: #92400E;
+  font-weight: 500;
+}
+
+.disclaimer-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 25px 0;
+  padding: 15px;
+  background: #F5F3EE;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.disclaimer-checkbox input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: #C8963E;
+}
+
+.disclaimer-checkbox label {
+  color: #1a1a2e;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.disclaimer-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.disclaimer-btn {
+  flex: 1;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.disclaimer-btn.primary {
+  background: #C8963E;
+  color: white;
+}
+
+.disclaimer-btn.primary:hover:not(:disabled) {
+  background: #B8862E;
+}
+
+.disclaimer-btn.primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.disclaimer-btn.secondary {
+  background: transparent;
+  color: #666;
+  border: 2px solid #ddd;
+}
+
+.disclaimer-btn.secondary:hover {
+  border-color: #999;
+  color: #333;
+}
+
+.disclaimer-footer {
+  padding: 15px 30px;
+  background: #F5F3EE;
+  border-radius: 0 0 16px 16px;
+  text-align: center;
+}
+
+.disclaimer-footer p {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .disclaimer-modal {
+    padding: 10px;
+  }
+  
+  .disclaimer-content {
+    max-height: 90vh;
+  }
+  
+  .disclaimer-header {
+    padding: 20px;
+  }
+  
+  .disclaimer-header h2 {
+    font-size: 20px;
+  }
+  
+  .disclaimer-body {
+    padding: 20px;
+  }
+  
+  .disclaimer-body p,
+  .disclaimer-body li {
+    font-size: 14px;
+  }
+  
+  .disclaimer-actions {
+    flex-direction: column;
+  }
+  
+  .disclaimer-btn {
+    padding: 12px 20px;
+  }
+}

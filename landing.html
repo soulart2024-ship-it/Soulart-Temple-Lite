@@ -1,0 +1,1749 @@
+okay we s<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to SoulArt Temple</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="attached_assets/generated_images/enchanted_temple_path_twilight.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/legal.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: #f4e4bc;
+      color: #3d2914;
+      overflow-x: hidden;
+    }
+
+    /* ==================== HERO SECTION ==================== */
+    .hero-section {
+      min-height: 100vh;
+      background: #2a1f14 url('attached_assets/generated_images/enchanted_temple_path_twilight.jpg') no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 3rem;
+      animation: heroFadeIn 0.6s ease-out;
+    }
+
+    @keyframes heroFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(10, 10, 25, 0.55) 0%,
+        rgba(10, 10, 25, 0.35) 40%,
+        rgba(10, 10, 25, 0.65) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      backdrop-filter: saturate(0.85) brightness(0.85);
+      pointer-events: none;
+    }
+
+    .hero-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .fireflies {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .firefly {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #fff8c4 0%, #ffd700 40%, transparent 70%);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+      box-shadow: 0 0 10px 4px rgba(255, 215, 0, 0.6);
+      will-change: transform, opacity;
+      opacity: 1;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -40px) scale(1.2); }
+      50% { transform: translate(-20px, -60px) scale(0.8); }
+      75% { transform: translate(40px, -30px) scale(1.1); }
+    }
+
+    @keyframes glow {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    /* SoulArt Logo - Desktop: center-left above signpost */
+    .soulart-logo {
+      position: absolute;
+      left: 3rem;
+      top: 2rem;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+    }
+
+    .soulart-logo img {
+      width: auto;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 15px rgba(201, 162, 39, 0.5));
+    }
+
+    .soulart-logo .still-icon-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+
+    .soulart-logo .still-icon {
+      width: 40px;
+      height: 40px;
+      filter: drop-shadow(0 2px 8px rgba(201, 162, 39, 0.4));
+      transition: transform 0.3s ease;
+    }
+
+    .soulart-logo .still-icon-link:hover .still-icon {
+      transform: scale(1.1);
+    }
+
+    .soulart-logo .still-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      color: #c9a227;
+      margin-top: 0.25rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* Signpost - Old Wooden Post Style */
+    .signpost-area {
+      position: absolute;
+      left: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    .signpost {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-left: 20px;
+      align-items: flex-start;
+    }
+
+    /* The wooden post */
+    .signpost::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: -20px;
+      bottom: -50px;
+      width: 20px;
+      background: linear-gradient(
+        90deg,
+        #3a2815 0%,
+        #5c4025 20%,
+        #6b4e31 50%,
+        #5c4025 80%,
+        #3a2815 100%
+      );
+      border-radius: 4px;
+      box-shadow: 
+        4px 6px 15px rgba(0, 0, 0, 0.5),
+        inset 2px 0 3px rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    /* Post base/stake */
+    .signpost::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      bottom: -65px;
+      width: 16px;
+      height: 30px;
+      background: linear-gradient(
+        90deg,
+        #2a1a0d 0%,
+        #3a2815 50%,
+        #2a1a0d 100%
+      );
+      clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);
+    }
+
+    .sign {
+      display: block;
+      background: linear-gradient(
+        180deg,
+        #7a5a35 0%,
+        #5c4025 30%,
+        #4a3520 70%,
+        #3a2815 100%
+      );
+      color: #f4e4bc;
+      padding: 0.7rem 2.2rem 0.7rem 1.2rem;
+      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      position: relative;
+      box-shadow: 
+        3px 4px 10px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      transition: all 0.25s ease;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+      clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+      margin-left: 0;
+      z-index: 2;
+    }
+
+    /* Nail head on each sign */
+    .sign::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle at 30% 30%, #c9a227 0%, #8b6914 60%, #5c4025 100%);
+      border-radius: 50%;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Brass edge highlight */
+    .sign::after {
+      content: '';
+      position: absolute;
+      right: 12%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #c9a227 0%, #8b6914 50%, #c9a227 100%);
+      opacity: 0.6;
+    }
+
+    /* Stagger the signs slightly */
+    .sign:nth-child(2) { transform: rotate(0.5deg); }
+    .sign:nth-child(3) { transform: rotate(-0.3deg); }
+    .sign:nth-child(4) { transform: rotate(0.4deg); }
+    .sign:nth-child(5) { transform: rotate(-0.5deg); }
+
+    .sign:hover {
+      transform: translateX(8px) rotate(1deg);
+      background: linear-gradient(
+        180deg,
+        #8b6a40 0%,
+        #6b5030 30%,
+        #5a4028 70%,
+        #4a3520 100%
+      );
+      box-shadow: 
+        5px 6px 15px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(201, 162, 39, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .explore-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      margin-left: -15px;
+      padding: 0.9rem 1.8rem;
+      background: transparent;
+      border: 2px solid #c9a227;
+      color: #c9a227;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .explore-btn:hover {
+      background: rgba(201, 162, 39, 0.2);
+      box-shadow: 0 0 20px rgba(201, 162, 39, 0.4);
+    }
+
+    /* Scroll - Right Side */
+    .scroll {
+      position: relative;
+      z-index: 10;
+      flex: 0 0 420px;
+      max-width: 440px;
+      background: linear-gradient(135deg, #f4e4bc 0%, #e8d5a3 50%, #d4c28e 100%);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      color: #3d2914;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(139, 105, 20, 0.2);
+      margin-right: 2rem;
+    }
+
+    .scroll-rod {
+      position: absolute;
+      width: 92%;
+      height: 20px;
+      left: 4%;
+      background: linear-gradient(to bottom, #8b6914 0%, #c9a227 40%, #8b6914 100%);
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    }
+
+    .scroll-rod-top { top: -10px; }
+    .scroll-rod-bottom { bottom: -10px; }
+
+    .scroll-rod::before,
+    .scroll-rod::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      background: radial-gradient(circle, #c9a227 0%, #6b4e31 100%);
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .scroll-rod::before { left: -14px; }
+    .scroll-rod::after { right: -14px; }
+
+    .scroll h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #3d2914;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(139, 105, 20, 0.3);
+    }
+
+    .scroll .subtitle {
+      font-size: 1rem;
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #5a3d1a;
+      border-bottom: 1px solid rgba(139, 105, 20, 0.3);
+      padding-bottom: 1rem;
+    }
+
+    .scroll p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .scroll .closing {
+      font-style: italic;
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #5a3d1a;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #c9a227;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+
+    .scroll-indicator:hover {
+      background: rgba(201, 162, 39, 0.2);
+      animation: none;
+      transform: translateX(-50%) scale(1.05);
+      color: #c9a227;
+    }
+    
+    .scroll-indicator:visited {
+      color: #c9a227;
+    }
+
+    .scroll-indicator svg {
+      width: 30px;
+      height: 30px;
+      stroke: #c9a227;
+      margin-top: 0.5rem;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ==================== MAP SECTION ==================== */
+    .temple-map { 
+      padding: 0;
+      margin-top: -1px;
+    }
+
+    .map-header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      background: linear-gradient(
+        to bottom,
+        rgba(244, 228, 188, 0.95) 0%,
+        rgba(244, 228, 188, 0.85) 100%
+      );
+    }
+
+    .map-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #3d2914;
+      margin: 0 0 0.6rem;
+      text-shadow: 0 2px 8px rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.02em;
+    }
+
+    .map-header p {
+      color: #5c4a32;
+      font-size: 1.1rem;
+      font-style: italic;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .glowing-sign {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      margin-top: 1rem;
+      font-family: "Georgia", serif;
+      font-size: 1rem;
+      color: #f4e4bc;
+      background: linear-gradient(135deg, rgba(60,45,30,0.9) 0%, rgba(40,30,20,0.95) 100%);
+      border: 2px solid #c9a227;
+      border-radius: 8px;
+      box-shadow: 
+        0 0 15px rgba(200,150,62,0.5),
+        0 0 30px rgba(200,150,62,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      animation: signGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes signGlow {
+      0% { 
+        box-shadow: 
+          0 0 15px rgba(200,150,62,0.5),
+          0 0 30px rgba(200,150,62,0.3),
+          inset 0 1px 0 rgba(255,255,255,0.1);
+      }
+      100% { 
+        box-shadow: 
+          0 0 25px rgba(200,150,62,0.7),
+          0 0 50px rgba(200,150,62,0.4),
+          inset 0 1px 0 rgba(255,255,255,0.15);
+      }
+    }
+
+    .temple-map-wrap {
+      position: relative;
+      width: 100%;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    .temple-map-img { 
+      width: 100%;
+      height: auto; 
+      display: block;
+      margin: 0;
+    }
+
+    /* Interactive Zones - invisible doorways */
+    .hotspot {
+      position: absolute;
+      display: block;
+      border-radius: 12px;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      text-decoration: none;
+    }
+
+    /* Hover: soft golden glow like lantern light */
+    .hotspot:hover {
+      background: radial-gradient(ellipse at center, rgba(200,150,62,.15) 0%, transparent 70%);
+      box-shadow: 
+        0 0 40px rgba(200,150,62,.25),
+        0 0 80px rgba(200,150,62,.15),
+        inset 0 0 30px rgba(255,220,150,.1);
+    }
+
+    .hotspot:focus {
+      outline: none;
+      box-shadow: 
+        0 0 40px rgba(200,150,62,.3),
+        0 0 80px rgba(200,150,62,.2);
+    }
+
+    /* DEBUG MODE: turn this on while aligning */
+    .temple-map-wrap.debug .hotspot {
+      background: rgba(200,150,62,.18);
+      outline: 1px dashed rgba(200,150,62,.65);
+    }
+
+    /* Position hotspots over 6 buildings - 1 per building, no overlap */
+    .hs-discovery    { left: 35%; top: 22%; width: 22%; height: 20%; }  /* Top center - main temple */
+    .hs-quickrelease { left: 10%; top: 21%; width: 18%; height: 12%; }  /* 1st left - pointed dome temple */
+    .hs-journal      { left: 65%; top: 20%; width: 39%; height: 25%; }  /* 1st right - copper dome temple */
+    .hs-rooms        { left: 0%;  top: 35%; width: 30%; height: 25%; }  /* 2nd left - lit windows temple */
+    .hs-art          { left: 70%; top: 50%; width: 22%; height: 18%; }  /* 2nd right - pavilion temple */
+    .hs-depth        { left: 0%;  top: 62%; width: 18%; height: 20%; }  /* 3rd left - small temple near stairs */
+
+    /* Labels - hidden by default, whisper on hover */
+    .map-label {
+      position: absolute;
+      padding: .5rem .75rem;
+      border-radius: 8px;
+      font-family: "Georgia", serif;
+      font-size: 0.85rem;
+      background: rgba(30,25,20,.75);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(200,150,62,.3);
+      color: #f4e4bc;
+      box-shadow: 0 8px 25px rgba(0,0,0,.4);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Show label when hovering corresponding hotspot */
+    .hs-discovery:hover ~ .lb-discovery,
+    .hs-quickrelease:hover ~ .lb-quick,
+    .hs-journal:hover ~ .lb-journal,
+    .hs-rooms:hover ~ .lb-rooms,
+    .hs-art:hover ~ .lb-art,
+    .hs-depth:hover ~ .lb-depth {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .lb-discovery { left: 38%; top: 25%; }
+    .lb-quick     { left: 13%; top: 20%; }
+    .lb-journal   { left: 68%; top: 25%; }
+    .lb-rooms     { left: 3%;  top: 55%; }
+    .lb-art       { left: 72%; top: 62%; }
+    .lb-depth     { left: 3%;  top: 78%; }
+
+    /* Premium labels - subtle accent */
+    .map-label.premium {
+      border-color: rgba(180,130,200,.35);
+    }
+
+    /* Garden Fireflies */
+    .garden-fireflies {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .garden-firefly {
+      position: absolute;
+      background: radial-gradient(circle, rgba(255,220,120,1) 0%, rgba(255,200,80,0.8) 30%, rgba(255,180,60,0) 70%);
+      border-radius: 50%;
+      animation: gardenFloat 10s ease-in-out infinite, fireflyPulse 2.5s ease-in-out infinite alternate;
+      will-change: transform, opacity;
+    }
+
+    @keyframes gardenFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(15px, -20px) scale(1.1); }
+      50% { transform: translate(-10px, -35px) scale(0.9); }
+      75% { transform: translate(20px, -15px) scale(1.05); }
+    }
+
+    @keyframes fireflyPulse {
+      0% { opacity: 0.3; box-shadow: 0 0 4px 2px rgba(255,200,100,0.4); }
+      100% { opacity: 1; box-shadow: 0 0 12px 6px rgba(255,220,120,0.6); }
+    }
+
+    /* Lantern Glows - positioned near buildings */
+    .lantern-glow {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,180,80,0.4) 0%, rgba(255,150,50,0.2) 40%, transparent 70%);
+      pointer-events: none;
+      animation: lanternFlicker 3s ease-in-out infinite alternate;
+      z-index: 4;
+      will-change: transform, opacity;
+    }
+
+    @keyframes lanternFlicker {
+      0% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.05); }
+      100% { opacity: 0.7; transform: scale(0.98); }
+    }
+
+    /* Specific lantern positions near temple buildings */
+    .lantern-1 { left: 18%; top: 28%; width: 60px; height: 60px; animation-delay: 0s; }
+    .lantern-2 { left: 45%; top: 35%; width: 80px; height: 80px; animation-delay: 0.5s; }
+    .lantern-3 { left: 75%; top: 32%; width: 70px; height: 70px; animation-delay: 1s; }
+    .lantern-4 { left: 8%; top: 50%; width: 50px; height: 50px; animation-delay: 1.5s; }
+    .lantern-5 { left: 82%; top: 58%; width: 55px; height: 55px; animation-delay: 2s; }
+    .lantern-6 { left: 12%; top: 72%; width: 45px; height: 45px; animation-delay: 2.5s; }
+
+    /* Sound toggle */
+    .sound-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      background: rgba(30, 25, 50, 0.9);
+      border: 1px solid rgba(201, 162, 39, 0.4);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sound-toggle:hover {
+      background: rgba(201, 162, 39, 0.2);
+      border-color: #c9a227;
+    }
+
+    .sound-toggle svg {
+      width: 24px;
+      height: 24px;
+      stroke: #c9a227;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 2rem;
+      text-align: center;
+      color: #5c4a32;
+      font-size: 0.9rem;
+      background: linear-gradient(to bottom, rgba(232, 213, 163, 0.9), rgba(244, 228, 188, 1));
+    }
+
+    /* Gentle Modal */
+    .gentle-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 8, 25, 0.95);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .gentle-modal.active { display: flex; }
+
+    .gentle-modal-content {
+      background: linear-gradient(135deg, #1a1a2e, #2d2d44);
+      border: 1px solid rgba(201, 162, 39, 0.4);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .gentle-modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #c9a227;
+      margin-bottom: 1rem;
+    }
+
+    .gentle-modal p {
+      color: #e8e0d5;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .gentle-modal-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .gentle-modal-btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .gentle-modal-btn.primary {
+      background: linear-gradient(135deg, #c9a227, #8b6914);
+      color: #1a1a2e;
+      border: none;
+    }
+
+    .gentle-modal-btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(201, 162, 39, 0.4);
+      color: #c9a227;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+      }
+
+      .signpost-area { 
+        position: static;
+        transform: none;
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .signpost {
+        padding-left: 35px;
+        align-items: flex-start;
+      }
+      
+      .signpost::before {
+        top: -10px;
+        bottom: -40px;
+      }
+      
+      .signpost::after {
+        bottom: -55px;
+      }
+      
+      .scroll { 
+        flex: none; 
+        margin-right: 0; 
+        max-width: 95%;
+        order: 1;
+      }
+
+      .ancient-map {
+        min-height: 600px;
+      }
+
+      .map-label {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+      }
+    }
+
+    /* Mobile Scroll Toggle - Hidden on desktop */
+    .mobile-scroll-toggle,
+    .mobile-scroll-content {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      /* Hide desktop scroll on mobile */
+      .scroll {
+        display: none;
+      }
+
+      /* Logo positioning - top center on mobile */
+      .soulart-logo {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        order: 0;
+      }
+
+      .soulart-logo img {
+        width: auto;
+        height: 60px;
+      }
+
+      .soulart-logo .still-icon {
+        width: 30px;
+        height: 30px;
+      }
+
+      .soulart-logo .still-label {
+        font-size: 0.65rem;
+      }
+
+      /* Hero section flex layout for mobile */
+      .hero-section {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 1rem;
+      }
+
+      /* Show mobile scroll toggle */
+      .mobile-scroll-toggle {
+        display: block;
+        position: relative;
+        z-index: 20;
+        width: 90%;
+        max-width: 320px;
+        background: linear-gradient(135deg, #f4e4bc 0%, #e8d5a3 50%, #d4c28e 100%);
+        border-radius: 25px;
+        padding: 1rem 1.5rem;
+        margin: 0 auto 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 20px rgba(139, 105, 20, 0.15);
+        transition: all 0.3s ease;
+        order: 1;
+      }
+
+      .mobile-scroll-toggle:hover {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(201, 162, 39, 0.3);
+      }
+
+      .mobile-scroll-toggle.is-open {
+        display: none;
+      }
+
+      /* Rolled scroll ends */
+      .scroll-roll-top,
+      .scroll-roll-bottom {
+        position: absolute;
+        left: 10%;
+        right: 10%;
+        height: 12px;
+        background: linear-gradient(to bottom, #8b6914 0%, #c9a227 40%, #8b6914 100%);
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      }
+
+      .scroll-roll-top { top: -6px; }
+      .scroll-roll-bottom { bottom: -6px; }
+
+      .scroll-roll-top::before,
+      .scroll-roll-top::after,
+      .scroll-roll-bottom::before,
+      .scroll-roll-bottom::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        background: radial-gradient(circle, #c9a227 0%, #6b4e31 100%);
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      }
+
+      .scroll-roll-top::before,
+      .scroll-roll-bottom::before { left: -9px; }
+      .scroll-roll-top::after,
+      .scroll-roll-bottom::after { right: -9px; }
+
+      .scroll-button-text {
+        text-align: center;
+        color: #3d2914;
+      }
+
+      .scroll-button-text .welcome-text {
+        display: block;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .scroll-button-text .tap-hint {
+        display: block;
+        font-size: 0.85rem;
+        font-style: italic;
+        opacity: 0.7;
+      }
+
+      /* Welcome tooltip on hover */
+      .welcome-tooltip {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+        background: rgba(61, 41, 20, 0.95);
+        color: #f4e4bc;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-style: italic;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 30;
+      }
+
+      .welcome-tooltip::before {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 8px solid transparent;
+        border-bottom-color: rgba(61, 41, 20, 0.95);
+      }
+
+      .mobile-scroll-toggle:hover .welcome-tooltip,
+      .welcome-text:focus + .welcome-tooltip {
+        opacity: 1;
+      }
+
+      /* Mobile scroll content - expanded state */
+      .mobile-scroll-content {
+        display: none;
+        position: relative;
+        z-index: 200;
+        width: 90%;
+        max-width: 400px;
+        background: linear-gradient(135deg, #f4e4bc 0%, #e8d5a3 50%, #d4c28e 100%);
+        border-radius: 8px;
+        padding: 2rem 1.5rem;
+        margin: 0 auto 1.5rem;
+        color: #3d2914;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 30px rgba(139, 105, 20, 0.2);
+        animation: unfurlScroll 0.5s ease-out;
+        order: 1;
+      }
+
+      .mobile-scroll-content.is-open {
+        display: block;
+      }
+
+      @keyframes unfurlScroll {
+        0% {
+          opacity: 0;
+          max-height: 0;
+          transform: scaleY(0.1);
+          transform-origin: top center;
+        }
+        100% {
+          opacity: 1;
+          max-height: 600px;
+          transform: scaleY(1);
+        }
+      }
+
+      .mobile-scroll-content h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        color: #3d2914;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+
+      .mobile-scroll-content .subtitle {
+        font-size: 0.95rem;
+        font-style: italic;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #5a3d1a;
+        border-bottom: 1px solid rgba(139, 105, 20, 0.3);
+        padding-bottom: 0.75rem;
+      }
+
+      .mobile-scroll-content p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 0.75rem;
+        text-align: center;
+      }
+
+      .mobile-scroll-content .closing {
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #5a3d1a;
+      }
+
+      .mobile-scroll-content {
+        cursor: pointer;
+      }
+
+      .roll-up-hint {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        font-style: italic;
+        opacity: 0.6;
+        color: #5a3d1a;
+      }
+
+      /* Signpost on the left - fixed to hero section only */
+      .signpost-area {
+        position: absolute !important;
+        left: 10px !important;
+        top: 55% !important;
+        transform: translateY(-50%) scale(1.1) !important;
+        width: auto !important;
+        z-index: 50;
+        order: unset;
+      }
+
+      .signpost {
+        padding-left: 16px;
+        gap: 6px;
+        align-items: flex-start;
+      }
+
+      /* Keep the wooden post visible */
+      .signpost::before {
+        left: 0;
+        top: -10px;
+        bottom: -30px;
+        width: 18px;
+        z-index: 1;
+      }
+
+      .signpost::after {
+        left: 2px;
+        bottom: -45px;
+        width: 22px;
+        height: 18px;
+      }
+
+      /* Hide the round brass dots on each sign */
+      .sign::before {
+        display: none !important;
+      }
+
+      .sign {
+        font-size: 0.8rem;
+        padding: 0.45rem 1.3rem 0.45rem 0.6rem;
+        margin-left: 0;
+        z-index: 2;
+      }
+
+      /* Hide Explore the Temple button on mobile */
+      .explore-btn {
+        display: none !important;
+      }
+
+      /* Hero layout adjustments */
+      .hero-section {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .scroll h1 { font-size: 1.6rem; }
+      .scroll { padding: 2rem 1.5rem; }
+      .sign { font-size: 0.8rem; padding: 0.45rem 1.3rem 0.45rem 0.5rem; }
+
+      .map-header h2 { font-size: 1.8rem; }
+      .map-header { padding: 2rem 1rem 1.5rem; }
+
+      .map-label {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.5rem;
+      }
+
+      /* Adjust hotspot positions for mobile */
+      .hs-discovery { left: 35%; width: 30%; }
+      .hs-quickrelease { left: 5%; width: 25%; }
+      .hs-rooms { left: 70%; width: 25%; }
+      .hs-journal { left: 3%; width: 25%; }
+      .hs-art { left: 72%; width: 25%; }
+
+      /* Performance: Reduce animation complexity on small screens */
+      .firefly, .garden-firefly {
+        animation-duration: 12s !important;
+        will-change: auto;
+      }
+      
+      .lantern-1, .lantern-2, .lantern-3, .lantern-4, .lantern-5, .lantern-6 {
+        animation: none !important;
+        opacity: 0.6 !important;
+      }
+    }
+
+    /* Tablet optimizations */
+    @media (max-width: 1024px) {
+      .temple-map-img {
+        width: 100%;
+        margin: 0;
+      }
+
+      .glowing-sign {
+        font-size: 0.95rem;
+        padding: 0.5rem 1.2rem;
+      }
+
+      /* Reduce lantern glow sizes */
+      .lantern-1, .lantern-2, .lantern-3, .lantern-4, .lantern-5, .lantern-6 {
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      .temple-map-img {
+        width: 100%;
+        margin: 0;
+      }
+
+      .temple-map-wrap {
+        overflow: visible;
+      }
+
+      .glowing-sign {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        box-shadow: 
+          0 0 10px rgba(200,150,62,0.4),
+          0 0 20px rgba(200,150,62,0.2);
+      }
+
+      /* Increase hotspot touch targets */
+      .hotspot {
+        min-height: 44px;
+        min-width: 44px;
+      }
+
+      /* Hotspot adjustments for mobile */
+      .hs-discovery    { left: 30%; top: 18%; width: 28%; height: 22%; }
+      .hs-quickrelease { left: 5%; top: 18%; width: 24%; height: 15%; }
+      .hs-journal      { left: 60%; top: 16%; width: 38%; height: 26%; }
+      .hs-rooms        { left: 0%; top: 38%; width: 35%; height: 25%; }
+      .hs-art          { left: 65%; top: 48%; width: 30%; height: 20%; }
+      .hs-depth        { left: 0%; top: 65%; width: 25%; height: 20%; }
+
+      /* Adjust label positions for mobile */
+      .lb-discovery { left: 32%; top: 22%; }
+      .lb-quick     { left: 8%; top: 20%; }
+      .lb-journal   { left: 62%; top: 22%; }
+      .lb-rooms     { left: 5%; top: 55%; }
+      .lb-art       { left: 67%; top: 62%; }
+      .lb-depth     { left: 5%; top: 78%; }
+
+      /* Reduce lantern glows for mobile performance */
+      .lantern-1, .lantern-2, .lantern-3, .lantern-4, .lantern-5, .lantern-6 {
+        width: 30px !important;
+        height: 30px !important;
+        opacity: 0.6;
+      }
+
+      /* Show labels by default on mobile (no hover) */
+      .map-label {
+        opacity: 0.85;
+        transform: translateY(0);
+        font-size: 0.65rem;
+        padding: 0.3rem 0.5rem;
+      }
+
+      /* Ensure garden fireflies are visible and animated on mobile */
+      .garden-fireflies {
+        display: block !important;
+        z-index: 10;
+      }
+
+      .garden-firefly {
+        animation: gardenFloat 8s ease-in-out infinite, fireflyPulse 2s ease-in-out infinite alternate;
+        opacity: 1;
+      }
+    }
+
+    /* Small mobile optimizations */
+    @media (max-width: 480px) {
+      .map-header h2 { font-size: 1.5rem; }
+      .map-header p { font-size: 0.95rem; }
+
+      .glowing-sign {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      /* Hide lantern glows on very small screens for performance */
+      .lantern-glow {
+        display: none;
+      }
+
+      /* Simplify animations for performance */
+      .garden-firefly {
+        animation: fireflyPulse 3s ease-in-out infinite alternate;
+      }
+    }
+    /* ========== MODAL OVERLAY FOR TEMPLE EXPLAINERS ========== */
+    .modal {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Modal content container */
+    .modal-content {
+      background-color: #fdfaf6;
+      margin: 8% auto;
+      padding: 2rem;
+      border: 2px solid #d8c298;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      color: #3d2914;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+    }
+
+    .modal.show .modal-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Close button */
+    .modal .close {
+      color: #6b4e31;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal .close:hover {
+      color: #000;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="fireflies" id="fireflies"></div>
+
+    <!-- SoulArt Logo -->
+    <div class="soulart-logo">
+      <img src="SoulArt Brand full.png" alt="SoulArt Temple">
+      <a href="https://still.soularttemple.com" class="still-icon-link" target="_blank" title="Still">
+        <img src="attached_assets/Still.png" alt="Still" class="still-icon" />
+        <span class="still-label">Still</span>
+      </a>
+    </div>
+
+    <!-- Signpost Navigation -->
+    <div class="signpost-area">
+      <nav class="signpost">
+        <a href="tools/discovery.html" class="sign">Discovery Here</a>
+        <a href="tools/education-centre.html" class="sign">Start Here</a>
+        <a href="home.html" class="sign">About SoulArt</a>
+        <a href="booking.html" class="sign">Book a Session</a>
+        <a href="#" class="sign auth-nav-link">Enter Member</a>
+      </nav>
+    </div>
+
+    <!-- Sacred Scroll -->
+    <div class="scroll">
+      <div class="scroll-rod scroll-rod-top"></div>
+      <div class="scroll-rod scroll-rod-bottom"></div>
+      <h1>Welcome to SoulArt Temple</h1>
+      <p class="subtitle">Your sacred energetic sanctuary — here for you when you are ready.</p>
+      <p>We invite you to step into a space designed for your remembrance, your light, your truth, and emotional healing.</p>
+      <p class="closing">
+        Here, you are held.<br/>
+        Here, you are safe.<br/>
+        Here, you are home.
+        <br/><br/>
+        <em>Enter gently. Stay as long as you need. The temple is always here.</em>
+      </p>
+    </div>
+
+    <!-- Scroll indicator -->
+    <a href="#temple-map" class="scroll-indicator">
+      <span>Scroll to explore</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </a>
+
+    <!-- Mobile Scroll Button (appears on mobile only) -->
+    <div class="mobile-scroll-toggle" id="mobileScrollToggle">
+      <div class="scroll-roll-top"></div>
+      <div class="scroll-roll-bottom"></div>
+      <div class="scroll-button-text">
+        <span class="welcome-text" id="welcomeText">Welcome to SoulArt Temple</span>
+        <span class="tap-hint">Tap to unfurl</span>
+      </div>
+      <div class="welcome-tooltip" id="welcomeTooltip">
+        Your sacred energetic sanctuary — here for you when you are ready.
+      </div>
+    </div>
+
+    <!-- Mobile Scroll Content (expanded state) -->
+    <div class="mobile-scroll-content" id="mobileScrollContent">
+      <div class="scroll-rod scroll-rod-top"></div>
+      <div class="scroll-rod scroll-rod-bottom"></div>
+      <h1>Welcome to SoulArt Temple</h1>
+      <p class="subtitle">Your sacred energetic sanctuary — here for you when you are ready.</p>
+      <p>We invite you to step into a space designed for your remembrance, your light, your truth, and emotional healing.</p>
+      <p class="closing">
+        Here, you are held.<br/>
+        Here, you are safe.<br/>
+        Here, you are home.
+        <br/><br/>
+        <em>Enter gently. Stay as long as you need. The temple is always here.</em>
+      </p>
+      <div class="roll-up-hint">Tap scroll to roll up</div>
+    </div>
+  </section>
+
+  <!-- ==================== MAP SECTION ==================== -->
+  <section class="temple-map" id="temple-map" aria-label="Temple map navigation">
+    <div class="map-header">
+      <h2>Explore the Temple Garden</h2>
+      <p>Choose your path below to begin. The journey is yours.</p>
+      <div class="glowing-sign">Click on any Temple</div>
+    </div>
+    <div class="temple-map-wrap">
+      <img src="public/temple-map.jpg" alt="SoulArt Temple Garden Map" class="temple-map-img" loading="lazy" />
+
+      <!-- Garden Fireflies -->
+      <div class="garden-fireflies" id="gardenFireflies"></div>
+
+      <!-- Lantern Glows near buildings -->
+      <div class="lantern-glow lantern-1"></div>
+      <div class="lantern-glow lantern-2"></div>
+      <div class="lantern-glow lantern-3"></div>
+      <div class="lantern-glow lantern-4"></div>
+      <div class="lantern-glow lantern-5"></div>
+      <div class="lantern-glow lantern-6"></div>
+
+      <!-- Invisible hotspots aligned to buildings (now open explainers instead of links) -->
+      <a class="hotspot hs-discovery" href="javascript:void(0);" aria-label="Discovery Portal" onclick="openModal('discoveryModal')"></a>
+      <a class="hotspot hs-quickrelease" href="javascript:void(0);" aria-label="Quick Release" onclick="openModal('quickModal')"></a>
+      <a class="hotspot hs-rooms" href="javascript:void(0);" aria-label="Seven Sacred Rooms" onclick="openModal('templeModal')"></a>
+      <a class="hotspot hs-art" href="javascript:void(0);" aria-label="Art Meditation" onclick="openModal('artModal')"></a>
+      <a class="hotspot hs-journal" href="javascript:void(0);" aria-label="Sacred Journal" onclick="openModal('journalModal')"></a>
+      <a class="hotspot hs-depth" href="javascript:void(0);" aria-label="Sacred Depth Room" onclick="openModal('depthModal')"></a>
+
+      <!-- Map labels - appear on hover -->
+      <div class="map-label lb-discovery">Discovery Portal</div>
+      <div class="map-label lb-quick">Quick Release</div>
+      <div class="map-label lb-rooms">Seven Sacred Rooms</div>
+      <div class="map-label lb-art">Art Meditation</div>
+      <div class="map-label lb-journal">Sacred Journal</div>
+      <div class="map-label lb-depth premium">Sacred Depth Room</div>
+    </div>
+  </section>
+
+  <!-- Sound Toggle -->
+  <button class="sound-toggle" id="sound-toggle" aria-label="Toggle ambient sound">
+    <svg class="sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+    <svg class="sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/>
+      <line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+  </button>
+
+  <!-- Gentle Modal -->
+  <div class="gentle-modal" id="gentleModal">
+    <div class="gentle-modal-content">
+      <h3 id="modalTitle">Login to Continue</h3>
+      <p id="modalMessage">This feature is available when you sign in to your account.</p>
+      <div class="gentle-modal-buttons">
+        <a href="login.html" class="gentle-modal-btn primary" id="modalPrimaryBtn">Sign In</a>
+        <button class="gentle-modal-btn secondary" onclick="closeGentleModal()">Maybe Later</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 SoulArt Temple | Designed with love and frequency
+  </div>
+
+  <script>
+    // Fireflies
+    const firefliesContainer = document.getElementById('fireflies');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth <= 768;
+    const fireflyCount = prefersReducedMotion ? 0 : (isMobile ? 6 : 12);
+
+    for (let i = 0; i < fireflyCount; i++) {
+      const firefly = document.createElement('div');
+      firefly.className = 'firefly';
+      firefly.style.left = Math.random() * 100 + '%';
+      firefly.style.top = Math.random() * 100 + '%';
+      firefly.style.animationDelay = Math.random() * 8 + 's';
+      firefly.style.animationDuration = (6 + Math.random() * 6) + 's';
+      const size = 4 + Math.random() * 4;
+      firefly.style.width = size + 'px';
+      firefly.style.height = size + 'px';
+      firefliesContainer.appendChild(firefly);
+    }
+
+    // Garden Fireflies (for temple map section)
+    const gardenFirefliesContainer = document.getElementById('gardenFireflies');
+    const gardenFireflyCount = prefersReducedMotion ? 0 : (isMobile ? 10 : 25);
+
+    for (let i = 0; i < gardenFireflyCount; i++) {
+      const firefly = document.createElement('div');
+      firefly.className = 'garden-firefly';
+      firefly.style.left = Math.random() * 100 + '%';
+      firefly.style.top = (20 + Math.random() * 60) + '%';
+      firefly.style.animationDelay = Math.random() * 10 + 's';
+      firefly.style.animationDuration = (8 + Math.random() * 8) + 's';
+      const size = 5 + Math.random() * 6;
+      firefly.style.width = size + 'px';
+      firefly.style.height = size + 'px';
+      gardenFirefliesContainer.appendChild(firefly);
+    }
+
+    // Sound Toggle
+    const soundToggle = document.getElementById('sound-toggle');
+    const soundOn = soundToggle.querySelector('.sound-on');
+    const soundOff = soundToggle.querySelector('.sound-off');
+    let ambientAudio = null;
+    let isSoundPlaying = false;
+
+    soundToggle.addEventListener('click', function() {
+      if (!ambientAudio) {
+        ambientAudio = new Audio('videos/ambient-forest.mp3');
+        ambientAudio.loop = true;
+        ambientAudio.volume = 0.3;
+      }
+      
+      if (isSoundPlaying) {
+        ambientAudio.pause();
+        soundOn.style.display = 'block';
+        soundOff.style.display = 'none';
+      } else {
+        ambientAudio.play().catch(() => {});
+        soundOn.style.display = 'none';
+        soundOff.style.display = 'block';
+      }
+      isSoundPlaying = !isSoundPlaying;
+    });
+
+    // Building click/keyboard handling
+    async function handleBuildingActivation(building) {
+      const href = building.getAttribute('href');
+      const access = building.dataset.access;
+      
+      if (access === 'public') {
+        window.location.href = href;
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/auth/check');
+        const data = await response.json();
+        
+        if (data.authenticated) {
+          const tier = (data.user.membership_tier || 'free').toLowerCase();
+          
+          if (access === 'free' || access === 'free-limited') {
+            window.location.href = href;
+          } else if (access === 'premium' && tier === 'premium') {
+            window.location.href = href;
+          } else {
+            showGentleModal('Premium Feature', 
+              'This sacred space is available with a Premium membership. Would you like to explore your options?',
+              'View Membership', 'membership.html');
+          }
+        } else {
+          showGentleModal('Sign In to Continue', 
+            'This feature is available when you sign in to your account.',
+            'Sign In', 'login.html?next=' + encodeURIComponent(href));
+        }
+      } catch (err) {
+        showGentleModal('Connection Issue', 
+          'We could not verify your access. Please try again in a moment.',
+          'Try Again', window.location.href);
+      }
+    }
+
+    document.querySelectorAll('.map-hotspot').forEach(hotspot => {
+      hotspot.addEventListener('click', function(e) {
+        e.preventDefault();
+        handleBuildingActivation(this);
+      });
+      
+      hotspot.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleBuildingActivation(this);
+        }
+      });
+    });
+
+    function showGentleModal(title, message, btnText, btnHref) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalMessage').textContent = message;
+      document.getElementById('modalPrimaryBtn').textContent = btnText;
+      document.getElementById('modalPrimaryBtn').href = btnHref;
+      document.getElementById('gentleModal').classList.add('active');
+    }
+
+    function closeGentleModal() {
+      document.getElementById('gentleModal').classList.remove('active');
+    }
+
+    document.getElementById('gentleModal').addEventListener('click', function(e) {
+      if (e.target === this) closeGentleModal();
+    });
+
+    // Mobile Scroll Toggle
+    const mobileScrollToggle = document.getElementById('mobileScrollToggle');
+    const mobileScrollContent = document.getElementById('mobileScrollContent');
+
+    if (mobileScrollToggle && mobileScrollContent) {
+      // Unfurl the scroll when tapping the rolled button
+      mobileScrollToggle.addEventListener('click', function() {
+        mobileScrollToggle.classList.add('is-open');
+        mobileScrollContent.classList.add('is-open');
+      });
+
+      // Roll up the scroll when tapping the open scroll content
+      mobileScrollContent.addEventListener('click', function() {
+        mobileScrollContent.classList.remove('is-open');
+        mobileScrollToggle.classList.remove('is-open');
+      });
+    }
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+  <!-- Temple Room Explainer Modal -->
+  <div id="templeModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('templeModal')">&times;</span>
+      <h2>Seven Sacred Rooms</h2>
+      <p>Each room guides you through a frequency healing process based on the 7-Step SoulArt Harmonic Healing Journey. You will only access these after entering through the signpost and creating your membership.</p>
+    </div>
+  </div>
+  <!-- Temple Room Explainer Modals -->
+
+  <!-- Discovery Portal -->
+  <div id="discoveryModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('discoveryModal')">&times;</span>
+      <h2>Discovery Portal</h2>
+      <p>Your sacred introduction to SoulArt. This portal helps you identify your frequency range and understand the tools inside the Temple. Begin your remembrance journey here. Membership is required to access the full process.</p>
+    </div>
+  </div>
+
+  <!-- Quick Release -->
+  <div id="quickModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('quickModal')">&times;</span>
+      <h2>Quick Release Healing Room</h2>
+      <p>This room supports you in releasing shadow-based emotions gently and effectively using the SoulArt magnet swipe process. Each release includes chakra healing and a sealing affirmation. Requires a free or paid membership.</p>
+    </div>
+  </div>
+
+  <!-- Seven Sacred Rooms -->
+  <div id="templeModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('templeModal')">&times;</span>
+      <h2>Seven Sacred Rooms</h2>
+      <p>Each room guides you through a frequency healing process based on the 7-Step SoulArt Harmonic Healing Journey. You will only access these after entering through the signpost and creating your membership.</p>
+    </div>
+  </div>
+
+  <!-- Art Meditation Room -->
+  <div id="artModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('artModal')">&times;</span>
+      <h2>Art Meditation Room</h2>
+      <p>Here you can draw, paint, and create using sacred symbols, chakra colours, and high-frequency palettes. All creations are downloadable. This space promotes calm, flow, and intuitive healing. Membership required.</p>
+    </div>
+  </div>
+
+  <!-- Sacred Journal Room -->
+  <div id="journalModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('journalModal')">&times;</span>
+      <h2>Sacred Journal Room</h2>
+      <p>Your personal sanctuary to write, reflect, and track your healing. Journal entries are stored safely and linked to your healing sessions. Requires free or paid membership to use.</p>
+    </div>
+  </div>
+
+  <!-- Sacred Depth Room -->
+  <div id="depthModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('depthModal')">&times;</span>
+      <h2>Sacred Depth Room</h2>
+      <p>Advanced SoulArt decoding room for ancestral, twin, heart-wall, or deeply hidden emotions. This space is part of the Premium Membership pathway and supports deep vibrational transformation.</p>
+    </div>
+  </div>
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.add('show');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('show');
+    }
+
+    // Optional: Close modals if clicking outside the box
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.classList.remove('show');
+        }
+      });
+    };
+    
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('ServiceWorker registered:', registration.scope);
+          })
+          .catch(error => {
+            console.log('ServiceWorker registration failed:', error);
+          });
+      });
+    }
+  </script>
+  <script src="scripts/disclaimer.js"></script>
+  <script>
+    function handleAuthNavigation(e) {
+      e.preventDefault();
+      fetch('/api/auth/check')
+        .then(response => response.json())
+        .then(data => {
+          if (data.authenticated) {
+            if (hasAcceptedDisclaimer()) {
+              window.location.href = 'members-dashboard.html';
+            } else {
+              showDisclaimer(function() {
+                window.location.href = 'members-dashboard.html';
+              }, function() {
+                window.location.href = 'home.html';
+              });
+            }
+          } else {
+            window.location.href = 'register.html';
+          }
+        })
+        .catch(() => {
+          window.location.href = 'register.html';
+        });
+    }
+    
+    document.querySelectorAll('.auth-nav-link').forEach(link => {
+      link.addEventListener('click', handleAuthNavigation);
+    });
+  </script>
+</body>
+</html>

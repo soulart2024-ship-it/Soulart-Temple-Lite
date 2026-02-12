@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markings</title>
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles/markings.css" />
+</head>
+
+<body class="markings-room">
+
+  <!-- HEADER -->
+  <header class="markings-header">
+    <button class="back-btn" onclick="window.location.href='/entry.html';">Back</button>
+    <h1>Markings</h1>
+
+    <div class="top-tools">
+      <div class="size-dots" id="brushSizeBtn" title="Brush Size">
+        <span class="dot small"></span>
+        <span class="dot medium"></span>
+        <span class="dot large"></span>
+      </div>
+      <button id="eraseBtn" class="tool-btn" data-tooltip="Eraser">▭</button>
+      <button id="undoBtn" title="Undo">↩</button>
+      <button id="clearBtn" title="Clear">🗑</button>
+    </div>
+  </header>
+
+  <!-- INVITES -->
+  <section class="invites">
+    <button id="promptToggle">Invite a prompt</button>
+    <span class="divider">·|·</span>
+    <button id="soundToggle">Sound</button>
+  </section>
+
+  <!-- PROMPT -->
+  <div id="promptBox" class="prompt-box hidden">
+    <p id="promptText"></p>
+  </div>
+
+  <!-- SOUND PANEL -->
+  <div id="soundPanel" class="sound-panel hidden">
+    <p class="panel-title">Ambient</p>
+    <button data-sound="off">Off</button>
+    <button data-sound="flow">Flow</button>
+    <button data-sound="still">Still</button>
+    <button data-sound="earth">Earth</button>
+
+    <div class="volume">
+      <span data-vol="0.3">Low</span>
+      <span data-vol="0.6">Mid</span>
+      <span data-vol="1">High</span>
+    </div>
+  </div>
+
+  <!-- CANVAS -->
+  <canvas id="drawingCanvas" style="touch-action: none;"></canvas>
+
+  <!-- FLOATING TOOL -->
+  <div class="tool-wrapper">
+    <button id="toolToggle" class="tool-toggle" title="Menu">
+      <span class="tool-dots">⁙</span>
+    </button>
+
+    <div id="toolPanel" class="tool-panel">
+      
+      <!-- Palettes -->
+      <div class="tool-row" id="palettesRow">
+        <span class="tool-icon palette-icon">
+          <span class="p-dot" style="background:#c9a227"></span>
+          <span class="p-dot" style="background:#6a5a42"></span>
+          <span class="p-dot" style="background:#8b7355"></span>
+        </span>
+        <span class="tool-text">Palettes</span>
+        <span class="tool-arrow">›</span>
+      </div>
+      <div class="tool-submenu" id="palettesSubmenu">
+        <button data-palette="chakra" class="active">Chakra</button>
+        <button data-palette="minimal">Minimal</button>
+        <div class="color-swatches" id="colorSwatches"></div>
+      </div>
+
+      <!-- Brushes -->
+      <div class="tool-row" id="brushesRow">
+        <span class="tool-icon">✎</span>
+        <span class="tool-text">Brushes</span>
+        <span class="tool-arrow">›</span>
+      </div>
+      <div class="tool-submenu" id="brushesSubmenu">
+        <button data-brush="pencil" class="active">Pencil</button>
+        <button data-brush="ink">Ink</button>
+      </div>
+
+      <!-- Stamps (Mandala/Mirror) -->
+      <div class="tool-row" id="stampsRow">
+        <span class="tool-icon">✦</span>
+        <span class="tool-text">Stamps</span>
+        <span class="tool-arrow">›</span>
+      </div>
+      <div class="tool-submenu" id="stampsSubmenu">
+        <button id="mandalaToggle">Mandala</button>
+        <button id="mirrorToggle">Mirror</button>
+      </div>
+
+      <!-- Save -->
+      <div class="tool-row" id="saveRow">
+        <span class="tool-icon">☐</span>
+        <span class="tool-text">Save</span>
+        <span class="tool-arrow">›</span>
+      </div>
+
+      <!-- Print -->
+      <div class="tool-row" id="printRow">
+        <span class="tool-icon">⎙</span>
+        <span class="tool-text">Print</span>
+        <span class="tool-arrow">›</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="audioPlayer" loop></audio>
+
+  <script src="scripts/markings.js"></script>
+</body>
+</html>

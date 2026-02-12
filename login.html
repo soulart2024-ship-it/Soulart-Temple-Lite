@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - SoulArt Temple</title>
+    <meta name="theme-color" content="#c9a227">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SoulArt">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/legal.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #F5F3EE 0%, #E8E4DC 100%);
+            padding: 20px;
+        }
+        
+        .auth-logo {
+            margin-bottom: 30px;
+        }
+        
+        .auth-logo img {
+            height: 100px;
+            width: auto;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+        }
+        
+        .auth-card h1 {
+            font-family: Georgia, serif;
+            color: #C8963E;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .auth-card p.subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #1F1F2E;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E8E4DC;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #C8963E;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 16px;
+            background: #C8963E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .auth-btn:hover {
+            background: #B8862E;
+        }
+        
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .auth-link a {
+            color: #C8963E;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: #FEE2E2;
+            color: #DC2626;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #D1FAE5;
+            color: #059669;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 15px 10px;
+            }
+            
+            .auth-logo img {
+                height: 45px;
+            }
+            
+            .auth-card {
+                padding: 20px 16px;
+                border-radius: 12px;
+                max-width: calc(100% - 20px);
+                box-sizing: border-box;
+            }
+            
+            .auth-card h1 {
+                font-size: 24px;
+            }
+            
+            .auth-card p.subtitle {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+            
+            .form-group {
+                margin-bottom: 16px;
+            }
+            
+            .form-group label {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            
+            .form-group input {
+                padding: 12px 14px;
+                font-size: 16px;
+            }
+            
+            .auth-btn {
+                padding: 14px;
+                font-size: 15px;
+            }
+            
+            .auth-link {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-logo">
+            <a href="home.html">
+                <img src="SoulArt Brand full.png" alt="SoulArt Temple">
+            </a>
+        </div>
+        
+        <div class="auth-card">
+            <h1>Welcome Back</h1>
+            <p class="subtitle">Sign in to your sacred space</p>
+            
+            <div id="error-message" class="error-message"></div>
+            <div id="success-message" class="success-message"></div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Your password">
+                </div>
+                
+                <button type="submit" class="auth-btn">Sign In</button>
+            </form>
+            
+            <div class="auth-link">
+                Don't have an account? <a href="register.html">Create one</a>
+            </div>
+            
+            <div class="auth-link">
+                <a href="forgot-password.html">Forgot my password</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error-message');
+            const successDiv = document.getElementById('success-message');
+            
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    successDiv.textContent = 'Welcome back! Redirecting...';
+                    successDiv.style.display = 'block';
+                    
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const next = urlParams.get('next') || '/members-dashboard.html';
+                    
+                    setTimeout(() => {
+                        window.location.href = next;
+                    }, 1000);
+                } else {
+                    errorDiv.textContent = data.error || 'Invalid email or password';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                errorDiv.textContent = 'Something went wrong. Please try again.';
+                errorDiv.style.display = 'block';
+            }
+        });
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('registered') === 'true') {
+            const successDiv = document.getElementById('success-message');
+            successDiv.textContent = 'Account created! Please sign in.';
+            successDiv.style.display = 'block';
+        }
+    </script>
+
+    <footer class="site-footer legal-footer">
+      <div class="footer-legal-links">
+        <a href="medical-disclaimer.html">Medical Disclaimer</a>
+        <span class="divider">|</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span class="divider">|</span>
+        <a href="terms-of-use.html">Terms of Use</a>
+        <span class="divider">|</span>
+        <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+      </div>
+      <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+    </footer>
+</body>
+</html>

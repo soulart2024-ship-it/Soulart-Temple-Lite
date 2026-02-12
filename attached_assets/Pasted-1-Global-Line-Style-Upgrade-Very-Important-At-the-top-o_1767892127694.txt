@@ -1,0 +1,103 @@
+1️⃣ Global Line Style Upgrade (Very Important)
+
+At the top of your colouring render function, replace your current line styling with this:
+
+Js:
+ctx.strokeStyle = '#B8B1A4'; // warm parchment grey
+ctx.lineCap = 'round';
+ctx.lineJoin = 'round';
+ctx.globalAlpha = 0.85;
+
+Then before each stroke, vary the line width slightly:
+js:
+function softLineWidth(base = 2.4) {
+  return base + (Math.random() - 0.5) * 0.6;
+}
+
+Use it like this inside each path
+JS:
+ctx.lineWidth = softLineWidth();
+
+2️⃣ Add Gentle Hand-Drawn Wobble (Core Magic)
+
+Create this helper once (near your template helpers):
+
+Js:
+function wobble(value, amount = 1.5) {
+  return value + (Math.random() - 0.5) * amount;
+}
+We’ll apply this subtly to coordinates.
+
+3️⃣ Refined Lotus (Example Upgrade)
+
+❌ Old (perfect ellipse)
+ctx.ellipse(cx, cy, w, h, angle, 0, Math.PI * 2);
+
+✅ New (hand-drawn feel)
+JS:
+ctx.beginPath();
+ctx.ellipse(
+  wobble(cx + Math.cos(angle) * size * 0.25),
+  wobble(cy + Math.sin(angle) * size * 0.25),
+  wobble(size * 0.22, 2),
+  wobble(size * 0.42, 2),
+  angle + wobble(0, 0.05),
+  0,
+  Math.PI * 2
+);
+ctx.lineWidth = softLineWidth(2.3);
+ctx.stroke();
+
+✨ The wobble is tiny — but the brain reads it as “human”.
+
+4️⃣ Soft Double-Pass Stroke (Optional but Beautiful)
+
+To mimic pencil / ink pressure, stroke each line twice:
+Js:
+ctx.stroke();
+ctx.globalAlpha = 0.35;
+ctx.lineWidth *= 0.7;
+ctx.stroke();
+ctx.globalAlpha = 0.85;
+
+This gives a natural density variation.
+
+5️⃣ Circular Mandalas — Organic Rings
+
+Replace perfect circles with slightly offset arcs:
+
+Js:
+ctx.beginPath();
+ctx.arc(
+  wobble(cx),
+  wobble(cy),
+  wobble(r, 2),
+  0,
+  Math.PI * 2
+);
+ctx.lineWidth = softLineWidth(2);
+ctx.stroke();
+
+6️⃣ Hearts & Botanicals — Bezier Softening
+Js:
+ctx.bezierCurveTo(
+  wobble(cx - size * 0.5, 3),
+  wobble(cy - size * 0.1, 3),
+  wobble(cx - size * 0.25, 3),
+  wobble(cy - size * 0.45, 3),
+  wobble(cx, 2),
+  wobble(cy - size * 0.2, 2)
+);
+This creates asymmetry that feels alive, not messy.
+
+7️⃣ Visual Tone Recommendation (Important)
+
+For the Doodle Page background while colouring:
+Css:
+.doodle-container {
+  background: linear-gradient(
+    180deg,
+    #F4EFE7 0%,
+    #ECE6DC 100%
+  );
+}

@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discovery Portal | SoulArt Temple</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #0f0f1f 100%);
+      min-height: 100vh;
+      color: #e8e0d5;
+    }
+    
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 15px 20px;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(10, 10, 26, 0.95), transparent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header-logo img {
+      height: 45px;
+      width: auto;
+      transition: transform 0.3s, opacity 0.3s;
+      opacity: 0.9;
+    }
+    
+    .header-logo:hover img {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+    
+    .header-nav-icons {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #C8963E;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 8px;
+    }
+    
+    .nav-icon:hover {
+      color: #e8b84a;
+      transform: scale(1.1);
+    }
+    
+    .nav-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+    
+    .site-footer {
+      background: rgba(10, 10, 26, 0.95);
+      border-top: 1px solid rgba(200, 150, 62, 0.2);
+      padding: 30px 20px;
+      margin-top: 60px;
+      text-align: center;
+      color: #f4e4bc;
+    }
+
+    .site-footer a {
+      color: #f4e4bc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .site-footer a:hover {
+      color: #fff;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    
+    .footer-links a {
+      color: #C8963E;
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    
+    .footer-links a:hover {
+      opacity: 1;
+    }
+    
+    .footer-copyright {
+      color: #666;
+      font-size: 12px;
+    }
+    
+    .discovery-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 20px 60px;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #C8963E;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    
+    .back-link:hover {
+      opacity: 1;
+    }
+    
+    .discovery-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .discovery-header h1 {
+      font-family: Georgia, serif;
+      font-size: 2.2rem;
+      color: #C8963E;
+      margin-bottom: 10px;
+    }
+    
+    .discovery-header p {
+      color: #888;
+      font-size: 1.1rem;
+    }
+    
+    .kinesiology-note {
+      font-size: 0.95rem;
+      margin-top: 12px;
+      color: #999;
+    }
+    
+    .kinesiology-note a {
+      color: #C8963E;
+      text-decoration: underline;
+    }
+    
+    .kinesiology-note a:hover {
+      color: #a87a2e;
+    }
+    
+    .section {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(200, 150, 62, 0.2);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    .section.hidden {
+      display: none;
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .section-title {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      color: #C8963E;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .section-title .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #C8963E, #8B6914);
+      color: #1a1a2e;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    
+    .sacred-welcome {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .sacred-welcome .welcome-text {
+      font-family: Georgia, serif;
+      font-size: 1.5rem;
+      color: #e8e0d5;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeInText 2s ease 0.5s forwards;
+    }
+    
+    @keyframes fadeInText {
+      to { opacity: 1; }
+    }
+    
+    .blessing-box {
+      background: rgba(200, 150, 62, 0.1);
+      border-left: 4px solid #C8963E;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .blessing-box p {
+      font-style: italic;
+      color: #e8e0d5;
+      line-height: 1.7;
+    }
+    
+    .blessing-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      cursor: pointer;
+    }
+    
+    .blessing-toggle input {
+      display: none;
+    }
+    
+    .toggle-switch {
+      width: 50px;
+      height: 26px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 13px;
+      position: relative;
+      transition: background 0.3s;
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #888;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: all 0.3s;
+    }
+    
+    .blessing-toggle input:checked + .toggle-switch {
+      background: rgba(200, 150, 62, 0.3);
+    }
+    
+    .blessing-toggle input:checked + .toggle-switch::after {
+      left: 27px;
+      background: #C8963E;
+    }
+    
+    .custom-blessing {
+      display: none;
+      margin-top: 15px;
+    }
+    
+    .custom-blessing.show {
+      display: block;
+    }
+    
+    .custom-blessing textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      border-radius: 8px;
+      padding: 15px;
+      color: #e8e0d5;
+      font-family: Georgia, serif;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .custom-blessing textarea:focus {
+      outline: none;
+      border-color: #C8963E;
+    }
+    
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .category-card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(200, 150, 62, 0.2);
+      border-radius: 12px;
+      padding: 20px 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .category-card:hover {
+      border-color: #C8963E;
+      background: rgba(200, 150, 62, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    .category-card.selected {
+      border-color: #C8963E;
+      background: rgba(200, 150, 62, 0.2);
+      box-shadow: 0 0 20px rgba(200, 150, 62, 0.3);
+    }
+    
+    .category-card .category-name {
+      font-size: 0.95rem;
+      color: #e8e0d5;
+      font-weight: 500;
+    }
+    
+    .category-card .category-count {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(200, 150, 62, 0.3);
+    }
+    
+    .category-card.selected .category-count {
+      display: block;
+    }
+    
+    .category-card .count-input {
+      width: 80px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(200, 150, 62, 0.4);
+      border-radius: 6px;
+      padding: 8px;
+      color: #C8963E;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .category-card .count-input:focus {
+      outline: none;
+      border-color: #C8963E;
+    }
+    
+    .muscle-test-prompt {
+      background: rgba(200, 150, 62, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .muscle-test-prompt p {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      color: #C8963E;
+      margin-bottom: 15px;
+    }
+    
+    .test-statements {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    .test-statement {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      border-radius: 20px;
+      padding: 10px 20px;
+      color: #e8e0d5;
+      font-size: 0.9rem;
+    }
+    
+    .layering-section {
+      background: rgba(75, 0, 130, 0.1);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+    
+    .layering-section h4 {
+      color: #9370DB;
+      margin-bottom: 10px;
+      font-family: Georgia, serif;
+    }
+    
+    .layering-section p {
+      color: #a8a0b8;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .layer-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .layer-toggle input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #9370DB;
+    }
+    
+    .summary-section {
+      background: linear-gradient(135deg, rgba(200, 150, 62, 0.1), rgba(139, 105, 20, 0.05));
+      border: 2px solid rgba(200, 150, 62, 0.3);
+      border-radius: 16px;
+      padding: 30px;
+    }
+    
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .stat-box {
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .stat-box .stat-value {
+      font-size: 2.5rem;
+      color: #C8963E;
+      font-weight: bold;
+    }
+    
+    .stat-box .stat-label {
+      color: #888;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    
+    .category-summary {
+      margin: 20px 0;
+    }
+    
+    .category-summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .category-summary-item .name {
+      color: #e8e0d5;
+    }
+    
+    .category-summary-item .count {
+      color: #C8963E;
+      font-weight: bold;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .nav-btn {
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .nav-btn.primary {
+      background: linear-gradient(135deg, #C8963E, #8B6914);
+      color: #1a1a2e;
+    }
+    
+    .nav-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(200, 150, 62, 0.4);
+    }
+    
+    .nav-btn.secondary {
+      background: transparent;
+      border: 2px solid #C8963E;
+      color: #C8963E;
+    }
+    
+    .nav-btn.secondary:hover {
+      background: rgba(200, 150, 62, 0.1);
+    }
+    
+    .upgrade-prompt {
+      background: linear-gradient(135deg, rgba(200, 150, 62, 0.15), rgba(139, 105, 20, 0.1));
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    
+    .upgrade-prompt h4 {
+      color: #C8963E;
+      margin-bottom: 10px;
+      font-family: Georgia, serif;
+    }
+    
+    .upgrade-prompt p {
+      color: #888;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .progress-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(200, 150, 62, 0.3);
+      transition: all 0.3s;
+    }
+    
+    .progress-dot.active {
+      background: #C8963E;
+      box-shadow: 0 0 10px rgba(200, 150, 62, 0.5);
+    }
+    
+    .progress-dot.completed {
+      background: #C8963E;
+    }
+    
+    @media (max-width: 768px) {
+      .site-header {
+        padding: 10px 15px;
+        position: relative;
+        background: rgba(10, 10, 26, 0.95);
+      }
+      
+      .header-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .header-logo img {
+        height: 35px;
+      }
+      
+      .header-nav-icons {
+        margin-left: auto;
+        gap: 8px;
+      }
+      
+      .nav-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+      
+      .discovery-container {
+        padding: 15px 15px 60px;
+      }
+      
+      .back-link {
+        margin-bottom: 15px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .site-header {
+        padding: 8px 10px;
+      }
+      
+      .header-logo img {
+        height: 28px;
+      }
+      
+      .nav-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .discovery-container {
+        padding: 10px 12px 50px;
+      }
+      
+      .discovery-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section {
+        padding: 20px 15px;
+      }
+      
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      
+      .category-card {
+        padding: 15px 10px;
+      }
+      
+      .summary-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-buttons {
+        flex-direction: column;
+      }
+      
+      .nav-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="../home.html" class="header-logo">
+      <img src="../SoulArt Brand full.png" alt="SoulArt Temple">
+    </a>
+    <nav class="header-nav-icons">
+      <a href="../home.html" class="nav-icon" title="Home">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3L2 12h3v9h6v-6h2v6h6v-9h3L12 3z"/>
+        </svg>
+      </a>
+      <a href="../members-dashboard.html" class="nav-icon" title="Members Dashboard">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </a>
+    </nav>
+  </header>
+  <div class="discovery-container">
+    <a href="#" class="back-link" onclick="goBack(); return false;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back
+    </a>
+    <script>
+      function goBack() {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = '../landing.html';
+        }
+      }
+    </script>
+    
+    <div class="discovery-header">
+      <h1>Discovery Portal</h1>
+      <p>Begin your journey of understanding what awaits to be released</p>
+      <p class="kinesiology-note">Should you need to familiarise yourself with kinesiology please go to the <a href="education-centre.html">Education Centre</a> for support.</p>
+    </div>
+    
+    <div class="progress-indicator">
+      <div class="progress-dot active" data-step="1"></div>
+      <div class="progress-dot" data-step="2"></div>
+      <div class="progress-dot" data-step="3"></div>
+      <div class="progress-dot" data-step="4"></div>
+    </div>
+    
+    <!-- Step 1: Sacred Welcome -->
+    <div class="section" id="step-1">
+      <div class="sacred-welcome">
+        <p class="welcome-text">Welcome. This is your time.<br><br>Take a deep breath, ground yourself, and prepare to meet what has been waiting to be seen.</p>
+      </div>
+      
+      <div class="blessing-box">
+        <p>"I invite only truth, light, grace, and clarity into this space. May this session reveal what is ready to be seen and released."</p>
+      </div>
+      
+      <label class="blessing-toggle">
+        <input type="checkbox" id="custom-blessing-toggle">
+        <span class="toggle-switch"></span>
+        <span>Add Your Own Blessing</span>
+      </label>
+      
+      <div class="custom-blessing" id="custom-blessing-area">
+        <textarea id="custom-blessing-text" placeholder="Write your personal blessing or intention for this session..."></textarea>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn primary" onclick="goToStep(2)">I Am Ready to Begin</button>
+      </div>
+    </div>
+    
+    <!-- Step 2: Category Selection -->
+    <div class="section hidden" id="step-2">
+      <h2 class="section-title">
+        <span class="step-num">2</span>
+        Shadow Emotion Categories
+      </h2>
+      
+      <p style="color: #888; margin-bottom: 20px; line-height: 1.6;">
+        Using muscle testing or inner knowing, identify which categories contain Stored Shadow Emotions waiting to be released. Click each category that resonates and enter an estimated count.
+      </p>
+      
+      <div class="muscle-test-prompt">
+        <p>"I have Stored Shadow Emotions in the [Category] category."</p>
+        <div class="test-statements">
+          <span class="test-statement">Test each category</span>
+          <span class="test-statement">Trust your body's response</span>
+        </div>
+      </div>
+      
+      <div class="category-grid" id="category-grid">
+        <div class="category-card" data-category="common">
+          <div class="category-name">Common</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="common">
+          </div>
+        </div>
+        <div class="category-card" data-category="ancestral">
+          <div class="category-name">Ancestral</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="ancestral">
+          </div>
+        </div>
+        <div class="category-card" data-category="heartwall">
+          <div class="category-name">Heartwall</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="heartwall">
+          </div>
+        </div>
+        <div class="category-card" data-category="etheric">
+          <div class="category-name">Etheric</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="etheric">
+          </div>
+        </div>
+        <div class="category-card" data-category="aura">
+          <div class="category-name">Aura/Field</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="aura">
+          </div>
+        </div>
+        <div class="category-card" data-category="dna">
+          <div class="category-name">DNA</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="dna">
+          </div>
+        </div>
+        <div class="category-card" data-category="third-trimester">
+          <div class="category-name">Third Trimester</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="third-trimester">
+          </div>
+        </div>
+        <div class="category-card" data-category="twin">
+          <div class="category-name">Twin (Dual)</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="twin">
+          </div>
+        </div>
+        <div class="category-card" data-category="deeply-hidden">
+          <div class="category-name">Deeply Hidden</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="deeply-hidden">
+          </div>
+        </div>
+        <div class="category-card" data-category="stealth">
+          <div class="category-name">Stealth</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="stealth">
+          </div>
+        </div>
+        <div class="category-card" data-category="body-coded">
+          <div class="category-name">Body Coded</div>
+          <div class="category-count">
+            <input type="number" class="count-input" min="0" placeholder="0" data-category="body-coded">
+          </div>
+        </div>
+      </div>
+      
+      <div class="muscle-test-prompt" style="background: rgba(138, 43, 226, 0.1);">
+        <p style="color: #9370DB;">"Do I have more than 50 Stored Shadow Emotions in this category?"</p>
+        <div class="test-statements">
+          <span class="test-statement">More than 100?</span>
+          <span class="test-statement">Less than 150?</span>
+          <span class="test-statement">Narrow down the count</span>
+        </div>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(1)">Back</button>
+        <button class="nav-btn primary" onclick="goToStep(3)">Continue to Layering</button>
+      </div>
+    </div>
+    
+    <!-- Step 3: Layering Awareness -->
+    <div class="section hidden" id="step-3">
+      <h2 class="section-title">
+        <span class="step-num">3</span>
+        Layering Awareness
+      </h2>
+      
+      <div class="layering-section">
+        <h4>Understanding Nested Emotions</h4>
+        <p>Some shadow emotions may be layered — hiding beneath one another. For each category you identified, use the muscle testing statement:</p>
+        
+        <div class="muscle-test-prompt" style="background: transparent; border: 1px solid rgba(138, 43, 226, 0.3);">
+          <p style="color: #9370DB;">"This category has layered Stored Shadow Emotions."</p>
+        </div>
+        
+        <p>If yes, document it below. This will remind you during decoding to check if each shadow emotion has layers beneath it.</p>
+        
+        <div class="layer-toggle">
+          <input type="checkbox" id="has-layers">
+          <label for="has-layers">I have categories with layered Stored Shadow Emotions</label>
+        </div>
+        
+        <div class="custom-blessing" id="layers-notes-area" style="display: none; margin-top: 15px;">
+          <textarea id="layers-notes" placeholder="Note which categories have layered emotions (e.g., 'Heartwall - 3 layers', 'Ancestral - 2 layers')..." style="background: rgba(138, 43, 226, 0.1); border-color: rgba(138, 43, 226, 0.3);"></textarea>
+        </div>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(2)">Back</button>
+        <button class="nav-btn primary" onclick="goToStep(4)">View My Discovery Summary</button>
+      </div>
+    </div>
+    
+    <!-- Step 4: Summary -->
+    <div class="section hidden summary-section" id="step-4">
+      <h2 class="section-title">
+        <span class="step-num">4</span>
+        Your Discovery Summary
+      </h2>
+      
+      <div class="summary-stats">
+        <div class="stat-box">
+          <div class="stat-value" id="total-categories">0</div>
+          <div class="stat-label">Categories Identified</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="total-count">0</div>
+          <div class="stat-label">Total Stored Shadow Emotions</div>
+        </div>
+      </div>
+      
+      <div class="category-summary" id="category-summary"></div>
+      
+      <div class="muscle-test-prompt">
+        <p>Would you like to begin your Quick Release now or continue learning in the Education Centre?</p>
+      </div>
+      
+      <div class="nav-buttons">
+        <a href="#" class="nav-btn primary" id="beginQuickReleaseBtn" onclick="handleBeginQuickRelease(event)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          Begin Quick Release
+        </a>
+        <a href="education-centre.html" class="nav-btn secondary" onclick="saveAndNavigate('education')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          Explore Education Centre
+        </a>
+      </div>
+      
+      <div class="nav-buttons" style="margin-top: 15px;">
+        <button class="nav-btn secondary" onclick="saveDiscovery()" style="font-size: 0.9rem;">
+          Save to My Profile
+        </button>
+      </div>
+      
+      <div class="signup-invitation" id="signup-invitation" style="background: linear-gradient(135deg, rgba(200, 150, 62, 0.15) 0%, rgba(200, 150, 62, 0.05) 100%); border: 1px solid rgba(200, 150, 62, 0.3); border-radius: 20px; padding: 35px; margin-top: 30px; text-align: center;">
+        <h4 style="color: #C8963E; font-family: Georgia, serif; font-size: 1.4rem; margin-bottom: 15px;">Begin Your Personal Healing Journey</h4>
+        <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">To begin your personal SoulArt Healing Journey, receive your first 3 free sessions, and access your private tools — sign up below.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+          <a href="../register.html" class="nav-btn primary" style="padding: 14px 30px;">Sign Up Free</a>
+          <a href="../login.html" class="nav-btn secondary" style="padding: 14px 30px;">Already a Member? Log In</a>
+        </div>
+        <p style="color: #888; font-size: 13px; margin-top: 20px;">Free membership includes 3 Quick Release sessions, Journal, Doodle Room, and Education Centre access.</p>
+      </div>
+      
+      <div class="upgrade-prompt" id="upgrade-prompt" style="display: none;">
+        <h4>Ready to Go Deeper?</h4>
+        <p>For full Shadow Decoder system, Playroom access, and complete emotion tracking, upgrade to Premium.</p>
+        <a href="../membership.html" class="nav-btn primary" style="margin-top: 10px;">View Premium Options</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    let currentStep = 1;
+    let discoveryData = {
+      blessing_text: '',
+      category_counts: {},
+      layers_data: [],
+      has_layers: false,
+      session_notes: ''
+    };
+    let sessionId = null;
+    
+    document.getElementById('custom-blessing-toggle').addEventListener('change', function() {
+      const area = document.getElementById('custom-blessing-area');
+      area.classList.toggle('show', this.checked);
+    });
+    
+    document.getElementById('has-layers').addEventListener('change', function() {
+      const area = document.getElementById('layers-notes-area');
+      area.style.display = this.checked ? 'block' : 'none';
+      discoveryData.has_layers = this.checked;
+    });
+    
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        if (e.target.classList.contains('count-input')) return;
+        this.classList.toggle('selected');
+        
+        const category = this.dataset.category;
+        const input = this.querySelector('.count-input');
+        
+        if (this.classList.contains('selected')) {
+          input.focus();
+          if (!discoveryData.category_counts[category]) {
+            discoveryData.category_counts[category] = 0;
+          }
+        } else {
+          delete discoveryData.category_counts[category];
+        }
+        
+        updateSummary();
+      });
+    });
+    
+    document.querySelectorAll('.count-input').forEach(input => {
+      input.addEventListener('input', function() {
+        const category = this.dataset.category;
+        const value = parseInt(this.value) || 0;
+        discoveryData.category_counts[category] = value;
+        updateSummary();
+      });
+      
+      input.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    
+    function goToStep(step) {
+      if (step === 2) {
+        discoveryData.blessing_text = document.getElementById('custom-blessing-text')?.value || '';
+      }
+      
+      if (step === 4) {
+        discoveryData.session_notes = document.getElementById('layers-notes')?.value || '';
+      }
+      
+      document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+      document.getElementById('step-' + step).classList.remove('hidden');
+      
+      document.querySelectorAll('.progress-dot').forEach((dot, idx) => {
+        dot.classList.remove('active');
+        if (idx + 1 < step) {
+          dot.classList.add('completed');
+        } else if (idx + 1 === step) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('completed');
+        }
+      });
+      
+      currentStep = step;
+      
+      if (step === 4) {
+        updateSummary();
+      }
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function updateSummary() {
+      const categories = Object.keys(discoveryData.category_counts).filter(k => 
+        discoveryData.category_counts[k] > 0 || document.querySelector(`[data-category="${k}"]`)?.classList.contains('selected')
+      );
+      
+      const totalCount = Object.values(discoveryData.category_counts).reduce((a, b) => a + (parseInt(b) || 0), 0);
+      
+      document.getElementById('total-categories').textContent = categories.length;
+      document.getElementById('total-count').textContent = totalCount;
+      
+      const summaryContainer = document.getElementById('category-summary');
+      summaryContainer.innerHTML = '';
+      
+      const categoryNames = {
+        'common': 'Common',
+        'ancestral': 'Ancestral',
+        'heartwall': 'Heartwall',
+        'etheric': 'Etheric',
+        'aura': 'Aura/Field',
+        'dna': 'DNA',
+        'third-trimester': 'Third Trimester',
+        'twin': 'Twin (Dual)',
+        'deeply-hidden': 'Deeply Hidden',
+        'stealth': 'Stealth',
+        'body-coded': 'Body Coded'
+      };
+      
+      categories.forEach(cat => {
+        const count = discoveryData.category_counts[cat] || 0;
+        const item = document.createElement('div');
+        item.className = 'category-summary-item';
+        item.innerHTML = `
+          <span class="name">${categoryNames[cat] || cat}</span>
+          <span class="count">${count} emotions</span>
+        `;
+        summaryContainer.appendChild(item);
+      });
+    }
+    
+    async function saveDiscovery() {
+      const totalCategories = Object.keys(discoveryData.category_counts).filter(k => 
+        discoveryData.category_counts[k] > 0
+      ).length;
+      
+      const totalCount = Object.values(discoveryData.category_counts).reduce((a, b) => a + (parseInt(b) || 0), 0);
+      
+      const payload = {
+        blessing_text: discoveryData.blessing_text,
+        category_counts: discoveryData.category_counts,
+        layers_data: discoveryData.has_layers ? [{ notes: discoveryData.session_notes }] : [],
+        session_notes: discoveryData.session_notes,
+        total_categories: totalCategories,
+        total_shadow_count: totalCount,
+        is_completed: true
+      };
+      
+      try {
+        const response = await fetch('/api/discovery/sessions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          sessionId = data.id;
+          alert('Your discovery session has been saved!');
+        } else {
+          console.error('Failed to save discovery session');
+        }
+      } catch (err) {
+        console.error('Error saving discovery:', err);
+      }
+    }
+    
+    async function saveAndNavigate(tool) {
+      discoveryData.triggered_tool = tool;
+      
+      const totalCategories = Object.keys(discoveryData.category_counts).filter(k => 
+        discoveryData.category_counts[k] > 0
+      ).length;
+      
+      const totalCount = Object.values(discoveryData.category_counts).reduce((a, b) => a + (parseInt(b) || 0), 0);
+      
+      const payload = {
+        blessing_text: discoveryData.blessing_text,
+        category_counts: discoveryData.category_counts,
+        layers_data: discoveryData.has_layers ? [{ notes: discoveryData.session_notes }] : [],
+        session_notes: discoveryData.session_notes,
+        total_categories: totalCategories,
+        total_shadow_count: totalCount,
+        triggered_tool: tool,
+        is_completed: true
+      };
+      
+      try {
+        await fetch('/api/discovery/sessions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.error('Error saving discovery:', err);
+      }
+    }
+    
+    function downloadSummary() {
+      const categories = Object.keys(discoveryData.category_counts).filter(k => 
+        discoveryData.category_counts[k] > 0
+      );
+      
+      const totalCount = Object.values(discoveryData.category_counts).reduce((a, b) => a + (parseInt(b) || 0), 0);
+      
+      const categoryNames = {
+        'common': 'Common',
+        'ancestral': 'Ancestral',
+        'heartwall': 'Heartwall',
+        'etheric': 'Etheric',
+        'aura': 'Aura/Field',
+        'dna': 'DNA',
+        'third-trimester': 'Third Trimester',
+        'twin': 'Twin (Dual)',
+        'deeply-hidden': 'Deeply Hidden',
+        'stealth': 'Stealth',
+        'body-coded': 'Body Coded'
+      };
+      
+      let text = 'SoulArt Temple - Discovery Session Summary\n';
+      text += '==========================================\n\n';
+      text += `Date: ${new Date().toLocaleDateString()}\n\n`;
+      
+      if (discoveryData.blessing_text) {
+        text += `Personal Blessing:\n${discoveryData.blessing_text}\n\n`;
+      }
+      
+      text += `Categories Identified: ${categories.length}\n`;
+      text += `Total Stored Shadow Emotions: ${totalCount}\n\n`;
+      
+      text += 'Category Breakdown:\n';
+      text += '-------------------\n';
+      categories.forEach(cat => {
+        text += `${categoryNames[cat]}: ${discoveryData.category_counts[cat]} emotions\n`;
+      });
+      
+      if (discoveryData.has_layers && discoveryData.session_notes) {
+        text += `\nLayering Notes:\n${discoveryData.session_notes}\n`;
+      }
+      
+      text += '\n==========================================\n';
+      text += 'Continue your journey at SoulArt Temple\n';
+      
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'discovery-summary.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    
+    async function loadLatestSession() {
+      try {
+        const response = await fetch('/api/discovery/sessions/latest');
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.category_counts) {
+            discoveryData.category_counts = data.category_counts;
+            discoveryData.blessing_text = data.blessing_text || '';
+            
+            Object.keys(data.category_counts).forEach(cat => {
+              const card = document.querySelector(`[data-category="${cat}"]`);
+              const input = document.querySelector(`.count-input[data-category="${cat}"]`);
+              if (card && data.category_counts[cat] > 0) {
+                card.classList.add('selected');
+                if (input) input.value = data.category_counts[cat];
+              }
+            });
+          }
+        }
+      } catch (err) {
+        console.log('No previous session found');
+      }
+    }
+    
+    loadLatestSession();
+    
+    async function checkAuthAndUpdateCTAs() {
+      try {
+        const response = await fetch('/api/auth/check');
+        const data = await response.json();
+        const signupInvitation = document.getElementById('signup-invitation');
+        const upgradePrompt = document.getElementById('upgrade-prompt');
+        
+        if (data.authenticated) {
+          signupInvitation.style.display = 'none';
+          upgradePrompt.style.display = 'block';
+          
+          if (data.user && data.user.membership_tier === 'premium') {
+            upgradePrompt.style.display = 'none';
+          }
+        } else {
+          signupInvitation.style.display = 'block';
+          upgradePrompt.style.display = 'none';
+        }
+      } catch (err) {
+        console.log('Auth check failed, showing signup');
+      }
+    }
+    
+    checkAuthAndUpdateCTAs();
+    
+    async function handleBeginQuickRelease(event) {
+      event.preventDefault();
+      try {
+        const response = await fetch('/api/auth/check');
+        const data = await response.json();
+        
+        await saveAndNavigate('quick_release');
+        
+        if (data.authenticated) {
+          // User is logged in, go to dashboard
+          window.location.href = '../members-dashboard.html';
+        } else {
+          // User not registered, go to registration
+          window.location.href = '../register.html';
+        }
+      } catch (err) {
+        console.error('Auth check failed:', err);
+        // Default to registration if check fails
+        window.location.href = '../register.html';
+      }
+    }
+  </script>
+  
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

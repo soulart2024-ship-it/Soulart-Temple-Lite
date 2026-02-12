@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allergy Decoder - SoulArt Temple</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/room.css">
+  <link rel="stylesheet" href="../styles/disclaimer.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+    
+    .decoder-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .decoder-header {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    
+    .decoder-header h1 {
+      font-family: Georgia, serif;
+      color: #C8963E;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    .decoder-header p {
+      color: #aaa;
+      font-size: 1.1rem;
+    }
+    
+    .premium-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #C8963E 0%, #E5B84C 100%);
+      color: #1a1a2e;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .step-progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+    
+    .step-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .step-dot.active {
+      background: #C8963E;
+      border-color: #C8963E;
+      color: #1a1a2e;
+      box-shadow: 0 0 20px rgba(200, 150, 62, 0.5);
+    }
+    
+    .step-dot.completed {
+      background: #4CAF50;
+      border-color: #4CAF50;
+      color: white;
+    }
+    
+    .step-content {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 20px 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .step-content h2 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .step-content h2 .step-num {
+      background: #C8963E;
+      color: #1a1a2e;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    
+    .step-content p {
+      color: #ccc;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    
+    .step-content .instruction {
+      background: rgba(200, 150, 62, 0.1);
+      border-left: 4px solid #C8963E;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .step-content .instruction p {
+      margin: 0;
+      font-style: italic;
+      color: #E5B84C;
+    }
+    
+    .affirmation-box {
+      background: linear-gradient(135deg, rgba(139, 69, 69, 0.3) 0%, rgba(200, 150, 62, 0.2) 100%);
+      border: 2px solid #8B4545;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .affirmation-box p {
+      font-size: 1.3rem;
+      color: #fff;
+      font-style: italic;
+      margin: 0;
+    }
+    
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 25px 0;
+    }
+    
+    .option-btn {
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 15px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .option-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+      border-color: #C8963E;
+    }
+    
+    .option-btn.selected {
+      background: #C8963E;
+      border-color: #C8963E;
+      color: #1a1a2e;
+      font-weight: 600;
+    }
+    
+    .supplement-section {
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .supplement-section h4 {
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+    
+    .supplement-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .supplement-tag {
+      background: rgba(76, 175, 80, 0.2);
+      color: #8BC34A;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 13px;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .nav-btn {
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .nav-btn.secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    
+    .nav-btn.secondary:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .nav-btn.primary {
+      background: #C8963E;
+      color: #1a1a2e;
+    }
+    
+    .nav-btn.primary:hover {
+      background: #E5B84C;
+    }
+    
+    .step-hidden {
+      display: none;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #C8963E;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    
+    .color-therapy {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .color-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      border: 3px solid transparent;
+    }
+    
+    .color-circle:hover {
+      transform: scale(1.1);
+    }
+    
+    .color-circle.selected {
+      border-color: #fff;
+      box-shadow: 0 0 20px currentColor;
+    }
+    
+    .completion-celebration {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .completion-celebration h2 {
+      color: #4CAF50;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .completion-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    
+    @media (max-width: 600px) {
+      .decoder-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .step-content {
+        padding: 25px 20px;
+      }
+      
+      .option-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .nav-buttons {
+        flex-direction: column;
+      }
+    }
+    
+    .celebration-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .celebration-tile {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      border-radius: 16px;
+      padding: 20px 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .celebration-tile:hover {
+      background: rgba(200, 150, 62, 0.15);
+      border-color: #C8963E;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(200, 150, 62, 0.2);
+    }
+    
+    .celebration-tile svg {
+      width: 36px;
+      height: 36px;
+      stroke: #C8963E;
+    }
+    
+    .celebration-tile span {
+      font-size: 13px;
+      line-height: 1.3;
+    }
+    
+    .ritual-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .ritual-modal.active {
+      display: flex;
+    }
+    
+    .ritual-modal-content {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      position: relative;
+    }
+    
+    .ritual-modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .ritual-modal-close:hover {
+      color: #fff;
+    }
+    
+    .ritual-modal h3 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      margin-bottom: 20px;
+      padding-right: 30px;
+    }
+    
+    .ritual-modal p, .ritual-modal li {
+      color: #ccc;
+      line-height: 1.8;
+    }
+    
+    .ritual-modal ol, .ritual-modal ul {
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+    
+    .movement-option {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .movement-option:hover {
+      background: rgba(200, 150, 62, 0.1);
+      border-color: rgba(200, 150, 62, 0.3);
+    }
+    
+    .movement-option h4 {
+      color: #C8963E;
+      margin-bottom: 5px;
+    }
+    
+    .movement-option p {
+      font-size: 13px;
+      margin: 0;
+    }
+    
+    .music-player {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 15px;
+    }
+    
+    .music-track {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .music-track:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    
+    .music-track.playing {
+      background: rgba(200, 150, 62, 0.15);
+    }
+    
+    .music-track .play-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #C8963E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .music-track .play-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: #1a1a2e;
+      fill: #1a1a2e;
+    }
+    
+    .music-track .track-info {
+      flex: 1;
+    }
+    
+    .music-track .track-name {
+      color: #fff;
+      font-size: 14px;
+    }
+    
+    .music-track .track-duration {
+      color: #888;
+      font-size: 12px;
+    }
+    
+    .release-reminder {
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 25px 0;
+      text-align: center;
+    }
+    
+    .release-reminder p {
+      color: #8BC34A;
+      font-style: italic;
+    }
+    
+    @media (max-width: 480px) {
+      .celebration-tiles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+
+  <div class="decoder-container">
+    
+    <header class="decoder-header">
+      <span class="premium-badge">✦ Premium Tool</span>
+      <h1>Allergy Decoder</h1>
+      <p>SoulArt Allergy Healing Protocol</p>
+      <p style="color: #888; font-size: 0.95rem;">Identify sensitivities, decode the root, and reset your frequency</p>
+    </header>
+    
+    <div class="step-progress">
+      <div class="step-dot active" data-step="1">1</div>
+      <div class="step-dot" data-step="2">2</div>
+      <div class="step-dot" data-step="3">3</div>
+      <div class="step-dot" data-step="4">4</div>
+      <div class="step-dot" data-step="5">5</div>
+      <div class="step-dot" data-step="6">6</div>
+      <div class="step-dot" data-step="7">7</div>
+    </div>
+    
+    <!-- Step 1: Identify the Allergy -->
+    <div class="step-content" id="step-1">
+      <h2><span class="step-num">1</span> Identify the Allergy</h2>
+      <p>Use the SoulArt Allergy Chart to pinpoint the root sensitivity via kinesiology.</p>
+      
+      <div class="instruction">
+        <p>Ask: "Is this allergy primarily physical, emotional, or energetic?"</p>
+      </div>
+      
+      <p>Select the primary nature of this sensitivity:</p>
+      
+      <div class="option-grid" id="allergy-type">
+        <button class="option-btn" data-type="Physical">Physical</button>
+        <button class="option-btn" data-type="Emotional">Emotional</button>
+        <button class="option-btn" data-type="Energetic">Energetic</button>
+      </div>
+      
+      <div class="nav-buttons">
+        <div></div>
+        <button class="nav-btn primary" id="step1-next" disabled onclick="goToStep(2)">Continue →</button>
+      </div>
+    </div>
+    
+    <!-- Step 2: Decode the Root -->
+    <div class="step-content step-hidden" id="step-2">
+      <h2><span class="step-num">2</span> Decode the Root</h2>
+      <p>Now we identify the deeper source of this sensitivity.</p>
+      
+      <div class="instruction">
+        <p>Ask: "Is this trauma-held? Due to overload? Ancestral?"</p>
+      </div>
+      
+      <p>Select the root cause that tests strongest:</p>
+      
+      <div class="option-grid" id="root-cause">
+        <button class="option-btn" data-cause="Trauma-held">Trauma-held</button>
+        <button class="option-btn" data-cause="Overload">Overload</button>
+        <button class="option-btn" data-cause="Ancestral">Ancestral</button>
+        <button class="option-btn" data-cause="Liver">Liver Involvement</button>
+        <button class="option-btn" data-cause="Immune">Immune System</button>
+        <button class="option-btn" data-cause="Gut">Gut Related</button>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(1)">← Back</button>
+        <button class="nav-btn primary" id="step2-next" disabled onclick="goToStep(3)">Root Decoded →</button>
+      </div>
+    </div>
+    
+    <!-- Step 3: Release & Reset the Frequency -->
+    <div class="step-content step-hidden" id="step-3">
+      <h2><span class="step-num">3</span> Release & Reset the Frequency</h2>
+      <p>Now we release the allergy frequency from your energetic system.</p>
+      
+      <div class="instruction">
+        <p>Use a magnet down the governing meridian (top of head to back of neck) 3 times.</p>
+      </div>
+      
+      <p><strong>Breathwork:</strong> Take 3 deep breaths, exhale through the mouth.</p>
+      
+      <p><strong>Chakra Clearing + Color Therapy:</strong> Select a healing color:</p>
+      
+      <div class="color-therapy" id="color-therapy">
+        <div class="color-circle" style="background: #DC2626;" data-color="Red" title="Red - Root"></div>
+        <div class="color-circle" style="background: #F97316;" data-color="Orange" title="Orange - Sacral"></div>
+        <div class="color-circle" style="background: #3B82F6;" data-color="Blue" title="Blue - Throat"></div>
+        <div class="color-circle" style="background: #8B5CF6;" data-color="Purple" title="Purple - Crown"></div>
+      </div>
+      
+      <p style="text-align: center; color: #888;" id="color-label">Select a healing color</p>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(2)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(4)">Frequency Reset →</button>
+      </div>
+    </div>
+    
+    <!-- Step 4: Physical Support – Supplements -->
+    <div class="step-content step-hidden" id="step-4">
+      <h2><span class="step-num">4</span> Physical Support — Supplements</h2>
+      <p>Based on your sensitivity type, consider these supportive supplements:</p>
+      
+      <div class="supplement-section">
+        <h4>🌿 Histamine Support</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Quercetin</span>
+          <span class="supplement-tag">Vitamin C</span>
+          <span class="supplement-tag">DAO enzyme</span>
+          <span class="supplement-tag">Bromelain</span>
+        </div>
+      </div>
+      
+      <div class="supplement-section">
+        <h4>🍄 Mold Support</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Activated Charcoal</span>
+          <span class="supplement-tag">Chlorella</span>
+          <span class="supplement-tag">NAC</span>
+          <span class="supplement-tag">Milk Thistle</span>
+        </div>
+      </div>
+      
+      <div class="supplement-section">
+        <h4>🌀 Gut Support</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Probiotics</span>
+          <span class="supplement-tag">Digestive Enzymes</span>
+          <span class="supplement-tag">Slippery Elm</span>
+        </div>
+      </div>
+      
+      <div class="supplement-section">
+        <h4>💜 Emotional Support</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Bach Flowers</span>
+          <span class="supplement-tag">Homeopathy</span>
+        </div>
+      </div>
+      
+      <p style="color: #888; font-size: 0.9rem; margin-top: 20px;"><em>Note: Always consult a healthcare provider before starting any supplement regimen.</em></p>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(3)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(5)">Continue →</button>
+      </div>
+    </div>
+    
+    <!-- Step 5: Mushroom & Herbal Allies -->
+    <div class="step-content step-hidden" id="step-5">
+      <h2><span class="step-num">5</span> Mushroom & Herbal Allies</h2>
+      <p>Nature's allies to support your healing journey:</p>
+      
+      <div class="supplement-section">
+        <h4>🛡️ Immunity</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Reishi</span>
+          <span class="supplement-tag">Chaga</span>
+        </div>
+      </div>
+      
+      <div class="supplement-section">
+        <h4>🌀 Gut Health</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Lion's Mane</span>
+          <span class="supplement-tag">Marshmallow Root</span>
+        </div>
+      </div>
+      
+      <div class="supplement-section">
+        <h4>🍄 Mold/Fungi</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Turkey Tail</span>
+          <span class="supplement-tag">Myrrh</span>
+          <span class="supplement-tag">Clove</span>
+        </div>
+      </div>
+      
+      <div class="supplement-section">
+        <h4>🧘 Nervous System</h4>
+        <div class="supplement-list">
+          <span class="supplement-tag">Cordyceps</span>
+          <span class="supplement-tag">Lemon Balm</span>
+          <span class="supplement-tag">Holy Basil</span>
+        </div>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(4)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(6)">Continue →</button>
+      </div>
+    </div>
+    
+    <!-- Step 6: Replace the Frequency -->
+    <div class="step-content step-hidden" id="step-6">
+      <h2><span class="step-num">6</span> Replace the Frequency</h2>
+      <p>Now we imprint a new, harmonious frequency.</p>
+      
+      <div class="affirmation-box">
+        <p>"I am safe, sovereign, and strong in my body."</p>
+      </div>
+      
+      <p>Use art, sound (432Hz), or color to imprint new resonance. Consider:</p>
+      
+      <ul style="color: #ccc; line-height: 2;">
+        <li>Drawing or creating SoulArt representing your healed state</li>
+        <li>Listening to 432Hz healing frequencies</li>
+        <li>Visualizing your chosen healing color filling your body</li>
+      </ul>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(5)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(7)">Frequency Replaced →</button>
+      </div>
+    </div>
+    
+    <!-- Step 7: Ritual of Release & Reintegration -->
+    <div class="step-content step-hidden" id="step-7">
+      <h2><span class="step-num">7</span> Ritual of Release & Reintegration</h2>
+      
+      <div class="release-reminder">
+        <p>Continue releasing until your body no longer wishes to release. You may repeat this process as many times as needed.</p>
+      </div>
+      
+      <div class="completion-celebration">
+        <svg class="completion-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C8963E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+          <path d="M9 12L11 14L15 10"/>
+        </svg>
+        <h2 style="color: #C8963E;">Complete Your Ritual</h2>
+        
+        <p>Choose a symbolic act of release and celebration:</p>
+        
+        <div class="celebration-tiles">
+          <div class="celebration-tile" onclick="openModal('burnPaperModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2C8 6 4 10 4 14C4 18 8 22 12 22C16 22 20 18 20 14C20 10 16 6 12 2Z"/>
+              <path d="M12 22V14"/>
+            </svg>
+            <span>Burn Paper Protocol</span>
+          </div>
+          
+          <div class="celebration-tile" onclick="ringBell(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span>Ring a Bell</span>
+          </div>
+          
+          <div class="celebration-tile" onclick="openModal('movementModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="3"/>
+              <path d="M12 8v8"/>
+              <path d="M8 12l4 4 4-4"/>
+              <path d="M6 20l6-4 6 4"/>
+            </svg>
+            <span>Joyful Movement</span>
+          </div>
+          
+          <a href="doodle.html" class="celebration-tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+              <path d="M2 2l7.586 7.586"/>
+              <circle cx="11" cy="11" r="2"/>
+            </svg>
+            <span>Create SoulArt</span>
+          </a>
+          
+          <a href="playroom.html" class="celebration-tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+            <span>Play for Peace</span>
+          </a>
+          
+          <div class="celebration-tile" onclick="openModal('musicModal')">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+            <span>Listen to Music</span>
+          </div>
+          
+          <a href="journal.html" class="celebration-tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              <line x1="8" y1="7" x2="16" y2="7"/>
+              <line x1="8" y1="11" x2="14" y2="11"/>
+            </svg>
+            <span>Sacred Journal</span>
+          </a>
+        </div>
+        
+        <div class="affirmation-box" style="margin-top: 30px;">
+          <p>"I invite my body to remember its harmony."</p>
+        </div>
+        
+        <p style="color: #4CAF50; font-size: 1.2rem; margin-top: 30px;">This healing is complete</p>
+      </div>
+      
+      <div class="nav-buttons" style="justify-content: center; gap: 20px;">
+        <button class="nav-btn secondary" onclick="goToStep(1)">Release Another Layer</button>
+        <a href="../root.html" class="nav-btn primary" style="text-decoration: none;">Complete Session</a>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="../root.html" class="back-link" style="color: #888;">Return to Root Chakra Room</a>
+      </div>
+    </div>
+    
+    <!-- Burn Paper Protocol Modal -->
+    <div class="ritual-modal" id="burnPaperModal">
+      <div class="ritual-modal-content">
+        <button class="ritual-modal-close" onclick="closeModal('burnPaperModal')">&times;</button>
+        <h3>Burn Paper Protocol</h3>
+        <p>A sacred ritual for releasing what no longer serves you:</p>
+        <ol>
+          <li>Write down on paper what you are releasing - the sensitivity, the emotion, the belief</li>
+          <li>Hold the paper and speak aloud: "I release this from my energy field with love and gratitude for the lessons learned"</li>
+          <li>Safely burn the paper in a fireproof container (a candle flame, fireplace, or outdoor fire pit)</li>
+          <li>As the smoke rises, visualize the energy transforming and returning to source</li>
+          <li>When the paper is fully burned, say: "It is done. I am free."</li>
+          <li>Dispose of the ashes outside, returning them to the earth</li>
+        </ol>
+        <p style="font-style: italic; color: #C8963E; margin-top: 20px;">Safety note: Always burn paper in a safe, well-ventilated area with water nearby.</p>
+      </div>
+    </div>
+    
+    <!-- Joyful Movement Modal -->
+    <div class="ritual-modal" id="movementModal">
+      <div class="ritual-modal-content">
+        <button class="ritual-modal-close" onclick="closeModal('movementModal')">&times;</button>
+        <h3>Joyful Movement Practices</h3>
+        <p>Choose a practice that resonates with your body right now:</p>
+        
+        <div class="movement-option">
+          <h4>Shake It Off (2-3 minutes)</h4>
+          <p>Stand with feet hip-width apart. Begin shaking your hands, then arms, shoulders, and let the shaking move through your whole body. Shake out the old energy with enthusiasm!</p>
+        </div>
+        
+        <div class="movement-option">
+          <h4>Victory Dance (1-2 minutes)</h4>
+          <p>Put on your favorite uplifting music and dance freely. Celebrate your release! Move however feels good - no judgment, just joy.</p>
+        </div>
+        
+        <div class="movement-option">
+          <h4>Heart Opening Stretch</h4>
+          <p>Stand tall, interlace fingers behind your back, lift your chest and gently stretch your arms back. Breathe deeply into your heart space. Hold for 5 breaths.</p>
+        </div>
+        
+        <div class="movement-option">
+          <h4>Grounding Stomp (1 minute)</h4>
+          <p>March in place with intention, stomping your feet firmly. With each stomp, imagine releasing the old energy down through your feet into the earth for transformation.</p>
+        </div>
+        
+        <div class="movement-option">
+          <h4>Spiral Arms</h4>
+          <p>Extend arms out to sides. Slowly spiral them upward, gathering energy, then spiral down, releasing. Repeat 3-5 times, breathing deeply.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Music Player Modal -->
+    <div class="ritual-modal" id="musicModal">
+      <div class="ritual-modal-content">
+        <button class="ritual-modal-close" onclick="closeModal('musicModal')">&times;</button>
+        <h3>Healing Soundscapes</h3>
+        <p>Let sound support your integration and peace:</p>
+        
+        <div class="music-player">
+          <div class="music-track" onclick="playTrack(this, '432Hz Healing Frequency')">
+            <div class="play-icon">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="track-info">
+              <div class="track-name">432Hz Healing Frequency</div>
+              <div class="track-duration">Deep cellular healing</div>
+            </div>
+          </div>
+          
+          <div class="music-track" onclick="playTrack(this, 'Tibetan Singing Bowls')">
+            <div class="play-icon">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="track-info">
+              <div class="track-name">Tibetan Singing Bowls</div>
+              <div class="track-duration">Chakra balancing</div>
+            </div>
+          </div>
+          
+          <div class="music-track" onclick="playTrack(this, 'Forest and Rain')">
+            <div class="play-icon">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="track-info">
+              <div class="track-name">Forest & Rain</div>
+              <div class="track-duration">Grounding soundscape</div>
+            </div>
+          </div>
+          
+          <div class="music-track" onclick="playTrack(this, 'Ocean Waves')">
+            <div class="play-icon">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="track-info">
+              <div class="track-name">Ocean Waves</div>
+              <div class="track-duration">Emotional cleansing</div>
+            </div>
+          </div>
+          
+          <div class="music-track" onclick="playTrack(this, 'Gentle Heartbeat')">
+            <div class="play-icon">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="track-info">
+              <div class="track-name">Gentle Heartbeat</div>
+              <div class="track-duration">Safety & comfort</div>
+            </div>
+          </div>
+        </div>
+        
+        <p style="font-size: 12px; color: #888; margin-top: 15px; text-align: center;">Audio features coming soon. For now, search these sounds on YouTube or Spotify.</p>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script>
+    let currentStep = 1;
+    
+    function goToStep(step) {
+      document.querySelectorAll('.step-content').forEach(el => el.classList.add('step-hidden'));
+      document.getElementById('step-' + step).classList.remove('step-hidden');
+      
+      document.querySelectorAll('.step-dot').forEach(dot => {
+        const dotStep = parseInt(dot.dataset.step);
+        dot.classList.remove('active', 'completed');
+        if (dotStep < step) dot.classList.add('completed');
+        if (dotStep === step) dot.classList.add('active');
+      });
+      
+      currentStep = step;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    document.querySelectorAll('#allergy-type .option-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#allergy-type .option-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('step1-next').disabled = false;
+      });
+    });
+    
+    document.querySelectorAll('#root-cause .option-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#root-cause .option-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('step2-next').disabled = false;
+      });
+    });
+    
+    document.querySelectorAll('.color-circle').forEach(circle => {
+      circle.addEventListener('click', function() {
+        document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('color-label').textContent = 'Selected: ' + this.dataset.color + ' healing frequency';
+      });
+    });
+    
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    document.querySelectorAll('.ritual-modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    
+    function ringBell(tile) {
+      const bellContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = bellContext.createOscillator();
+      const gainNode = bellContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(bellContext.destination);
+      
+      oscillator.frequency.setValueAtTime(880, bellContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(440, bellContext.currentTime + 0.5);
+      
+      gainNode.gain.setValueAtTime(0.5, bellContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, bellContext.currentTime + 2);
+      
+      oscillator.type = 'sine';
+      oscillator.start(bellContext.currentTime);
+      oscillator.stop(bellContext.currentTime + 2);
+      
+      tile.style.boxShadow = '0 0 30px rgba(200, 150, 62, 0.6)';
+      setTimeout(() => {
+        tile.style.boxShadow = '';
+      }, 2000);
+    }
+    
+    function playTrack(element, trackName) {
+      document.querySelectorAll('.music-track').forEach(t => t.classList.remove('playing'));
+      element.classList.add('playing');
+      
+      alert('Audio feature coming soon! For now, search "' + trackName + ' meditation music" on YouTube or Spotify.');
+    }
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

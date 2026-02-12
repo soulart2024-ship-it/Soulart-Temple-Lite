@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SoulArt Temple – Doodle & Mandala</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --bg: #050816;
+      --panel: #111827;
+      --accent: #fbbf24;
+      --accent-soft: #fde68a;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #374151;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937, #050816 55%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .doodle-shell {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.65);
+      padding: 18px;
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .doodle-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(17,24,39,0.98));
+      border-radius: 14px;
+      border: 1px solid rgba(55,65,81,0.8);
+      padding: 14px 16px;
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .panel p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .controls-group {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(75,85,99,0.9);
+    }
+
+    .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .mode-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .mode-btn {
+      flex: 1 1 auto;
+      min-width: 80px;
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,0.9);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .mode-btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    .mode-btn.active {
+      border-color: var(--accent);
+      color: var(--accent-soft);
+      background: radial-gradient(circle at top, rgba(251,191,36,0.18), rgba(15,23,42,0.9));
+      box-shadow: 0 0 0 1px rgba(251,191,36,0.2);
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 34px;
+      height: 24px;
+      border-radius: 999px;
+      padding: 0;
+      background: transparent;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(55,65,81,1);
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+      border-radius: 999px;
+      border: none;
+    }
+
+    input[type="range"] {
+      width: 120px;
+    }
+
+    select {
+      background: rgba(15,23,42,0.92);
+      color: var(--text);
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .small-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15,23,42,0.9);
+      color: var(--muted);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn.primary {
+      border-color: var(--accent);
+      color: #111827;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      font-weight: 600;
+    }
+
+    .btn.danger {
+      border-color: #fecaca;
+      color: #fecaca;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .canvas-wrapper {
+      background: radial-gradient(circle at top, rgba(15,23,42,0.95), #020617);
+      border-radius: 16px;
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    #doodleCanvas {
+      background: radial-gradient(circle at center, #020617, #020617);
+      border-radius: 18px;
+      border: 1px solid rgba(31,41,55,1);
+      box-shadow:
+        0 0 0 1px rgba(15,23,42,1),
+        0 0 40px rgba(15,23,42,0.9);
+      touch-action: none;
+      max-width: 100%;
+      height: auto;
+      image-rendering: crisp-edges;
+    }
+
+    .canvas-caption {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="doodle-shell">
+    <!-- LEFT PANEL -->
+    <div class="panel">
+      <h2>🌀 SoulArt Doodle Temple</h2>
+      <p>Create, trace, or flow into mandala symmetry. This space is for play, release, and gentle focus.</p>
+
+      <div class="controls-group">
+        <div class="label">Mode</div>
+        <div class="mode-buttons">
+          <button class="mode-btn active" data-mode="free">
+            <span class="icon">✏️</span><span>Free Doodle</span>
+          </button>
+          <button class="mode-btn" data-mode="mandala">
+            <span class="icon">🕊️</span><span>Mandala Symmetry</span>
+          </button>
+          <button class="mode-btn" data-mode="trace">
+            <span class="icon">🎨</span><span>Trace Template</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="controls-group">
+        <div class="label">Brush & Colour</div>
+        <div class="row">
+          <span style="font-size:0.8rem;">Colour</span>
+          <input type="color" id="colorPicker" value="#fbbf24">
+          <span style="font-size:0.8rem;">Size</span>
+          <input type="range" id="brushSize" min="1" max="18" value="4">
+        </div>
+      </div>
+
+      <div class="controls-group">
+        <div class="label">Mandala Settings</div>
+        <div class="row">
+          <span style="font-size:0.8rem;">Segments</span>
+          <select id="symmetrySelect">
+            <option value="4">4</option>
+            <option value="6">6</option>
+            <option value="8" selected>8</option>
+            <option value="10">10</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+        <p class="small-note">In Mandala mode, every stroke is mirrored around the centre.</p>
+      </div>
+
+      <div class="controls-group">
+        <div class="label">Trace Templates</div>
+        <div class="row">
+          <select id="templateSelect">
+            <option value="">— Choose Mandala Template —</option>
+            <option value="mandala1">Mandala 01 – Petals</option>
+            <option value="mandala2">Mandala 02 – Star Bloom</option>
+            <option value="mandala3">Mandala 03 – Lotus Wheel</option>
+            <option value="mandala4">Mandala 04 – Sun Halo</option>
+            <option value="mandala5">Mandala 05 – Spiral Flower</option>
+            <option value="mandala6">Mandala 06 – Sacred Web</option>
+            <option value="mandala7">Mandala 07 – Radiant Rings</option>
+            <option value="mandala8">Mandala 08 – Heart Bloom</option>
+            <option value="mandala9">Mandala 09 – Cosmic Petals</option>
+            <option value="mandala10">Mandala 10 – Temple Wheel</option>
+          </select>
+        </div>
+        <p class="small-note">
+          In Trace mode, a faint mandala outline appears on the canvas for you to colour and trace.
+          You can add more templates later in the code.
+        </p>
+      </div>
+
+      <div class="controls-group">
+        <div class="label">Actions</div>
+        <div class="buttons-row">
+          <button class="btn danger" id="clearBtn">🧽 Clear</button>
+          <button class="btn" id="resetTemplateBtn">🔄 Reset Template</button>
+          <button class="btn primary" id="downloadBtn">⬇️ Download Art</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: CANVAS -->
+    <div class="panel canvas-wrapper">
+      <canvas id="doodleCanvas" width="700" height="700"></canvas>
+      <div class="canvas-caption">
+        <div>Draw with your mouse or finger. In Mandala mode, strokes mirror around the centre.</div>
+        <div>In Trace mode, follow the faint template lines and bring the mandala to life with colour.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="doodle.js"></script>
+</body>
+</html>

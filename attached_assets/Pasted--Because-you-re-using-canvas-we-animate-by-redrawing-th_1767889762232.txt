@@ -1,0 +1,93 @@
+
+
+Because you’re using <canvas>, we animate by redrawing the stamp a few times with requestAnimationFrame.
+
+1. Add this helper function to your Doodle JS
+
+function animateStampPlacement(drawFn, options = {}) {
+  const {
+    duration = 220,
+    startScale = 0.92,
+    endScale = 1,
+    easing = (t) => 1 - Math.pow(1 - t, 3) // easeOutCubic
+  } = options;
+
+  const startTime = performance.now();
+
+  function animate(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easing(progress);
+    const scale = startScale + (endScale - startScale) * eased;
+
+    drawFn(scale);
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+2. Use it when placing a stamp
+
+Wherever you currently place a stamp (for example, when clicking a geometry stamp), replace the direct draw with this pattern:
+function placeStamp(stamp, x, y, baseSize, rotation = 0) {
+  animateStampPlacement((scale) => {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+    ctx.scale(scale, scale);
+
+    stamp.draw(ctx, 0, 0, baseSize);
+
+    ctx.restore();
+  });
+}
+
+⚠️ Important
+	•	stamp.draw() should draw centered at (0,0)
+	•	You already do this correctly for mandala symmetry — no changes needed
+
+3. (Optional but beautiful) Add a micro opacity inhale
+
+If you want it even softer:
+
+Inside the animation callback:
+Js:
+ctx.globalAlpha = 0.85 + (0.15 * scale);
+
+Then reset after draw.
+
+This mimics breath + presence without looking like an effect.
+
+Timing & Feel (don’t skip this)
+
+Parameter	Value	Why
+Start scale	0.92	Subtle, not “pop”
+Duration	180–240ms	Nervous system friendly
+Easing	easeOutCubic	Organic, not mechanical
+Opacity	Optional	Makes it ceremonial
+
+Mobile Behaviour (already compatible ✅)
+	•	requestAnimationFrame works perfectly on touch
+	•	No extra listeners needed
+	•	No performance hit (short animation, tiny redraw)
+
+Why this matters (strategically)
+
+Most creative apps:
+	•	Stamp = instant
+	•	No embodiment
+	•	No pause
+
+Yours:
+	•	Stamp arrives
+	•	User feels the moment
+	•	Reinforces sacred pacing
+
+This is the difference between:
+tool
+and
+temple

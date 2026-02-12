@@ -1,0 +1,182 @@
+✅ Replace your current drawStone() with this refined version
+
+Js:
+function drawStone(stone) {
+  const { x, y, size, rotation } = stone;
+
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(rotation);
+
+  // Ground shadow
+  ctx.beginPath();
+  ctx.ellipse(2, 6, size * 0.6, size * 0.25, 0, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  ctx.fill();
+
+  // Stone body
+  const grad = ctx.createRadialGradient(
+    -size * 0.2, -size * 0.2, size * 0.1,
+    0, 0, size
+  );
+  grad.addColorStop(0, '#8a8a85');
+  grad.addColorStop(0.5, '#6f6f6a');
+  grad.addColorStop(1, '#4a4a45');
+
+  ctx.beginPath();
+  ctx.ellipse(
+    0, 0,
+    size * (0.5 + Math.random() * 0.05),
+    size * (0.35 + Math.random() * 0.05),
+    Math.random() * 0.3,
+    0, Math.PI * 2
+  );
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Grain texture
+  for (let i = 0; i < 12; i++) {
+    ctx.beginPath();
+    ctx.arc(
+      (Math.random() - 0.5) * size * 0.6,
+      (Math.random() - 0.5) * size * 0.4,
+      Math.random() * 1.5,
+      0, Math.PI * 2
+    );
+    ctx.fillStyle = 'rgba(255,255,255,0.05)';
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
+
+2️⃣ Refined Buddha (Minimal, Sacred, Realistic)
+✅ Replace drawBuddha() with this version
+function drawBuddha(buddha) {
+  const { x, y, size } = buddha;
+
+  ctx.save();
+
+  // Ground shadow
+  ctx.beginPath();
+  ctx.ellipse(x, y + size * 0.45, size * 0.5, size * 0.15, 0, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  ctx.fill();
+
+  // Stone gradient
+  const stoneGrad = ctx.createLinearGradient(x, y - size, x, y + size);
+  stoneGrad.addColorStop(0, '#b8b8b2');
+  stoneGrad.addColorStop(1, '#6d6d66');
+
+  ctx.fillStyle = stoneGrad;
+
+  // Base
+  ctx.beginPath();
+  ctx.ellipse(x, y + size * 0.3, size * 0.45, size * 0.18, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Torso
+  ctx.beginPath();
+  ctx.ellipse(x, y + size * 0.05, size * 0.32, size * 0.38, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Head
+  ctx.beginPath();
+  ctx.arc(x, y - size * 0.35, size * 0.16, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Crown bump
+  ctx.beginPath();
+  ctx.arc(x, y - size * 0.52, size * 0.06, 0, Math.PI * 2);
+  ctx.fillStyle = '#8a8a85';
+  ctx.fill();
+
+  ctx.restore();
+}
+
+3️⃣ Flowing River Tool (Sketch + Safe Phase 1)
+
+🌊 Phase 1: Flowing River Placement (SAFE)
+
+New Tool Type
+
+Js:
+
+else if (tool === 'river') placeRiver(coords.x, coords.y);
+
+River Object
+
+Js:
+
+const river = {
+  type: 'river',
+  x,
+  y,
+  length: 80 + Math.random() * 60,
+  width: 12 + Math.random() * 8,
+  angle: Math.random() * Math.PI * 2,
+  phase: Math.random() * Math.PI * 2
+};
+
+Draw Function
+
+Js:
+function drawRiver(r) {
+  ctx.save();
+  ctx.translate(r.x, r.y);
+  ctx.rotate(r.angle);
+
+  r.phase += 0.02;
+
+  const grad = ctx.createLinearGradient(-r.length/2, 0, r.length/2, 0);
+  grad.addColorStop(0, 'rgba(80,140,200,0.2)');
+  grad.addColorStop(0.5, 'rgba(120,180,240,0.5)');
+  grad.addColorStop(1, 'rgba(80,140,200,0.2)');
+
+  ctx.beginPath();
+  ctx.moveTo(-r.length/2, -r.width/2);
+  ctx.quadraticCurveTo(
+    0, Math.sin(r.phase) * 8,
+    r.length/2, r.width/2
+  );
+  ctx.quadraticCurveTo(
+    0, Math.sin(r.phase + 1) * -8,
+    -r.length/2, -r.width/2
+  );
+
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  ctx.restore();
+}
+
+4️⃣ Sand Rake Sound (Add This Now — Huge Upgrade)
+
+This is a must and very easy.
+
+ Add at top
+
+Js:
+let sandAudio = new Audio('/sounds/sand-rake.mp3');
+sandAudio.loop = true;
+sandAudio.volume = 0.12;
+
+Start sound while raking
+
+Inside handleMove():
+
+Js:
+if (tool === 'rake' && isDrawing) {
+  if (sandAudio.paused) sandAudio.play();
+}
+
+⏸ Stop sound
+
+Inside handleEnd():
+if (!sandAudio.paused) sandAudio.pause();
+
+Optional: Speed-based volume (very satisfying)
+Js:
+const speed = Math.hypot(coords.x - lastX, coords.y - lastY);
+sandAudio.volume = Math.min(0.25, 0.05 + speed / 300);
+

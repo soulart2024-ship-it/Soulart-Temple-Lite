@@ -1,0 +1,113 @@
+🌈 1️⃣ Chakra-Aware Orb Counts (Longer, More Nourishing Play)
+
+🔧 What to change
+
+In your Chakra Flow Path JS, find this line inside initLevel():
+
+Js:
+const numOrbs = 5;
+
+Replace with this:
+
+Js:
+const chakraOrbCounts = [9, 11, 13, 15, 13, 11, 9];
+const numOrbs = chakraOrbCounts[level];
+
+🧠 Why this works
+	•	Root & Sacral → grounding, slower
+	•	Solar & Heart → fullest expansion
+	•	Upper chakras → lighter, spacious completion
+	•	The game now breathes instead of rushes
+
+This alone will double the time spent per chakra.
+
+ 2️⃣ Softer, More Wandering Orb Placement
+
+(Encourages exploration, not beelining)
+
+Still inside initLevel(), find:
+
+Js:
+const radius = size * 0.35;
+
+ Replace with:
+Js:
+const radius = size * (0.25 + Math.random() * 0.25);
+
+That’s it.
+
+🌬️ Result
+	•	Orbs are unevenly spaced
+	•	Movement becomes fluid and exploratory
+	•	Completion feels earned, not rushed
+
+No visual clutter. No new UI.
+🎵 3️⃣ Soft Ambient Music (Temple-appropriate)
+
+We’ll do this opt-in by behaviour, not buttons.
+
+🎧 Audio Style (important)
+
+Use one looping ambient track:
+	•	No melody dominance
+	•	Breath-paced
+	•	Soft drone / bowl / harmonic pad
+	•	432Hz or neutral ambient is ideal
+
+File example:
+
+/static/audio/chakra-flow-ambient.mp3
+
+Add this near the top of your <script>:
+let ambientAudio = new Audio('/static/audio/chakra-flow-ambient.mp3');
+ambientAudio.loop = true;
+ambientAudio.volume = 0.25;
+
+(0.25 is gentle — you can lower to 0.18 if you want ultra-soft)
+
+Start music when the game begins
+
+Inside your startGame() function, add:
+js:
+ambientAudio.play().catch(() => {});
+
+Full Context:
+js:
+function startGame() {
+  document.getElementById('introOverlay').classList.add('hidden');
+  resizeCanvas();
+  level = 0;
+  initLevel();
+  isPlaying = true;
+  ambientAudio.play().catch(() => {});
+  gameLoop();
+}
+
+top music on completion
+
+Inside showCompletion() add:
+
+js:
+ambientAudio.pause();
+ambientAudio.currentTime = 0;
+
+So it becomes;
+js:
+function showCompletion() {
+  isPlaying = false;
+  ambientAudio.pause();
+  ambientAudio.currentTime = 0;
+  document.getElementById('completionOverlay').classList.add('show');
+}
+
+4️⃣ What You’ve Just Achieved (Quietly Powerful)
+
+Without adding any UI clutter:
+	•	The game lasts longer
+	•	Breath naturally slows
+	•	Movement becomes meditative
+	•	Sound anchors presence
+	•	Completion feels satisfying, not abrupt
+
+This is somatic UX — very few apps do this well.
+

@@ -1,0 +1,272 @@
+SoulArt Temple — Interactive Map Logic
+
+(Agent Mode Build Spec)
+
+1. Purpose of the Map
+
+The Temple Map is an orientation + choice interface.
+
+Its role is to:
+	•	Reduce cognitive overload
+	•	Honour user sovereignty
+	•	Allow multiple valid entry paths
+	•	Prevent forced funnels
+	•	Make the ecosystem understandable at a glance
+
+This is not navigation clutter — it is intentional wayfinding.
+
+⸻
+
+2. Map Placement
+
+Page: welcome.html
+Section: Bottom half of the page (after explainer video + entry CTAs)
+
+Html
+<section id="temple-map">
+
+Accessible via:
+	•	Scroll
+	•	“Explore the Temple” button
+	•	Optional anchor link: #temple-map
+
+⸻
+
+3. Map Structure (Visual + Logical)
+
+3.1 Core Layout
+
+The map is non-linear, visually radial or grouped, not a top-down sitemap.
+
+Recommended structure:
+                    [ Discovery Portal ]
+                           |
+        [ Journal ] — [ Quick Release ] — [ Art Meditation ]
+                           |
+                [ Members Dashboard / Temple Entrance ]
+                           |
+         [ AI Guide ] — [ Playroom ] — [ Decoders (Premium) ]
+
+Visually styled as:
+	•	Soft nodes / cards
+	•	Subtle connecting lines
+	•	Calm glow states (no animation overload)
+
+⸻
+
+4. Map Nodes (Developer Logic)
+
+Each node has:
+	•	Status
+	•	Access rule
+	•	Click behaviour
+	•	Visual state
+
+⸻
+
+4.1 Discovery Portal Node
+
+Label: Discovery Portal
+File: /tools/discovery.html
+
+Access:
+	•	Public (no login required)
+
+On click:
+
+Js
+window.location.href = "/tools/discovery.html";
+
+Visual state:
+	•	Highlighted
+	•	Labeled “Recommended start”
+	•	Calm gold outline
+
+⸻
+
+4.2 Quick Release Node
+
+Label: Quick Release
+File: /tools/decoder.html
+
+Access rules:
+	•	If NOT logged in → redirect to login.html
+	•	If logged in:
+	•	Allow up to 3 free sessions
+	•	Then show membership prompt
+
+On click logic (pseudo):
+
+Js
+
+if (!isLoggedIn()) {
+  redirect("login.html");
+} else {
+  redirect("/tools/decoder.html");
+}
+
+Visual state:
+	•	Always visible
+	•	Small badge: “Free intro”
+
+⸻
+
+4.3 Art Meditation Node
+
+Label: Art Meditation
+File: /tools/doodle.html
+
+Access rules:
+	•	Login required
+	•	Free members allowed
+
+On click:
+
+Js
+if (!isLoggedIn()) {
+  redirect("login.html");
+} else {
+  redirect("/tools/doodle.html");
+}
+
+Visual state:
+	•	Calm, creative icon
+	•	No pressure badges
+
+⸻
+
+4.4 Sacred Journal Node
+
+Label: Sacred Journal
+File: /tools/journal.html
+
+Access rules:
+	•	Login required
+	•	Free members allowed
+
+On click: same pattern as Art Meditation
+
+⸻
+
+4.5 AI Guide Node
+
+Label: SoulArt Guide
+File: /tools/guide.html
+
+Access rules:
+	•	Premium only
+
+On click:
+Js
+if (!isLoggedIn()) {
+  redirect("login.html");
+} else if (!hasPremium()) {
+  showUpgradeModal();
+} else {
+  redirect("/tools/guide.html");
+}
+
+Visual state:
+	•	Clearly marked “Premium”
+	•	Softer opacity for free users
+
+⸻
+
+4.6 Decoders Group Node
+
+Label: Advanced Decoders
+Children:
+	•	Emotion Decoder
+	•	Allergy Decoder
+	•	Belief Decoder
+
+Access: Premium only
+
+Behaviour:
+	•	Clicking group opens modal or sub-panel
+	•	Each item follows same premium gate logic
+
+⸻
+
+4.7 Playroom Node
+
+Label: Playroom
+File: /tools/playroom.html
+
+Access: Premium only
+
+Visual state:
+	•	Playful but calm
+	•	Not flashy
+
+⸻
+
+5. Global Map Behaviour Rules
+
+5.1 No Dead Ends
+
+Every click does one of:
+	•	Navigate
+	•	Prompt login
+	•	Prompt upgrade
+
+Never:
+	•	Disable silently
+	•	Grey out without explanation
+
+⸻
+
+5.2 Gentle Messaging Only
+
+Upgrade/login prompts must say:
+	•	“Available with membership”
+	•	“Login to continue”
+	•	“Upgrade to unlock”
+
+Never:
+	•	“Access denied”
+	•	“Locked”
+	•	“Restricted”
+
+⸻
+
+5.3 Sovereignty Principle (Very Important)
+
+No forced path.
+
+User can:
+	•	Skip Discovery
+	•	Go straight to Quick Release
+	•	Explore freely
+
+Discovery is recommended, not enforced.
+
+⸻
+
+6. Technical Notes for Agent Mode
+	•	Build map as a reusable component:
+	•	temple-map.html (partial) or
+	•	<section id="temple-map"> block
+	•	State functions required:
+Js
+
+isLoggedIn()
+hasPremium()
+
+	•	Styling:
+	•	Use existing chakra / gold palette
+	•	No emojis
+	•	Soft hover glow only
+
+⸻
+
+7. Acceptance Criteria (Launch Ready)
+
+The map is considered complete when:
+
+✅ User understands options in < 10 seconds
+✅ No confusion between Discovery vs Tools
+✅ Free users feel welcomed, not limited
+✅ Premium feels aspirational, not gated
+✅ Flow matches trauma-aware design
+

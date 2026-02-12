@@ -1,0 +1,96 @@
+SoulArt Discovery Portal Update – Developer Instruction & Content Outline
+
+⸻
+
+Purpose: To create an interactive, educational, and spiritual initiation page for members beginning their journey into identifying and understanding Stored Shadow Emotions. This Discovery Portal will serve as a foundational experience before using the Quick Release tool or upgrading to deeper decoding.
+
+⸻
+
+1. Welcome & Sacred Entry Prompt
+
+Content Block:
+
+“Welcome. This is your time. Take a deep breath, ground yourself, and prepare to meet what has been waiting to be seen.”
+
+	•	Display this as an animated text fade-in on page load.
+
+2. Optional Spiritual Blessing Prompt
+
+Instructional Prompt:
+
+“Before beginning, you may wish to offer a blessing or energetic seal to your space. This creates a protected and intentional field for your journey.”
+
+Sample Blessing:
+
+“I invite only truth, light, grace, and clarity into this space. May this session reveal what is ready to be seen and released.”
+
+	•	Include a button: “Add Your Own Blessing” (textarea opens for user entry – stored locally).
+
+⸻
+
+3. Shadow Emotion Category Grid
+
+Interactive Grid Categories:
+	•	Common
+	•	Ancestral
+	•	Heartwall
+	•	Etheric
+	•	Aura/Field
+	•	DNA
+	•	Third Trimester
+	•	Twin (Dual)
+	•	Deeply Hidden
+	•	Stealth
+	•	Body Coded (map)
+
+Functionality:
+	•	When user clicks a category, show the following prompt:
+
+“This is a [Category] stored shadow emotion.”
+
+	•	Allow user to muscle test or inner-check (no response needed by app).
+	•	Follow-up prompt:
+
+“Do I have more than 50 stored shadow emotions in this category?”
+“Do I have more than 100… less than 150…?”
+
+Input Field:
+	•	Allow user to manually enter a number (optional feature, stored locally or to premium tracker).
+	•	Add button: “Add to My Tracker (Premium Only)” – disabled unless user is logged in with access.
+
+⸻
+
+4. Layering Awareness (Nested Emotions)
+
+Instructional Text:
+
+“Some shadow emotions may be layered – hiding beneath one another. You may identify a surface emotion, then discover another beneath it. Simply ask: ‘Is this emotion layered?’ and proceed as guided.”
+
+	•	Toggle or checkbox option: “This category contains layered emotions” (optional local storage).
+
+⸻
+
+5. Summary Screen (After User Identifies Categories)
+
+Display:
+	•	List of categories with numbers (if entered) and any notes.
+	•	Button: “Save to Journal” or “Download My Discovery Summary”
+
+Prompt:
+
+“Would you like to begin your Quick Release now or continue learning in the Education Centre?”
+
+	•	“Yes, begin Quick Release” → Directs to Quick Release Module
+	•	“Explore More” → Directs to Education Centre
+
+⸻
+
+6. Membership Upgrade Logic
+
+Display Message (after first Discovery Session):
+
+“You’ve completed your Discovery Session. You can now begin three free self-sessions using the Quick Release tool. For deeper decoding categories and tracking, upgrade to SoulArt Temple Premium.”
+
+⸻
+
+Let me know if you’d like this formatted into a downloadable PDF or further refined into app page templates.

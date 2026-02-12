@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emotion Decoder - SoulArt Temple</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/room.css">
+  <link rel="stylesheet" href="../styles/disclaimer.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+    
+    .decoder-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .decoder-header {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    
+    .decoder-header h1 {
+      font-family: Georgia, serif;
+      color: #C8963E;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    .decoder-header p {
+      color: #aaa;
+      font-size: 1.1rem;
+    }
+    
+    .premium-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #C8963E 0%, #E5B84C 100%);
+      color: #1a1a2e;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .step-progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+    
+    .step-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .step-dot.active {
+      background: #C8963E;
+      border-color: #C8963E;
+      color: #1a1a2e;
+      box-shadow: 0 0 20px rgba(200, 150, 62, 0.5);
+    }
+    
+    .step-dot.completed {
+      background: #4CAF50;
+      border-color: #4CAF50;
+      color: white;
+    }
+    
+    .step-content {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 20px 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .step-content h2 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .step-content h2 .step-num {
+      background: #C8963E;
+      color: #1a1a2e;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    
+    .step-content p {
+      color: #ccc;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    
+    .step-content .instruction {
+      background: rgba(200, 150, 62, 0.1);
+      border-left: 4px solid #C8963E;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .step-content .instruction p {
+      margin: 0;
+      font-style: italic;
+      color: #E5B84C;
+    }
+    
+    .affirmation-box {
+      background: linear-gradient(135deg, rgba(139, 69, 69, 0.3) 0%, rgba(200, 150, 62, 0.2) 100%);
+      border: 2px solid #8B4545;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .affirmation-box p {
+      font-size: 1.3rem;
+      color: #fff;
+      font-style: italic;
+      margin: 0;
+    }
+    
+    .emotion-chart {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 25px 0;
+    }
+    
+    .emotion-btn {
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 15px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .emotion-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+      border-color: #C8963E;
+    }
+    
+    .emotion-btn.selected {
+      background: #C8963E;
+      border-color: #C8963E;
+      color: #1a1a2e;
+      font-weight: 600;
+    }
+    
+    .emotion-grid-labeled {
+      margin: 25px 0;
+    }
+    
+    .grid-header {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .col-label {
+      text-align: center;
+      color: #C8963E;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px;
+    }
+    
+    .grid-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .row-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C8963E;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px;
+    }
+    
+    .shadow-grid {
+      margin-top: 15px;
+    }
+    
+    .shadow-btn {
+      background: rgba(143, 90, 255, 0.1);
+      border-color: rgba(143, 90, 255, 0.3);
+    }
+    
+    .shadow-btn:hover {
+      background: rgba(143, 90, 255, 0.25);
+      border-color: #8F5AFF;
+    }
+    
+    .shadow-btn.selected {
+      background: #8F5AFF;
+      border-color: #8F5AFF;
+      color: #fff;
+    }
+    
+    .vibration-words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    
+    .vibration-word {
+      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .vibration-word:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    .vibration-word.selected {
+      box-shadow: 0 0 0 3px #fff, 0 5px 20px rgba(76, 175, 80, 0.6);
+    }
+    
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .nav-btn {
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .nav-btn.secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    
+    .nav-btn.secondary:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .nav-btn.primary {
+      background: #C8963E;
+      color: #1a1a2e;
+    }
+    
+    .nav-btn.primary:hover {
+      background: #E5B84C;
+    }
+    
+    .meridian-animation {
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .meridian-figure {
+      width: 120px;
+      height: 200px;
+      margin: 0 auto 20px;
+      position: relative;
+    }
+    
+    .meridian-figure svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .swipe-indicator {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #C8963E;
+      border-radius: 50%;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: swipeDown 2s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(200, 150, 62, 0.8);
+    }
+    
+    @keyframes swipeDown {
+      0%, 100% { top: 0; opacity: 1; }
+      50% { top: 70%; opacity: 0.5; }
+    }
+    
+    .video-tile {
+      max-width: 320px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid #C8963E;
+      box-shadow: 0 4px 20px rgba(200, 150, 62, 0.3);
+    }
+    
+    .video-tile video {
+      width: 100%;
+      display: block;
+    }
+    
+    .chakra-visualization {
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .chakra-glow {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: radial-gradient(circle, #8B4545 0%, rgba(139, 69, 69, 0) 70%);
+      animation: chakraPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes chakraPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    
+    .root-chakra-glow {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.8) 30%, rgba(255, 0, 0, 0.2) 70%, transparent 100%);
+      animation: pulseRed 2.5s infinite ease-in-out;
+      margin: 50px auto;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+    }
+    
+    @keyframes pulseRed {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+        box-shadow: 0 0 45px rgba(255, 0, 0, 1);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+      }
+    }
+    
+    .audio-controls {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .audio-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(200, 150, 62, 0.5);
+      border-radius: 30px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .audio-toggle-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+      border-color: #C8963E;
+    }
+    
+    .audio-toggle-btn.playing {
+      background: rgba(200, 150, 62, 0.3);
+      border-color: #C8963E;
+      box-shadow: 0 0 15px rgba(200, 150, 62, 0.4);
+    }
+    
+    .audio-icon {
+      font-size: 18px;
+    }
+    
+    .completion-celebration {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .completion-celebration h2 {
+      color: #4CAF50;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .completion-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    
+    .session-summary {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .session-summary h3 {
+      color: #C8963E;
+      margin-bottom: 15px;
+    }
+    
+    .session-summary .item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .session-summary .item:last-child {
+      border-bottom: none;
+    }
+    
+    .session-summary .label {
+      color: #888;
+    }
+    
+    .session-summary .value {
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    .step-hidden {
+      display: none;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #C8963E;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    
+    .category-section {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 35px;
+      margin: 20px 0 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .category-section h2 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 1.6rem;
+    }
+    
+    .category-intro {
+      text-align: center;
+      color: #aaa;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+    
+    .category-section.collapsed {
+      display: none;
+    }
+    
+    .category-grid-wrapper {
+      margin-bottom: 25px;
+    }
+    
+    .category-grid-header,
+    .category-grid-row {
+      display: grid;
+      grid-template-columns: 80px repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .category-grid-header {
+      margin-bottom: 15px;
+    }
+    
+    .category-grid-header .col-label {
+      text-align: center;
+      color: #C8963E;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .category-grid-row .row-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      color: #C8963E;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .category-btn {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      border: 2px solid rgba(200, 150, 62, 0.3);
+      border-radius: 12px;
+      padding: 14px 8px;
+      color: #C8963E;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .category-btn:hover {
+      background: linear-gradient(135deg, #2d2d44 0%, #3d3d5c 100%);
+      border-color: #C8963E;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200, 150, 62, 0.25);
+    }
+    
+    .category-btn.selected {
+      background: linear-gradient(135deg, #C8963E 0%, #E5B84C 100%);
+      border-color: #C8963E;
+      color: #1a1a2e;
+      box-shadow: 0 0 25px rgba(200, 150, 62, 0.5);
+    }
+    
+    .category-result {
+      display: none;
+      background: rgba(200, 150, 62, 0.1);
+      border: 2px solid rgba(200, 150, 62, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .category-result.visible {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .category-result .statement {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+    
+    .category-result .thank-you {
+      color: #C8963E;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    
+    .category-result .video-placeholder {
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 30px;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    
+    .proceed-btn {
+      display: none;
+      margin: 25px auto 0;
+      padding: 14px 30px;
+      background: linear-gradient(135deg, #C8963E 0%, #E5B84C 100%);
+      border: none;
+      border-radius: 8px;
+      color: #1a1a2e;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .proceed-btn.visible {
+      display: block;
+    }
+    
+    .proceed-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200, 150, 62, 0.4);
+    }
+    
+    .seven-step-wrapper {
+      display: none;
+    }
+    
+    .seven-step-wrapper.visible {
+      display: block;
+    }
+    
+    @media (max-width: 600px) {
+      .decoder-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .step-content {
+        padding: 25px 20px;
+      }
+      
+      .emotion-chart {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .nav-buttons {
+        flex-direction: column;
+      }
+      
+      .category-grid-header,
+      .category-grid-row {
+        grid-template-columns: 60px repeat(3, 1fr);
+        gap: 6px;
+      }
+      
+      .category-btn {
+        padding: 12px 6px;
+        font-size: 11px;
+      }
+      
+      .category-grid-header .col-label,
+      .category-grid-row .row-label {
+        font-size: 11px;
+      }
+      
+      .category-section {
+        padding: 25px 20px;
+      }
+      
+      .category-section h2 {
+        font-size: 1.4rem;
+      }
+    }
+    
+    .decoder-footer {
+      margin-top: 60px;
+      padding: 30px 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    
+    .footer-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #C8963E;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+    }
+    
+    .footer-link:hover {
+      background: rgba(200, 150, 62, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .footer-link svg {
+      stroke: #C8963E;
+    }
+    
+    .footer-note {
+      color: #666;
+      font-size: 13px;
+      margin: 0;
+    }
+    
+    @media (max-width: 600px) {
+      .footer-links {
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      .footer-link {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+
+  <div class="decoder-container">
+    
+    <header class="decoder-header">
+      <span class="premium-badge">✦ Premium Tool</span>
+      <h1>Emotion Decoder</h1>
+      <p>Root Chakra — Welcome Ground</p>
+      <p style="color: #888; font-size: 0.95rem;">Identify and release Stored Shadow Emotions using Kinesiology + SoulArt Healing</p>
+    </header>
+    
+    <!-- Shadow Storage Category Grid (Pre-Step) -->
+    <div class="category-section" id="categorySection">
+      <h2>Where Is the Shadow Stored?</h2>
+      <p class="category-intro">
+        Use muscle testing or your intuition to identify where this shadow emotion originates.
+      </p>
+      
+      <div class="instruction" style="margin-bottom: 25px;">
+        <p style="font-style: normal; color: #E5B84C; margin-bottom: 10px;"><strong>How to Identify:</strong></p>
+        <p style="margin-bottom: 8px;">"I want to identify what Shadow Emotion needs removal..."</p>
+        <p style="margin-bottom: 8px;">"Is it in <strong>Column A, Column B, or Column C</strong>?"</p>
+        <p style="margin-bottom: 0;">"Is it in <strong>Row 1, Row 2, Row 3, or Row 4</strong>?"</p>
+      </div>
+      
+      <div class="category-grid-wrapper">
+        <div class="category-grid-header">
+          <div class="row-label"></div>
+          <div class="col-label">Column A</div>
+          <div class="col-label">Column B</div>
+          <div class="col-label">Column C</div>
+        </div>
+        <div class="category-grid-row">
+          <div class="row-label">Row 1</div>
+          <button class="category-btn" data-category="common" data-col="A" data-row="1">Common</button>
+          <button class="category-btn" data-category="aura-field" data-col="B" data-row="1">Aura Field</button>
+          <button class="category-btn" data-category="ancestral" data-col="C" data-row="1">Ancestral</button>
+        </div>
+        <div class="category-grid-row">
+          <div class="row-label">Row 2</div>
+          <button class="category-btn" data-category="etheric" data-col="A" data-row="2">Etheric</button>
+          <button class="category-btn" data-category="heartwall" data-col="B" data-row="2">Heartwall</button>
+          <button class="category-btn" data-category="twin" data-col="C" data-row="2">Twin</button>
+        </div>
+        <div class="category-grid-row">
+          <div class="row-label">Row 3</div>
+          <button class="category-btn" data-category="third-trimester" data-col="A" data-row="3">Third Trimester</button>
+          <button class="category-btn" data-category="dna" data-col="B" data-row="3">DNA</button>
+          <button class="category-btn" data-category="deeply-hidden" data-col="C" data-row="3">Deeply Hidden</button>
+        </div>
+        <div class="category-grid-row">
+          <div class="row-label">Row 4</div>
+          <button class="category-btn" data-category="stealth" data-col="A" data-row="4">Stealth</button>
+          <button class="category-btn" data-category="body-coded" data-col="B" data-row="4">Body-Coded</button>
+          <button class="category-btn" data-category="unknown" data-col="C" data-row="4">Unknown Origin</button>
+        </div>
+      </div>
+      
+      <div class="category-result" id="categoryResult">
+        <p class="statement" id="categoryStatement"></p>
+        <p class="thank-you">Remember to say "Thank you" for this guidance.</p>
+        <div class="video-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 10px;">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/>
+          </svg>
+          <p>Video guide coming soon</p>
+        </div>
+      </div>
+      
+      <button class="proceed-btn" id="proceedBtn" onclick="proceedToSteps()">Continue to 7-Step Decoder</button>
+    </div>
+    
+    <div class="seven-step-wrapper" id="sevenStepWrapper">
+    <div class="step-progress">
+      <div class="step-dot active" data-step="1">1</div>
+      <div class="step-dot" data-step="2">2</div>
+      <div class="step-dot" data-step="3">3</div>
+      <div class="step-dot" data-step="4">4</div>
+      <div class="step-dot" data-step="5">5</div>
+      <div class="step-dot" data-step="6">6</div>
+      <div class="step-dot" data-step="7">7</div>
+    </div>
+    
+    <!-- Step 1: Ground & Intend -->
+    <div class="step-content" id="step-1">
+      <h2><span class="step-num">1</span> Ground & Intend</h2>
+      <p>Begin with a Sacred Grounding Practice. Find a comfortable position, close your eyes, and connect with your breath.</p>
+      
+      <div class="instruction">
+        <p>Take 3 deep breaths. Place both hands over your heart or on your lower belly.</p>
+      </div>
+      
+      <div class="affirmation-box">
+        <p>"I invite my highest wisdom to guide this session. I open with love, trust, and gentleness. I am safe to feel, safe to know, and safe to let go."</p>
+      </div>
+      
+      <p>When you feel centered and ready, proceed to the next step.</p>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(2)" style="font-size: 14px;">Skip to Step 2 →</button>
+        <button class="nav-btn primary" onclick="goToStep(2)">I Am Grounded — Continue →</button>
+      </div>
+      <p style="text-align: center; color: #888; font-size: 0.85rem; margin-top: 15px;">Already grounded from a previous release? Use Skip to go directly to emotion selection.</p>
+    </div>
+    
+    <!-- Step 2: Ask to Identify -->
+    <div class="step-content step-hidden" id="step-2">
+      <h2><span class="step-num">2</span> Emotion Decoder Root Chakra</h2>
+      <p>Using kinesiology (muscle testing), state the following:</p>
+      
+      <div class="instruction">
+        <p>"I would like to identify the Stored Shadow Emotion to release now please."</p>
+      </div>
+      
+      <p>Then use muscle testing statements with the SoulArt Emotion Decoder Chart below:</p>
+      
+      <div class="instruction">
+        <p>"The Stored Shadow Emotion is in Column A." (test) "It's in Column B." (test)</p>
+        <p style="margin-top: 10px;">"It's in an odd row." (test) "It's in an even row." (test)</p>
+        <p style="margin-top: 10px;">Then narrow down: "It's in Row 1." "It's in Row 3." etc.</p>
+      </div>
+      
+      <div class="emotion-grid-labeled" id="emotion-chart">
+        <div class="grid-header">
+          <div class="row-label"></div>
+          <div class="col-label">Column A</div>
+          <div class="col-label">Column B</div>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 1</div>
+          <button class="emotion-btn" data-emotion="Fear" data-col="A" data-row="1">Fear</button>
+          <button class="emotion-btn" data-emotion="Guilt" data-col="B" data-row="1">Guilt</button>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 2</div>
+          <button class="emotion-btn" data-emotion="Shame" data-col="A" data-row="2">Shame</button>
+          <button class="emotion-btn" data-emotion="Grief" data-col="B" data-row="2">Grief</button>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 3</div>
+          <button class="emotion-btn" data-emotion="Anger" data-col="A" data-row="3">Anger</button>
+          <button class="emotion-btn" data-emotion="Despair" data-col="B" data-row="3">Despair</button>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 4</div>
+          <button class="emotion-btn" data-emotion="Abandonment" data-col="A" data-row="4">Abandonment</button>
+          <button class="emotion-btn" data-emotion="Rejection" data-col="B" data-row="4">Rejection</button>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 5</div>
+          <button class="emotion-btn" data-emotion="Hopelessness" data-col="A" data-row="5">Hopelessness</button>
+          <button class="emotion-btn" data-emotion="Powerlessness" data-col="B" data-row="5">Powerlessness</button>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 6</div>
+          <button class="emotion-btn" data-emotion="Anxiety" data-col="A" data-row="6">Anxiety</button>
+          <button class="emotion-btn" data-emotion="Worthlessness" data-col="B" data-row="6">Worthlessness</button>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 7</div>
+          <button class="emotion-btn" data-emotion="Betrayal" data-col="A" data-row="7">Betrayal</button>
+          <button class="emotion-btn" data-emotion="Resentment" data-col="B" data-row="7">Resentment</button>
+        </div>
+        <div class="grid-row">
+          <div class="row-label">Row 8</div>
+          <button class="emotion-btn" data-emotion="Confusion" data-col="A" data-row="8">Confusion</button>
+          <button class="emotion-btn" data-emotion="Loneliness" data-col="B" data-row="8">Loneliness</button>
+        </div>
+      </div>
+      
+      <div class="deeper-shadows-section">
+        <h3 style="color: #C8963E; text-align: center; margin: 30px 0 10px; font-family: Georgia, serif;">Deeper Hidden Shadows</h3>
+        <p style="text-align: center; color: #888; font-size: 0.9rem; margin-bottom: 20px;">"The shadow emotion is in Column A." (test) "It's in Column B." (test) "It's in Row 1, 2, or 3."</p>
+        <div class="emotion-grid-labeled shadow-grid">
+          <div class="grid-header">
+            <div class="row-label"></div>
+            <div class="col-label">Column A</div>
+            <div class="col-label">Column B</div>
+          </div>
+          <div class="grid-row">
+            <div class="row-label">Row 1</div>
+            <button class="emotion-btn shadow-btn" data-emotion="Hate" data-col="A" data-row="1">Hate</button>
+            <button class="emotion-btn shadow-btn" data-emotion="Insecurity" data-col="B" data-row="1">Insecurity</button>
+          </div>
+          <div class="grid-row">
+            <div class="row-label">Row 2</div>
+            <button class="emotion-btn shadow-btn" data-emotion="Helplessness" data-col="A" data-row="2">Helplessness</button>
+            <button class="emotion-btn shadow-btn" data-emotion="Overwhelm" data-col="B" data-row="2">Overwhelm</button>
+          </div>
+          <div class="grid-row">
+            <div class="row-label">Row 3</div>
+            <button class="emotion-btn shadow-btn" data-emotion="Disappointment" data-col="A" data-row="3">Disappointment</button>
+            <button class="emotion-btn shadow-btn" data-emotion="Unlovable" data-col="B" data-row="3">Unlovable</button>
+          </div>
+        </div>
+      </div>
+      
+      <p id="selected-emotion-display" style="text-align: center; color: #C8963E; font-size: 1.2rem; margin-top: 20px;"></p>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(1)">← Back</button>
+        <button class="nav-btn primary" id="step2-next" disabled onclick="goToStep(3)">Confirm This Emotion →</button>
+      </div>
+    </div>
+    
+    <!-- Step 3: Acknowledge the Emotion -->
+    <div class="step-content step-hidden" id="step-3">
+      <h2><span class="step-num">3</span> Emotion Decoder Root Chakra</h2>
+      <p>You have identified: <strong id="emotion-name" style="color: #C8963E;"></strong></p>
+      
+      <p>Take a moment to reflect on these questions:</p>
+      
+      <div class="instruction">
+        <p>"Where might this emotion live in my body?"</p>
+      </div>
+      
+      <div class="instruction">
+        <p>"When do I remember first feeling this?"</p>
+      </div>
+      
+      <div class="instruction">
+        <p>"Can I offer this part of me compassion?"</p>
+      </div>
+      
+      <p>There's no need to analyze deeply. Simply acknowledge what arises with gentle awareness.</p>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(2)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(4)">I Acknowledge — Continue →</button>
+      </div>
+    </div>
+    
+    <!-- Step 4: Release With Intention -->
+    <div class="step-content step-hidden" id="step-4">
+      <h2><span class="step-num">4</span> Emotion Decoder Root Chakra</h2>
+      <p>Now we release this Stored Shadow Emotion from your energetic system using the magnet technique.</p>
+      
+      <div class="affirmation-box">
+        <p>"With love and willingness, I now release this Stored Shadow Emotion from my energetic system."</p>
+      </div>
+      
+      <div class="meridian-animation">
+        <p style="color: #ccc; margin-bottom: 20px;">Swipe your hand (or a magnet) over the governing meridian — from the top of your head to the back of your neck — 3 times while breathing out.</p>
+        <div class="video-tile">
+          <video controls playsinline>
+            <source src="../videos/meridian-release.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p style="color: #888; margin-top: 15px;">Repeat 3 times with deep exhales</p>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(3)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(5)">Release Complete →</button>
+      </div>
+    </div>
+    
+    <!-- Step 5: Replace With High Frequency -->
+    <div class="step-content step-hidden" id="step-5">
+      <h2><span class="step-num">5</span> Emotion Decoder Root Chakra</h2>
+      <p>Now we invite a high vibration word to fill the space where the Stored Shadow Emotion was held.</p>
+      
+      <div class="instruction">
+        <p>Use muscle testing: "Which word wants to enter in place of what I've released?"</p>
+      </div>
+      
+      <p>Select the word that resonates strongest:</p>
+      
+      <div class="vibration-words" id="vibration-words">
+        <button class="vibration-word" data-word="Peace">Peace</button>
+        <button class="vibration-word" data-word="Power">Power</button>
+        <button class="vibration-word" data-word="Worthiness">Worthiness</button>
+        <button class="vibration-word" data-word="Love">Love</button>
+        <button class="vibration-word" data-word="Joy">Joy</button>
+        <button class="vibration-word" data-word="Freedom">Freedom</button>
+        <button class="vibration-word" data-word="Safety">Safety</button>
+        <button class="vibration-word" data-word="Trust">Trust</button>
+        <button class="vibration-word" data-word="Courage">Courage</button>
+        <button class="vibration-word" data-word="Clarity">Clarity</button>
+        <button class="vibration-word" data-word="Strength">Strength</button>
+        <button class="vibration-word" data-word="Acceptance">Acceptance</button>
+      </div>
+      
+      <div id="vibration-affirmation" style="display: none; margin-top: 25px;">
+        <div class="affirmation-box" style="background: linear-gradient(135deg, rgba(76, 175, 80, 0.3) 0%, rgba(139, 195, 74, 0.2) 100%); border-color: #4CAF50;">
+          <p>"I now invite the frequency of <strong id="chosen-word"></strong> into my body and being."</p>
+        </div>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(4)">← Back</button>
+        <button class="nav-btn primary" id="step5-next" disabled onclick="goToStep(6)">Word Received →</button>
+      </div>
+    </div>
+    
+    <!-- Step 6: Seal With Light -->
+    <div class="step-content step-hidden" id="step-6">
+      <h2><span class="step-num">6</span> Emotion Decoder Root Chakra</h2>
+      <p>Visualize a light from the Root Chakra (deep red or gold) moving up your spine, sealing this healing.</p>
+      
+      <div class="audio-controls">
+        <audio id="meditation-audio" loop>
+          <source src="../static/audio/alpha-music-432hz-the-third-314870.mp3" type="audio/mpeg">
+        </audio>
+        <button class="audio-toggle-btn" id="audio-toggle" onclick="toggleAudio()">
+          <svg class="audio-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C8963E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+          <span class="audio-label">432 Hz Alpha Music</span>
+        </button>
+      </div>
+      
+      <div class="chakra-visualization">
+        <div class="root-chakra-glow"></div>
+        <p style="color: #ccc; margin-top: 20px;">Feel the warm, grounding energy rising through your body...</p>
+      </div>
+      
+      <div class="affirmation-box">
+        <p>"This healing is complete. I seal it with love, light, and integration."</p>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(5)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(7)">Healing Sealed →</button>
+      </div>
+    </div>
+    
+    <!-- Step 7: Continue or Close -->
+    <div class="step-content step-hidden" id="step-7">
+      <h2><span class="step-num">7</span> Release Completed</h2>
+      
+      <div class="completion-celebration">
+        <svg class="completion-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L14.5 9H22L16 14L18.5 21L12 17L5.5 21L8 14L2 9H9.5L12 2Z"/>
+        </svg>
+        <h2 style="color: #4CAF50;">Beautiful Work!</h2>
+        <p>You have completed an emotion release.</p>
+        
+        <div class="session-summary">
+          <h3>Release Summary</h3>
+          <div class="item">
+            <span class="label">Emotion Released:</span>
+            <span class="value" id="summary-emotion">—</span>
+          </div>
+          <div class="item">
+            <span class="label">Frequency Received:</span>
+            <span class="value" id="summary-word">—</span>
+          </div>
+          <div class="item">
+            <span class="label">Date:</span>
+            <span class="value" id="summary-date">—</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="nav-buttons" style="justify-content: center; gap: 20px;">
+        <button class="nav-btn secondary" onclick="startNewSession()">Release Another Emotion</button>
+        <a href="../tools/journal.html" class="nav-btn primary" style="text-decoration: none;">Journal This Experience</a>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="../root.html" class="back-link" style="color: #888;">Return to Root Chakra Room</a>
+      </div>
+    </div>
+    </div><!-- End seven-step-wrapper -->
+  </div>
+  
+  <footer class="decoder-footer">
+    <div class="footer-links">
+      <a href="education-centre.html" class="footer-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        Education Centre
+      </a>
+      <a href="../root.html" class="footer-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9,22 9,12 15,12 15,22"/>
+        </svg>
+        Root Chakra Room
+      </a>
+      <a href="../members-dashboard.html" class="footer-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        Members Dashboard
+      </a>
+    </div>
+    <p class="footer-note">SoulArt Temple - Healing Through Your Chakras</p>
+  </footer>
+  
+  <script>
+    let currentStep = 1;
+    let selectedEmotion = null;
+    let selectedWord = null;
+    
+    function goToStep(step) {
+      document.querySelectorAll('.step-content').forEach(el => el.classList.add('step-hidden'));
+      document.getElementById('step-' + step).classList.remove('step-hidden');
+      
+      document.querySelectorAll('.step-dot').forEach(dot => {
+        const dotStep = parseInt(dot.dataset.step);
+        dot.classList.remove('active', 'completed');
+        if (dotStep < step) dot.classList.add('completed');
+        if (dotStep === step) dot.classList.add('active');
+      });
+      
+      currentStep = step;
+      
+      if (step === 3 && selectedEmotion) {
+        document.getElementById('emotion-name').textContent = selectedEmotion;
+      }
+      
+      if (step === 7) {
+        document.getElementById('summary-emotion').textContent = selectedEmotion || '—';
+        document.getElementById('summary-word').textContent = selectedWord || '—';
+        document.getElementById('summary-date').textContent = new Date().toLocaleDateString('en-GB', { 
+          day: 'numeric', month: 'long', year: 'numeric' 
+        });
+      }
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    document.querySelectorAll('.emotion-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.emotion-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedEmotion = this.dataset.emotion;
+        document.getElementById('selected-emotion-display').textContent = 
+          'Selected: ' + selectedEmotion;
+        document.getElementById('step2-next').disabled = false;
+      });
+    });
+    
+    document.querySelectorAll('.vibration-word').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.vibration-word').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedWord = this.dataset.word;
+        document.getElementById('chosen-word').textContent = selectedWord;
+        document.getElementById('vibration-affirmation').style.display = 'block';
+        document.getElementById('step5-next').disabled = false;
+      });
+    });
+    
+    function startNewSession() {
+      selectedEmotion = null;
+      selectedWord = null;
+      document.querySelectorAll('.emotion-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.vibration-word').forEach(b => b.classList.remove('selected'));
+      document.getElementById('selected-emotion-display').textContent = '';
+      document.getElementById('vibration-affirmation').style.display = 'none';
+      document.getElementById('step2-next').disabled = true;
+      document.getElementById('step5-next').disabled = true;
+      stopAudio();
+      goToStep(1);
+    }
+    
+    let isPlaying = false;
+    
+    function toggleAudio() {
+      const audio = document.getElementById('meditation-audio');
+      const btn = document.getElementById('audio-toggle');
+      const icon = btn.querySelector('.audio-icon');
+      
+      if (isPlaying) {
+        audio.pause();
+        btn.classList.remove('playing');
+        icon.textContent = '🔊';
+        isPlaying = false;
+      } else {
+        audio.play();
+        btn.classList.add('playing');
+        icon.textContent = '🔇';
+        isPlaying = true;
+      }
+    }
+    
+    function stopAudio() {
+      const audio = document.getElementById('meditation-audio');
+      const btn = document.getElementById('audio-toggle');
+      if (audio && btn) {
+        audio.pause();
+        audio.currentTime = 0;
+        btn.classList.remove('playing');
+        btn.querySelector('.audio-icon').textContent = '🔊';
+        isPlaying = false;
+      }
+    }
+    
+    // Category Grid Functionality
+    let selectedCategory = null;
+    
+    const categoryStatements = {
+      'common': 'This is a commonly stored shadow emotion, found in your general energy field.',
+      'aura-field': 'This is an aura field stored shadow emotion, residing in your outer energetic layers.',
+      'ancestral': 'This is an ancestral stored shadow emotion, passed down through your family lineage.',
+      'etheric': 'This is an etheric stored shadow emotion, held in your etheric body template.',
+      'heartwall': 'This is a heartwall stored shadow emotion, protected behind emotional barriers around your heart.',
+      'twin': 'This is a twin stored shadow emotion, connected to a soul bond or twin flame relationship.',
+      'third-trimester': 'This is a third trimester stored shadow emotion, absorbed during the final stage of gestation.',
+      'dna': 'This is a DNA stored shadow emotion, encoded at a cellular and genetic level.',
+      'deeply-hidden': 'This is a deeply hidden stored shadow emotion, buried in the subconscious layers.',
+      'stealth': 'This is a stealth stored shadow emotion, hidden behind other emotions or beliefs.',
+      'body-coded': 'This is a body-coded stored shadow emotion, held within specific tissues or organs.',
+      'unknown': 'This is an unknown origin stored shadow emotion. Trust that it will reveal itself in perfect timing.'
+    };
+    
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedCategory = this.dataset.category;
+        
+        const col = this.dataset.col;
+        const row = this.dataset.row;
+        const categoryName = this.textContent;
+        const baseStatement = categoryStatements[selectedCategory];
+        
+        const positionText = `Column ${col}, Row ${row}: ${categoryName}`;
+        const fullStatement = `${positionText} — ${baseStatement}`;
+        
+        document.getElementById('categoryStatement').textContent = fullStatement;
+        document.getElementById('categoryResult').classList.add('visible');
+        document.getElementById('proceedBtn').classList.add('visible');
+      });
+    });
+    
+    function proceedToSteps() {
+      document.getElementById('categorySection').classList.add('collapsed');
+      document.getElementById('sevenStepWrapper').classList.add('visible');
+      
+      setTimeout(() => {
+        document.getElementById('sevenStepWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  </script>
+  
+  <div class="guide-float">
+    <button class="guide-btn" title="Ask SoulArt Guide">
+      <img src="../SoulArt Brand full.png" alt="SoulArt Guide" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+    </button>
+  </div>
+  
+  <script src="../scripts/guide-popup.js"></script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

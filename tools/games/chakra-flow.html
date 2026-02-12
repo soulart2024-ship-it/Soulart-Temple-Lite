@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a1a">
+  <title>Chakra Flow Path - SoulArt Playroom</title>
+  <link rel="stylesheet" href="../../styles/chakra-tokens.css">
+  <link rel="stylesheet" href="../../styles/legal.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 50%, #0d1b2a 100%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      touch-action: none;
+    }
+    
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #C8963E;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      z-index: 10;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    
+    .back-btn:hover {
+      color: #e0ac4a;
+    }
+    
+    .game-title {
+      position: absolute;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .game-canvas-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+    
+    #gameCanvas {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      touch-action: none;
+    }
+    
+    .game-ui {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      z-index: 10;
+    }
+    
+    .level-indicator {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.1em;
+    }
+    
+    .score-display {
+      font-size: 1.2rem;
+      color: #C8963E;
+    }
+    
+    .control-btn {
+      padding: 0.875rem 2rem;
+      border: 1px solid rgba(200, 150, 62, 0.4);
+      background: rgba(200, 150, 62, 0.1);
+      color: #C8963E;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+    }
+    
+    .control-btn.primary {
+      background: linear-gradient(135deg, #C8963E 0%, #D4B56A 100%);
+      color: #1a1a2e;
+      border: none;
+    }
+    
+    .music-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    
+    .music-toggle input {
+      display: none;
+    }
+    
+    .music-toggle-switch {
+      width: 44px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    
+    .music-toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .music-toggle input:checked + .music-toggle-switch {
+      background: rgba(200, 150, 62, 0.4);
+    }
+    
+    .music-toggle input:checked + .music-toggle-switch::after {
+      left: 23px;
+      background: #C8963E;
+    }
+    
+    .music-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    
+    .music-btn:hover {
+      background: rgba(200, 150, 62, 0.2);
+      color: #C8963E;
+    }
+    
+    .music-btn.active {
+      color: #C8963E;
+      border-color: rgba(200, 150, 62, 0.5);
+    }
+    
+    @media (max-width: 600px) {
+      .music-btn {
+        top: 1rem;
+        right: 1rem;
+        width: 36px;
+        height: 36px;
+      }
+    }
+    
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 26, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      z-index: 100;
+    }
+    
+    .intro-overlay.hidden {
+      display: none;
+    }
+    
+    .intro-orbs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .intro-orb {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      animation: orbPulse 2s ease-in-out infinite;
+    }
+    
+    .intro-orb:nth-child(1) {
+      background: radial-gradient(circle, #DC143C, #8B0000);
+      box-shadow: 0 0 20px rgba(220, 20, 60, 0.6);
+      animation-delay: 0s;
+    }
+    
+    .intro-orb:nth-child(2) {
+      background: radial-gradient(circle, #3CB371, #228B22);
+      box-shadow: 0 0 20px rgba(60, 179, 113, 0.6);
+      animation-delay: 0.3s;
+    }
+    
+    .intro-orb:nth-child(3) {
+      background: radial-gradient(circle, #6495ED, #4169E1);
+      box-shadow: 0 0 20px rgba(100, 149, 237, 0.6);
+      animation-delay: 0.6s;
+    }
+    
+    .intro-orb:nth-child(4) {
+      background: radial-gradient(circle, #9370DB, #6A0DAD);
+      box-shadow: 0 0 20px rgba(147, 112, 219, 0.6);
+      animation-delay: 0.9s;
+    }
+    
+    @keyframes orbPulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    
+    .intro-title {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #C8963E 0%, #F5E6C3 50%, #C8963E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .intro-text {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 2rem;
+    }
+    
+    .completion-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 26, 0.95);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      z-index: 100;
+    }
+    
+    .completion-overlay.show {
+      display: flex;
+    }
+    
+    .completion-message {
+      font-size: 1.5rem;
+      color: #C8963E;
+      margin-bottom: 0.5rem;
+    }
+    
+    .completion-score {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 600px) {
+      .game-title {
+        font-size: 0.9rem;
+        top: 1rem;
+      }
+      
+      .back-btn {
+        top: 1rem;
+        left: 1rem;
+      }
+      
+      .game-canvas-container {
+        max-width: 90vw;
+      }
+      
+      .game-ui {
+        bottom: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-overlay" id="introOverlay">
+    <a href="../playroom.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back
+    </a>
+    <div class="intro-orbs">
+      <div class="intro-orb"></div>
+      <div class="intro-orb"></div>
+      <div class="intro-orb"></div>
+      <div class="intro-orb"></div>
+    </div>
+    <h1 class="intro-title">Chakra Flow Path</h1>
+    <p class="intro-text">
+      Guide the glowing orb through the chakra path using smooth, flowing movements. Touch or click and drag to direct the light. Move mindfully — the orb follows your energy.
+    </p>
+    <button class="control-btn primary" onclick="startGame()">Begin Flow</button>
+    <label class="music-toggle">
+      <input type="checkbox" id="musicToggle">
+      <span class="music-toggle-switch"></span>
+      <span>Ambient Music</span>
+    </label>
+  </div>
+
+  <div class="completion-overlay" id="completionOverlay">
+    <div class="intro-orbs">
+      <div class="intro-orb"></div>
+      <div class="intro-orb"></div>
+      <div class="intro-orb"></div>
+      <div class="intro-orb"></div>
+    </div>
+    <div class="completion-message" id="completionMessage">Beautiful Flow!</div>
+    <div class="completion-score" id="completionScore">You completed all 7 chakra levels</div>
+    <button class="control-btn primary" onclick="restartGame()">Flow Again</button>
+    <a href="../playroom.html" class="control-btn" style="margin-top: 1rem; text-decoration: none;">Back</a>
+  </div>
+
+  <div class="game-container">
+    <button class="back-btn" onclick="exitGame()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Exit
+    </button>
+    
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18V5l12-2v13"/>
+        <circle cx="6" cy="18" r="3"/>
+        <circle cx="18" cy="16" r="3"/>
+      </svg>
+    </button>
+    
+    <span class="game-title">Chakra Flow Path</span>
+    
+    <div class="game-canvas-container">
+      <canvas id="gameCanvas"></canvas>
+    </div>
+    
+    <div class="game-ui">
+      <div class="level-indicator" id="levelIndicator">Level 1 - Root Chakra</div>
+      <div class="score-display" id="scoreDisplay">Orbs Collected: 0 / 5</div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    const chakras = [
+      { name: 'Root', color: '#DC143C', glow: 'rgba(220, 20, 60, 0.6)' },
+      { name: 'Sacral', color: '#FF8C42', glow: 'rgba(255, 140, 66, 0.6)' },
+      { name: 'Solar Plexus', color: '#FFD700', glow: 'rgba(255, 215, 0, 0.6)' },
+      { name: 'Heart', color: '#3CB371', glow: 'rgba(60, 179, 113, 0.6)' },
+      { name: 'Throat', color: '#6495ED', glow: 'rgba(100, 149, 237, 0.6)' },
+      { name: 'Third Eye', color: '#9370DB', glow: 'rgba(147, 112, 219, 0.6)' },
+      { name: 'Crown', color: '#E6E6FA', glow: 'rgba(230, 230, 250, 0.6)' }
+    ];
+    
+    let level = 0;
+    let orb = { x: 0, y: 0, targetX: 0, targetY: 0, radius: 15 };
+    let collectibles = [];
+    let collected = 0;
+    let isPlaying = false;
+    let mouseDown = false;
+    let mouseX = 0, mouseY = 0;
+    
+    // Ambient music for meditative experience (soft drone / bowl / harmonic pad style)
+    let ambientAudio = new Audio('/static/audio/432hz-meditation-355839.mp3');
+    ambientAudio.loop = true;
+    ambientAudio.volume = 0.3;
+    let musicEnabled = false;
+    
+    function toggleMusic() {
+      musicEnabled = !musicEnabled;
+      const musicBtn = document.getElementById('musicBtn');
+      const musicToggle = document.getElementById('musicToggle');
+      
+      if (musicEnabled) {
+        musicBtn.classList.add('active');
+        if (musicToggle) musicToggle.checked = true;
+        if (isPlaying) {
+          ambientAudio.play().catch(() => {});
+        }
+      } else {
+        musicBtn.classList.remove('active');
+        if (musicToggle) musicToggle.checked = false;
+        ambientAudio.pause();
+      }
+    }
+    
+    // Sync intro toggle with music state
+    document.getElementById('musicToggle').addEventListener('change', function() {
+      musicEnabled = this.checked;
+      const musicBtn = document.getElementById('musicBtn');
+      if (musicEnabled) {
+        musicBtn.classList.add('active');
+      } else {
+        musicBtn.classList.remove('active');
+      }
+    });
+    
+    function resizeCanvas() {
+      const container = canvas.parentElement;
+      const size = Math.min(container.clientWidth, container.clientHeight, 500);
+      canvas.width = size * window.devicePixelRatio;
+      canvas.height = size * window.devicePixelRatio;
+      canvas.style.width = size + 'px';
+      canvas.style.height = size + 'px';
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    
+    function initLevel() {
+      const size = canvas.width / window.devicePixelRatio;
+      orb.x = size / 2;
+      orb.y = size - 60;
+      orb.targetX = orb.x;
+      orb.targetY = orb.y;
+      
+      collectibles = [];
+      collected = 0;
+      
+      // Chakra-aware orb counts for longer, more nourishing play (doubled for deeper experience)
+      const chakraOrbCounts = [18, 22, 26, 30, 26, 22, 18];
+      const numOrbs = chakraOrbCounts[level];
+      const center = size / 2;
+      const maxRadius = size * 0.4; // Keep orbs inside the ring
+      const minRadius = size * 0.08; // Keep some space from center
+      const orbRadius = 12;
+      const minSpacing = orbRadius * 2.5; // Minimum distance between orb centers
+      
+      // Helper to check if position overlaps with existing orbs
+      function isOverlapping(x, y) {
+        for (const c of collectibles) {
+          const dx = c.x - x;
+          const dy = c.y - y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < minSpacing) return true;
+        }
+        return false;
+      }
+      
+      for (let i = 0; i < numOrbs; i++) {
+        let x, y, attempts = 0;
+        const maxAttempts = 50;
+        
+        do {
+          // Random angle around full circle for even spread
+          const angle = Math.random() * Math.PI * 2;
+          // Random distance from center
+          const distanceRatio = 0.2 + Math.random() * 0.8;
+          const distance = minRadius + (maxRadius - minRadius) * distanceRatio;
+          
+          x = center + Math.cos(angle) * distance;
+          y = center + Math.sin(angle) * distance;
+          attempts++;
+        } while (isOverlapping(x, y) && attempts < maxAttempts);
+        
+        collectibles.push({
+          x: x,
+          y: y,
+          radius: orbRadius,
+          collected: false,
+          pulse: Math.random() * Math.PI * 2
+        });
+      }
+      
+      updateUI();
+    }
+    
+    function updateUI() {
+      document.getElementById('levelIndicator').textContent = `Level ${level + 1} - ${chakras[level].name} Chakra`;
+      document.getElementById('scoreDisplay').textContent = `Orbs Collected: ${collected} / ${collectibles.length}`;
+    }
+    
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = (canvas.width / window.devicePixelRatio) / rect.width;
+      const scaleY = (canvas.height / window.devicePixelRatio) / rect.height;
+      
+      if (e.touches) {
+        return {
+          x: (e.touches[0].clientX - rect.left) * scaleX,
+          y: (e.touches[0].clientY - rect.top) * scaleY
+        };
+      }
+      return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY
+      };
+    }
+    
+    function handleStart(e) {
+      e.preventDefault();
+      mouseDown = true;
+      const coords = getCanvasCoords(e);
+      mouseX = coords.x;
+      mouseY = coords.y;
+      orb.targetX = mouseX;
+      orb.targetY = mouseY;
+    }
+    
+    function handleMove(e) {
+      if (!mouseDown || !isPlaying) return;
+      e.preventDefault();
+      const coords = getCanvasCoords(e);
+      mouseX = coords.x;
+      mouseY = coords.y;
+      orb.targetX = mouseX;
+      orb.targetY = mouseY;
+    }
+    
+    function handleEnd(e) {
+      mouseDown = false;
+    }
+    
+    canvas.addEventListener('mousedown', handleStart);
+    canvas.addEventListener('mousemove', handleMove);
+    canvas.addEventListener('mouseup', handleEnd);
+    canvas.addEventListener('mouseleave', handleEnd);
+    canvas.addEventListener('touchstart', handleStart, { passive: false });
+    canvas.addEventListener('touchmove', handleMove, { passive: false });
+    canvas.addEventListener('touchend', handleEnd);
+    
+    function update() {
+      const ease = 0.08;
+      orb.x += (orb.targetX - orb.x) * ease;
+      orb.y += (orb.targetY - orb.y) * ease;
+      
+      const size = canvas.width / window.devicePixelRatio;
+      orb.x = Math.max(orb.radius, Math.min(size - orb.radius, orb.x));
+      orb.y = Math.max(orb.radius, Math.min(size - orb.radius, orb.y));
+      
+      collectibles.forEach((c, i) => {
+        if (c.collected) return;
+        c.pulse += 0.05;
+        
+        const dx = orb.x - c.x;
+        const dy = orb.y - c.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < orb.radius + c.radius) {
+          c.collected = true;
+          collected++;
+          updateUI();
+          
+          if (collected >= collectibles.length) {
+            setTimeout(() => nextLevel(), 500);
+          }
+        }
+      });
+    }
+    
+    function draw() {
+      const size = canvas.width / window.devicePixelRatio;
+      ctx.clearRect(0, 0, size, size);
+      
+      const chakra = chakras[level];
+      
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size * 0.4, 0, Math.PI * 2);
+      ctx.strokeStyle = chakra.glow;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      
+      collectibles.forEach(c => {
+        if (c.collected) return;
+        
+        const pulseScale = 1 + Math.sin(c.pulse) * 0.15;
+        
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.radius * pulseScale * 2, 0, Math.PI * 2);
+        const gradient = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.radius * pulseScale * 2);
+        gradient.addColorStop(0, chakra.glow);
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.restore();
+        
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.radius * pulseScale, 0, Math.PI * 2);
+        const orbGradient = ctx.createRadialGradient(c.x - 3, c.y - 3, 0, c.x, c.y, c.radius * pulseScale);
+        orbGradient.addColorStop(0, '#fff');
+        orbGradient.addColorStop(0.3, chakra.color);
+        orbGradient.addColorStop(1, chakra.color);
+        ctx.fillStyle = orbGradient;
+        ctx.fill();
+      });
+      
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, orb.radius * 2.5, 0, Math.PI * 2);
+      const glowGradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius * 2.5);
+      glowGradient.addColorStop(0, 'rgba(200, 150, 62, 0.4)');
+      glowGradient.addColorStop(1, 'transparent');
+      ctx.fillStyle = glowGradient;
+      ctx.fill();
+      ctx.restore();
+      
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+      const orbGradient = ctx.createRadialGradient(orb.x - 4, orb.y - 4, 0, orb.x, orb.y, orb.radius);
+      orbGradient.addColorStop(0, '#fff');
+      orbGradient.addColorStop(0.4, '#FFD700');
+      orbGradient.addColorStop(1, '#C8963E');
+      ctx.fillStyle = orbGradient;
+      ctx.fill();
+    }
+    
+    function gameLoop() {
+      if (!isPlaying) return;
+      update();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+    
+    function nextLevel() {
+      level++;
+      if (level >= chakras.length) {
+        showCompletion();
+        return;
+      }
+      initLevel();
+    }
+    
+    function showCompletion() {
+      isPlaying = false;
+      ambientAudio.pause();
+      ambientAudio.currentTime = 0;
+      document.getElementById('completionOverlay').classList.add('show');
+    }
+    
+    function startGame() {
+      document.getElementById('introOverlay').classList.add('hidden');
+      resizeCanvas();
+      level = 0;
+      initLevel();
+      isPlaying = true;
+      if (musicEnabled) {
+        ambientAudio.play().catch(() => {});
+      }
+      gameLoop();
+    }
+    
+    function restartGame() {
+      document.getElementById('completionOverlay').classList.remove('show');
+      level = 0;
+      initLevel();
+      isPlaying = true;
+      if (musicEnabled) {
+        ambientAudio.play().catch(() => {});
+      }
+      gameLoop();
+    }
+    
+    function exitGame() {
+      isPlaying = false;
+      ambientAudio.pause();
+      ambientAudio.currentTime = 0;
+      document.getElementById('completionOverlay').classList.remove('show');
+      document.getElementById('introOverlay').classList.remove('hidden');
+    }
+    
+    window.addEventListener('resize', () => {
+      if (isPlaying) {
+        resizeCanvas();
+        initLevel();
+      }
+    });
+    
+    resizeCanvas();
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

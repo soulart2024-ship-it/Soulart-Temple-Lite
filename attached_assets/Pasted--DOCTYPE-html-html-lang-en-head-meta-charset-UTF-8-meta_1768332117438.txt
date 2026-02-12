@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulArt Temple - Doodle Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    :root {
+        --primary: #8B7355;
+        --secondary: #D4AF37;
+        --bg-light: #FFF8F0;
+        --bg-medium: #F5E6D3;
+        --text-dark: #3C3020;
+        --text-light: #F5F5DC;
+        --accent-purple: #9B7EBD;
+        --accent-teal: #7EBDB4;
+        --border: #E5D5C0;
+        --shadow: rgba(139, 115, 85, 0.15);
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-medium) 100%);
+        color: var(--text-dark);
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px var(--shadow);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .logo {
+        height: 50px;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
+
+    .logo:hover {
+        opacity: 0.8;
+    }
+
+    .breadcrumb {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        opacity: 0.95;
+    }
+
+    .breadcrumb a {
+        color: var(--text-light);
+        text-decoration: none;
+        transition: opacity 0.3s;
+    }
+
+    .breadcrumb a:hover {
+        opacity: 0.7;
+    }
+
+    /* Welcome Overlay */
+    .welcome-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(60, 48, 32, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.5s ease-in;
+    }
+
+    .welcome-overlay.hidden {
+        display: none;
+    }
+
+    .welcome-content {
+        background: white;
+        padding: 3rem;
+        border-radius: 20px;
+        max-width: 550px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        animation: slideUp 0.6s ease-out;
+        border: 3px solid var(--secondary);
+    }
+
+    .welcome-content h2 {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    .welcome-content p {
+        margin-bottom: 1.5rem;
+        color: var(--text-dark);
+        line-height: 1.8;
+    }
+
+    .tips-box {
+        background: var(--bg-light);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1.5rem 0;
+        text-align: left;
+        border-left: 4px solid var(--secondary);
+    }
+
+    .tips-box h3 {
+        color: var(--primary);
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .tips-box ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .tips-box li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+
+    .tips-box li:before {
+        content: "~";
+        position: absolute;
+        left: 0;
+        color: var(--secondary);
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin: 0.5rem;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px var(--shadow);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+    }
+
+    /* Main Container */
+    .container {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        max-width: 1800px;
+        margin: 0 auto;
+        min-height: calc(100vh - 100px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 20px var(--shadow);
+        overflow-y: auto;
+        max-height: calc(100vh - 140px);
+    }
+
+    .sidebar h3 {
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin: 1.5rem 0 0.8rem 0;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 0.5rem;
+    }
+
+    .sidebar h3:first-child {
+        margin-top: 0;
+    }
+
+    .tool-section {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Daily Prompt */
+    .daily-prompt {
+        background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-teal) 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        animation: fadeIn 1s ease-in;
+        border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .daily-prompt h4 {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 300;
+    }
+
+    .daily-prompt p {
+        font-size: 1.15rem;
+        font-style: italic;
+        font-weight: 300;
+    }
+
+    /* Mode Selection */
+    .mode-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .mode-btn {
+        background: white;
+        border: 2px solid var(--border);
+        padding: 1rem 0.5rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--text-dark);
+        position: relative;
+    }
+
+    .mode-btn:hover {
+        border-color: var(--secondary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .mode-btn.active {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        border-color: var(--secondary);
+    }
+
+    /* Template Previews */
+    .template-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+        margin-top: 0.8rem;
+    }
+
+    .template-card {
+        background: white;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        padding: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+    }
+
+    .template-card:hover {
+        border-color: var(--secondary);
+        transform: scale(1.03);
+        box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .template-card.active {
+        border-color: var(--secondary);
+        background: var(--bg-light);
+    }
+
+    .template-preview {
+        width: 100%;
+        height: 70px;
+        background: var(--bg-light);
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed var(--border);
+    }
+
+    .template-preview svg {
+        width: 40px;
+        height: 40px;
+        stroke: var(--primary);
+        fill: none;
+        stroke-width: 2;
+    }
+
+    .template-name {
+        font-size: 0.8rem;
+        color: var(--text-dark);
+    }
+
+    /* Chakra Palette */
+    .chakra-palette {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.4rem;
+        margin-top: 0.8rem;
+    }
+
+    .chakra-color {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s;
+        position: relative;
+    }
+
+    .chakra-color:hover {
+        transform: scale(1.15);
+        border-color: var(--text-dark);
+    }
+
+    .chakra-color.active {
+        border-color: var(--text-dark);
+        box-shadow: 0 0 12px currentColor;
+    }
+
+    /* Controls */
+    .control-group {
+        margin-bottom: 1rem;
+    }
+
+    .control-group label {
+        display: block;
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+        color: var(--text-dark);
+    }
+
+    .control-group input[type="range"],
+    .control-group input[type="color"],
+    .control-group select {
+        width: 100%;
+        margin-top: 0.3rem;
+    }
+
+    input[type="range"] {
+        accent-color: var(--secondary);
+        height: 6px;
+    }
+
+    input[type="color"] {
+        height: 45px;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    select {
+        padding: 0.6rem;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: var(--text-dark);
+    }
+
+    select:focus, input:focus {
+        outline: none;
+        border-color: var(--secondary);
+    }
+
+    /* Canvas Area */
+    .canvas-container {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 20px var(--shadow);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .canvas-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .canvas-title {
+        font-size: 1.6rem;
+        color: var(--primary);
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    .canvas-actions {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+
+    .icon-btn {
+        background: white;
+        border: 2px solid var(--primary);
+        padding: 0.6rem 1.2rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        color: var(--primary);
+    }
+
+    .icon-btn:hover {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .canvas-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-medium) 100%);
+        border-radius: 12px;
+        padding: 2rem;
+        position: relative;
+        min-height: 500px;
+    }
+
+    #drawingCanvas {
+        border: 3px solid var(--primary);
+        border-radius: 12px;
+        box-shadow: 0 6px 20px var(--shadow);
+        cursor: crosshair;
+        background: white;
+        max-width: 100%;
+        max-height: 70vh;
+    }
+
+    /* Music Player */
+    .music-player {
+        background: var(--bg-light);
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 0.8rem;
+        border: 1px solid var(--border);
+    }
+
+    .music-controls {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        margin-top: 0.8rem;
+    }
+
+    .play-btn {
+        background: var(--secondary);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+    }
+
+    .play-btn:hover {
+        background: var(--primary);
+        transform: scale(1.05);
+    }
+
+    .now-playing {
+        font-size: 0.8rem;
+        color: #666;
+        font-style: italic;
+    }
+
+    /* Footer Note */
+    .canvas-note {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #666;
+        font-style: italic;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: var(--text-light);
+        padding: 2rem;
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .footer p {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer a {
+        color: var(--text-light);
+        text-decoration: none;
+        margin: 0 0.5rem;
+        transition: opacity 0.3s;
+    }
+
+    .footer a:hover {
+        opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 968px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            max-height: none;
+        }
+
+        .mode-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .welcome-content {
+            padding: 2rem;
+            margin: 1rem;
+        }
+
+        .header {
+            padding: 1rem;
+        }
+
+        .canvas-wrapper {
+            padding: 1rem;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-content">
+            <h2>Welcome to Your Creative Sanctuary</h2>
+            <p>This is a sacred space for expression without judgment. Let your inner wisdom guide your hand as you create mandalas, doodles, and flowing art.</p>
+
+```
+        <div class="tips-box">
+            <h3>Quick Guide</h3>
+            <ul>
+                <li>Choose a drawing mode from the sidebar</li>
+                <li>Select your chakra colors or create custom palettes</li>
+                <li>Play meditation music to enhance your focus</li>
+                <li>Save your creations to your sacred journal</li>
+            </ul>
+        </div>
+        
+        <button class="btn" onclick="closeWelcome()">Begin Creating</button>
+        <button class="btn btn-secondary" onclick="closeWelcome()">Skip Tutorial</button>
+    </div>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <a href="../landing.html">
+        <img src="../SoulArt Brand full.png" alt="SoulArt Temple" class="logo">
+    </a>
+    <div class="breadcrumb">
+        <a href="../landing.html">Home</a> ~ 
+        <a href="../landing.html#temple-map">Temple Garden</a> ~ 
+        <span>Doodle Studio</span>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Daily Prompt -->
+        <div class="daily-prompt">
+            <h4>Today's Intention</h4>
+            <p id="dailyPrompt">Release what no longer serves you</p>
+        </div>
+
+        <!-- Music Player -->
+        <div class="tool-section">
+            <h3>Meditation Music</h3>
+            <select id="musicSelect">
+                <option value="">Choose Music...</option>
+                <option value="432hz">432Hz Meditation</option>
+                <option value="drums">Peaceful Morning Drums</option>
+                <option value="alpha">Alpha Music 432Hz</option>
+                <option value="nature">Calm Nature Sounds</option>
+                <option value="handpan">Handpan Soundscape</option>
+                <option value="zen">Serenity Waves Zen</option>
+                <option value="chakra">Chakra Balance</option>
+                <option value="tibetan">Tibetan Bowls</option>
+            </select>
+            <div class="music-player">
+                <div class="music-controls">
+                    <button class="play-btn" id="playBtn">Play</button>
+                    <span class="now-playing" id="nowPlaying"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drawing Modes -->
+        <div class="tool-section">
+            <h3>Drawing Modes</h3>
+            <div class="mode-grid">
+                <button class="mode-btn active" data-mode="free">Free Doodle</button>
+                <button class="mode-btn" data-mode="mandala">Mandala Symmetry</button>
+                <button class="mode-btn" data-mode="trace">Trace Template</button>
+                <button class="mode-btn" data-mode="color">Colouring Page</button>
+                <button class="mode-btn" data-mode="mirror">Mirror Flow</button>
+                <button class="mode-btn" data-mode="hand">Hand Tool</button>
+            </div>
+
+            <!-- Mandala Segments -->
+            <div id="mandalaSegments" style="display: none; margin-top: 1rem;">
+                <label>Symmetry Points:</label>
+                <select id="segmentSelect">
+                    <option value="2">2-point Mirror</option>
+                    <option value="4">4-point Diamond</option>
+                    <option value="6">6-point Flower</option>
+                    <option value="8" selected>8-point Octagon</option>
+                    <option value="10">10-point Decagon</option>
+                    <option value="12">12-point Zodiac</option>
+                </select>
+            </div>
+
+            <!-- Trace Templates -->
+            <div id="traceTemplates" style="display: none; margin-top: 1rem;">
+                <label>Choose Template:</label>
+                <div class="template-grid">
+                    <div class="template-card" data-template="petals">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle cx="50" cy="20" r="10"/><circle cx="50" cy="80" r="10"/><circle cx="20" cy="50" r="10"/><circle cx="80" cy="50" r="10"/></svg>
+                        </div>
+                        <div class="template-name">Petals</div>
+                    </div>
+                    <div class="template-card" data-template="star">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><path d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z"/></svg>
+                        </div>
+                        <div class="template-name">Star Bloom</div>
+                    </div>
+                    <div class="template-card" data-template="lotus">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><ellipse cx="50" cy="30" rx="20" ry="30"/><ellipse cx="50" cy="70" rx="20" ry="30"/></svg>
+                        </div>
+                        <div class="template-name">Lotus Wheel</div>
+                    </div>
+                    <div class="template-card" data-template="sun">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="20"/><line x1="50" y1="10" x2="50" y2="30"/><line x1="50" y1="70" x2="50" y2="90"/><line x1="10" y1="50" x2="30" y2="50"/><line x1="70" y1="50" x2="90" y2="50"/></svg>
+                        </div>
+                        <div class="template-name">Sun Halo</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coloring Pages -->
+            <div id="coloringPages" style="display: none; margin-top: 1rem;">
+                <label>Choose Design:</label>
+                <div class="template-grid">
+                    <div class="template-card" data-coloring="lotus">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="35"/></svg>
+                        </div>
+                        <div class="template-name">Lotus Calm</div>
+                    </div>
+                    <div class="template-card" data-coloring="flower">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="25" r="15"/></svg>
+                        </div>
+                        <div class="template-name">Flower of Life</div>
+                    </div>
+                    <div class="template-card" data-coloring="heart">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><path d="M50 80 C20 60 10 40 10 30 C10 20 20 10 30 10 C40 10 45 15 50 20 C55 15 60 10 70 10 C80 10 90 20 90 30 C90 40 80 60 50 80 Z"/></svg>
+                        </div>
+                        <div class="template-name">Sacred Heart</div>
+                    </div>
+                    <div class="template-card" data-coloring="mandala">
+                        <div class="template-preview">
+                            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="25"/><circle cx="50" cy="50" r="10"/></svg>
+                        </div>
+                        <div class="template-name">Soft Mandala</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brushes & Colors -->
+        <div class="tool-section">
+            <h3>Brushes & Colors</h3>
+            
+            <div class="control-group">
+                <label>Brush Type:</label>
+                <select id="brushType">
+                    <option value="pencil">Pencil</option>
+                    <option value="ink">Ink</option>
+                    <option value="soft">Soft Brush</option>
+                    <option value="watercolor">Watercolour</option>
+                    <option value="crayon">Crayon</option>
+                    <option value="alcohol">Alcohol Ink</option>
+                    <option value="eraser">Eraser</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Chakra Palettes:</label>
+                <div class="chakra-palette">
+                    <div class="chakra-color" style="background: #C72C35;" data-color="#C72C35" title="Root"></div>
+                    <div class="chakra-color" style="background: #E67635;" data-color="#E67635" title="Sacral"></div>
+                    <div class="chakra-color" style="background: #F6C244;" data-color="#F6C244" title="Solar"></div>
+                    <div class="chakra-color" style="background: #4CAF50;" data-color="#4CAF50" title="Heart"></div>
+                    <div class="chakra-color" style="background: #2196F3;" data-color="#2196F3" title="Throat"></div>
+                    <div class="chakra-color" style="background: #673AB7;" data-color="#673AB7" title="Third Eye"></div>
+                    <div class="chakra-color" style="background: #9C27B0;" data-color="#9C27B0" title="Crown"></div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Brush Color:</label>
+                <input type="color" id="brushColor" value="#D4AF37">
+            </div>
+
+            <div class="control-group">
+                <label>Brush Size: <span id="sizeValue">5</span>px</label>
+                <input type="range" id="brushSize" min="1" max="50" value="5">
+            </div>
+
+            <div class="control-group">
+                <label>Opacity: <span id="opacityValue">100</span>%</label>
+                <input type="range" id="brushOpacity" min="10" max="100" value="100">
+            </div>
+        </div>
+
+        <!-- Sacred Stamps -->
+        <div class="tool-section">
+            <h3>Sacred Stamps</h3>
+            <div class="control-group">
+                <select id="stampSelect">
+                    <option value="">Choose Stamp...</option>
+                    <option value="seed">Seed of Life</option>
+                    <option value="flower">Flower of Life</option>
+                    <option value="metatron">Metatron's Cube</option>
+                    <option value="sri">Sri Yantra</option>
+                    <option value="heart">Heart</option>
+                    <option value="lotus">Lotus</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Stamp Size: <span id="stampSizeValue">90</span>px</label>
+                <input type="range" id="stampSize" min="30" max="200" value="90">
+            </div>
+        </div>
+    </div>
+
+    <!-- Canvas Area -->
+    <div class="canvas-container">
+        <div class="canvas-header">
+            <h1 class="canvas-title">Create Your Sacred Art</h1>
+            <div class="canvas-actions">
+                <button class="icon-btn" onclick="undo()">Undo</button>
+                <button class="icon-btn" onclick="clearCanvas()">Clear</button>
+                <button class="icon-btn" onclick="downloadCanvas()">Download</button>
+                <button class="icon-btn" onclick="saveToJournal()">Save to Journal</button>
+            </div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="drawingCanvas" width="800" height="800"></canvas>
+        </div>
+
+        <p class="canvas-note">
+            Remember: Your inner wisdom matters more than any external voice. This space is yours to explore without judgment.
+        </p>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>Walk gently in your becoming</p>
+    <p>
+        <a href="../medical-disclaimer.html">Medical Disclaimer</a> |
+        <a href="../privacy-policy.html">Privacy Policy</a> |
+        <a href="../terms-of-use.html">Terms of Use</a>
+    </p>
+    <p>&copy; 2026 SoulArt Temple - All rights reserved</p>
+</div>
+```

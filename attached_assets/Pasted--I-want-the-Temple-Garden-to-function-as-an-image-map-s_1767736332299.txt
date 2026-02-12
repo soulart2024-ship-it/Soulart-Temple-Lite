@@ -1,0 +1,112 @@
+“I want the Temple Garden to function as an image map–style interactive environment.
+
+Each building in the illustration should be the clickable element itself.
+
+Please:
+	•	Use the garden image as a full-width background
+	•	Create invisible, absolutely positioned anchor links placed over each building
+	•	These anchors should match the building shapes/areas
+	•	On hover: softly glow the building area and reveal the label
+	•	Remove floating pill buttons as primary interaction
+
+The buildings must feel like doorways, not UI buttons.”
+
+That sentence alone reframes the entire implementation.
+
+⸻
+
+Conceptual layout (so you see it clearly)
+
+Think of the map as layers:
+
+Layer 1 — Background (static)
+	•	Temple Garden image
+	•	No interaction here
+
+Layer 2 — Interactive Zones (invisible)
+	•	<a class="temple-zone discovery">
+	•	<a class="temple-zone quick-release">
+	•	<a class="temple-zone journal">
+	•	etc.
+
+These are:
+	•	position: absolute
+	•	opacity: 0
+	•	cursor: pointer
+
+Layer 3 — Feedback (subtle)
+	•	On hover:
+	•	faint golden glow
+	•	label fades in near doorway
+	•	maybe a gentle pulse of light
+
+No emojis.
+No icons.
+No buttons.
+
+Just architecture as navigation.
+
+⸻
+
+Why what you’re seeing feels “off” (validation)
+
+Your nervous system is reading this correctly:
+	•	The garden is ancient, sacred, spatial
+	•	The buttons are modern, flat, UI-native
+	•	That mismatch breaks immersion
+
+You’re not being picky — you’re protecting coherence.
+
+This app is not a dashboard.
+It is a place.
+
+⸻
+
+About the Hero section (yes, you’re right)
+
+You’re also 100% correct here:
+
+Problem
+	•	Hero is too bright
+	•	Too “storybook daylight”
+	•	Doesn’t match the twilight-gold tone of the garden
+
+Direction (tell Replit this)
+
+“Please darken the Hero section to match the Temple Garden colour grading:
+	•	Reduce brightness
+	•	Increase warmth and shadow
+	•	Lean into dusk / lantern / sacred night tones
+
+The signpost should feel ancient, carved, and time-worn — not UI-polished.”
+
+This is color grading, not redesign.
+
+⸻
+
+What NOT to do next (important)
+
+Do not:
+	•	Keep tweaking button styles
+	•	Add more labels
+	•	Adjust spacing endlessly
+	•	Change copy again
+
+You are past that phase.
+
+This is now interaction architecture, not aesthetics.
+
+⸻
+
+What success will look like (so you know when to stop)
+
+You’ll know it’s right when:
+	•	You instinctively want to click the building
+	•	The label feels like a whisper, not an instruction
+	•	The map feels explorable, not explanatory
+	•	Nothing looks like an “app component”
+
+When you hover and feel: “Ah… this is a doorway” — you’re done.
+
+⸻
+

@@ -1,0 +1,90 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Sparkles, BookOpen, Brush, Heart, MessageCircle, Brain, Sun } from "lucide-react";
+
+const TempleRooms = [
+  {
+    chakra: "Root",
+    name: "Welcome Ground",
+    icon: <Sun className="w-6 h-6" />,
+    color: "bg-red-200",
+    description: "Begin your journey. Ground, orient, and feel safe entering the Temple.",
+    path: "/home"
+  },
+  {
+    chakra: "Sacral",
+    name: "Art Studio / Playroom",
+    icon: <Brush className="w-6 h-6" />,
+    color: "bg-orange-200",
+    description: "Flow and create through sacred art, doodles, and fluid expression.",
+    path: "/art-meditation"
+  },
+  {
+    chakra: "Solar Plexus",
+    name: "Empowerment Chamber",
+    icon: <Sparkles className="w-6 h-6" />,
+    color: "bg-yellow-200",
+    description: "Clear emotions, feel your power, receive your Soul Frequency Snapshot.",
+    path: "/quick-release"
+  },
+  {
+    chakra: "Heart",
+    name: "Healing Room",
+    icon: <Heart className="w-6 h-6" />,
+    color: "bg-green-200",
+    description: "A sanctuary for emotional release, sessions, and heart awakening.",
+    path: "/emotion-decoder"
+  },
+  {
+    chakra: "Throat",
+    name: "Voice Room / Journal Space",
+    icon: <MessageCircle className="w-6 h-6" />,
+    color: "bg-blue-200",
+    description: "Speak through journaling. Express your truth in sacred reflection.",
+    path: "/journal"
+  },
+  {
+    chakra: "Third Eye",
+    name: "Wisdom Library / Education Room",
+    icon: <BookOpen className="w-6 h-6" />,
+    color: "bg-purple-200",
+    description: "Explore teachings, stories, and tools for awakening awareness.",
+    path: "/education-centre"
+  },
+  {
+    chakra: "Crown",
+    name: "Light Dome / Meditation Room",
+    icon: <Brain className="w-6 h-6" />,
+    color: "bg-violet-200",
+    description: "Stillness, meditations, and divine connection to your soul path.",
+    path: "/meditation"
+  }
+];
+
+export default function ChakraTemple() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white to-indigo-100 p-6">
+      <h1 className="text-3xl font-bold text-center mb-6">Welcome to the SoulArt Temple</h1>
+      <p className="text-center text-lg max-w-xl mx-auto mb-10 text-gray-600">
+        Choose the room that your soul is drawn to today. Each sacred space supports a different part of your journey.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {TempleRooms.map((room, idx) => (
+          <Card key={idx} className={`rounded-2xl shadow-md ${room.color}`}>
+            <CardContent className="p-6 flex flex-col items-start gap-3">
+              <div className="flex items-center gap-3">
+                {room.icon}
+                <h2 className="text-xl font-semibold">{room.name}</h2>
+              </div>
+              <p className="text-gray-700 text-sm">{room.description}</p>
+              <Button variant="outline" className="mt-4" onClick={() => window.location.href = room.path}>
+                Enter
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}

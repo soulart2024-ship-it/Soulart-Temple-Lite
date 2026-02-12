@@ -1,0 +1,67 @@
+Feature Name: SoulArt Doodle Tracing Studio
+Location: App navigation → Art Meditation
+Purpose:
+Provide a calm, meditative drawing space where users can:
+	•	Choose from SoulArt-style templates (mandalas, symbols, fluid line art, simple shapes).
+	•	Trace over the design on a canvas (desktop + mobile).
+	•	Colour and decorate the template with different brush sizes and colours.
+	•	Optionally draw freehand (no template).
+	•	Save/download their creation and optionally store it in their profile (if logged in / member).
+
+This should feel simple, intuitive, and soothing, not like a complex design tool.
+
+⸻
+
+2. User Stories
+	1.	As a guest user, I can open Art Meditation and try at least one free doodle template and a blank canvas without logging in.
+	2.	As a logged-in user, I can choose from multiple templates, draw/colour, and download my artwork.
+	3.	As a member (if membership exists), I can unlock extra premium templates and optionally save my doodles to “My Art” in my profile.
+	4.	As any user, I can undo mistakes, clear the canvas, and choose simple brushes and colours without needing instructions.
+
+⸻
+
+3. High-Level UX Flow
+
+Entry Point:
+Top nav → Art Meditation → new page: “SoulArt Doodle Studio”
+
+3.1 Layout (Desktop)
+	•	Left Panel – Template Selector
+	•	Section title: “Choose a Canvas”
+	•	Template categories:
+	•	“Guided Mandalas”
+	•	“Sacred Lines” (simple line patterns / shapes)
+	•	“Free Flow Shapes” (hearts, circles, swirls)
+	•	“Blank Canvas”
+	•	Each template shown as a small thumbnail.
+	•	Some templates marked as “✨ Member” if membership is enabled.
+	•	Center – Drawing Canvas
+	•	HTML <canvas> (or similar) with:
+	•	Rendered template in light grey (for tracing) OR blank.
+	•	User draws on top in colour.
+	•	Full-width on mobile, with template selection above/below.
+	•	Right Panel – Tools
+	•	Brush controls:
+	•	Brush size: Small / Medium / Large.
+	•	Brush colour palette (predefined SoulArt colours).
+	•	Actions:
+	•	Undo (one step back)
+	•	Clear Canvas (confirm dialog)
+	•	Download (PNG or JPG)
+	•	“New Canvas” (returns to template selection state)
+
+3.2 Layout (Mobile)
+	•	Top: Template selector (horizontal scroll thumbnails or dropdown).
+	•	Middle: Canvas (full width).
+	•	Bottom: Tools bar (brush, colour, undo, clear, download).
+
+⸻
+
+4. Functional Requirements
+
+4.1 Template System
+	•	Templates are static line art images (PNG/SVG) initially (mandalas, symbols, simple shapes).
+	•	App should:
+	•	Load the chosen template and display it faintly on the canvas (e.g. low opacity).
+	•	Allow user strokes on top without altering the template image.
+	•	Template data structure (example):

@@ -1,0 +1,73 @@
+---
+**SoulArt Temple App — Chakra Room Map & Feature Assignment**
+
+Each sacred room aligns with a chakra centre and holds vibrational tools, activities, and features that support healing and expansion of that energy centre. This layout allows for a deeply intuitive journey through the Temple based on the user’s needs.
+
+---
+
+### 🌺 Root Chakra Room (Safety & Grounding)
+**Theme:** I Am — Stability, Belonging, Physical Health
+**Features:**
+- 🃏 **SoulArt Oracle Card Deck** — receive intuitive guidance.
+- 🌿 **Allergy Decoder** — uncover energetic sensitivities.
+- 🧠 **Belief Decoder** — release inherited limiting beliefs.
+- ⚖️ Future additions: Grounding Practices, Root Chakra Meditations, Sound Baths.
+
+---
+
+### 🧡 Sacral Chakra Room (Creativity & Pleasure)
+**Theme:** I Feel — Joy, Pleasure, Fluidity
+**Features:**
+- 🎨 **Doodle & Fluid Art Canvas** — create expressive art pours.
+- 💦 Water Element Integration — calming visual backgrounds.
+- Future additions: Creative Flow Journal, Sacred Sexuality Practices.
+
+---
+
+### 💛 Solar Plexus Chakra Room (Empowerment)
+**Theme:** I Do — Confidence, Personal Power, Will
+**Features:**
+- 💬 **Empowerment Affirmation Library** — high-frequency words.
+- ⚡ **Self-Confidence Tracker** — identify emotional shifts.
+- Future: Willpower Activator Practice, Actionable Goal Planners.
+
+---
+
+### 💚 Heart Chakra Room (Healing & Love)
+**Theme:** I Love — Compassion, Forgiveness, Unity
+**Features:**
+- 💖 **Emotion Decoder** — identify and release trapped emotions.
+- 🌸 **Heart Activation Meditation** — soft chakra alignment.
+- 🌬️ Breathwork space for emotional release.
+- Future: Forgiveness Practice, Relationship Harmoniser.
+
+---
+
+### 💙 Throat Chakra Room (Expression)
+**Theme:** I Speak — Communication, Truth, Clarity
+**Features:**
+- 🎙️ **Voice Journaling Tool** — record & transcribe reflections.
+- 🎶 Frequency Sound Chart + Toning Practices.
+- Future: Storytelling Prompts, Sacred Expression Circle.
+
+---
+
+### 💜 Third Eye Chakra Room (Vision & Intuition)
+**Theme:** I See — Insight, Imagination, Inner Knowing
+**Features:**
+- 🔮 **SoulArt Guide AI Companion** — gentle spiritual support.
+- 👁️ **Inner Vision Journey Visualisation** — animated prompts.
+- Future: Dream Tracker, Third Eye Activator.
+
+---
+
+### 🤍 Crown Chakra Room (Divine Connection)
+**Theme:** I Know — Awareness, Enlightenment, Unity
+**Features:**
+- ✨ **Divine Stillness Portal** — daily SoulArt Blessings & Mantras.
+- 🕊️ Meditation Room with rotating high-frequency sound & art.
+- Future: Light Language Channeling, Soul Downloads.
+
+---
+
+Would you like to build a visual dashboard of this next, or begin assigning page routes for each room in Replit?

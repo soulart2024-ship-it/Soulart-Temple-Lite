@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter - SoulArt Temple</title>
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles/style.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f6f1e8;
+      font-family: Georgia, 'Times New Roman', serif;
+      padding: 2rem;
+    }
+
+    .entry-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      z-index: 100;
+      background: transparent;
+    }
+
+    .entry-nav .back-btn {
+      display: inline-block;
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-family: Georgia, 'Times New Roman', serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .entry-nav .back-btn:hover {
+      background: rgba(0,0,0,0.05);
+    }
+
+    .entry-nav .profile-icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      transition: opacity 0.3s ease;
+    }
+
+    .entry-nav .profile-icon-btn svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .entry-nav .profile-icon-btn:hover {
+      opacity: 0.6;
+    }
+
+    @media (max-width: 600px) {
+      .entry-nav {
+        padding: 0.5rem 1rem;
+      }
+
+      .entry-nav .back-btn {
+        font-size: 0.85rem;
+        border: none;
+        background: none;
+        padding: 0;
+        color: #555;
+      }
+
+      .entry-nav .profile-icon-btn svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .entry-page {
+        padding-top: 1rem;
+      }
+
+      .entry-page h1 {
+        font-size: 1.3rem;
+        margin-top: 0;
+        margin-bottom: 0.4rem;
+      }
+
+      .entry-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .entry-room h3 {
+        font-size: 1.1rem;
+      }
+
+      .entry-room p {
+        font-size: 0.9rem;
+      }
+
+      .entry-btn {
+        font-size: 0.85rem;
+        padding: 0.6rem 1.4rem;
+      }
+    }
+
+    .entry-page {
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .entry-page h1 {
+      font-size: 2rem;
+      color: #1f2233;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .entry-subtitle {
+      color: #555;
+      opacity: 0.8;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .entry-rooms {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .entry-room {
+      background: rgba(255,255,255,0.6);
+      border-radius: 18px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .entry-room:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+    }
+
+    .entry-room h3 {
+      margin-bottom: 0.75rem;
+      color: #1f2233;
+      font-size: 1.3rem;
+    }
+
+    .entry-room p {
+      opacity: 0.75;
+      margin-bottom: 2rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .entry-btn {
+      padding: 0.75rem 1.8rem;
+      border-radius: 999px;
+      border: none;
+      background: #1f2233;
+      color: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      transition: background 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .entry-btn:hover {
+      background: #2c3050;
+      transform: translateY(-2px);
+    }
+
+    .entry-footer {
+      color: #666;
+      opacity: 0.6;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .entry-rooms {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .entry-room {
+        padding: 2rem 1.5rem;
+      }
+      
+      .entry-page h1 {
+        font-size: 1.5rem;
+      }
+      
+      .entry-subtitle {
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* Entry page transition */
+    .entry-page {
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    /* Still Panel */
+    .still-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #f6f1e8;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      z-index: 1000;
+    }
+
+    .still-panel.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .still-content {
+      min-height: 100%;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+      box-sizing: border-box;
+    }
+
+    .still-panel.show .still-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .still-back {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #666;
+      font-family: Georgia, serif;
+      transition: color 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      z-index: 1001;
+    }
+
+    .still-back:hover {
+      color: #1f2233;
+    }
+
+    @media (max-width: 900px) {
+      .still-content {
+        padding: 5rem 1rem 3rem;
+      }
+      
+      .still-back {
+        top: 0.75rem;
+        left: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="entry-nav">
+    <a href="home.html" class="back-btn" title="Back to Home">Back</a>
+    <a href="#" class="profile-icon-btn" title="Members Area" onclick="goToMembersArea(event)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M6 21v-1a6 6 0 0 1 12 0v1"/>
+      </svg>
+    </a>
+  </nav>
+
+  <div class="entry-page">
+    <h1>How would you like to enter today?</h1>
+    <p class="entry-subtitle">
+      There is no right way. Choose what feels most supportive.
+    </p>
+
+    <div class="entry-rooms">
+
+      <div class="entry-room">
+        <h3>Be Still</h3>
+        <p>A soft landing for breathing, writing, or drawing.</p>
+        <button class="entry-btn" id="still-btn">
+          Enter Still
+        </button>
+      </div>
+
+      <div class="entry-room">
+        <h3>Explore Gently</h3>
+        <p>Move through the Temple spaces intuitively.</p>
+        <a href="temple.html" class="entry-btn">
+          Enter the Temple
+        </a>
+      </div>
+
+      <div class="entry-room">
+        <h3>Understand What's Held</h3>
+        <p>Learn about emotions and decoding at your own pace.</p>
+        <a href="tools/education-centre.html" class="entry-btn">
+          Education Centre
+        </a>
+      </div>
+
+    </div>
+
+    <p class="entry-footer">
+      You can return and choose differently at any time.
+    </p>
+  </div>
+
+  <!-- Be Still Panel -->
+  <div class="still-panel" id="stillPanel">
+    <button class="still-back" id="still-back">Back</button>
+    <div class="still-content">
+      <h1>Be Still</h1>
+      <p class="entry-subtitle">
+        Choose a gentle way to settle into yourself.
+      </p>
+
+      <div class="entry-rooms">
+
+        <div class="entry-room">
+          <h3>Breathe</h3>
+          <p>Follow a calming breath guide to center yourself.</p>
+          <a href="tools/games/lotus-breath.html" class="entry-btn">
+            Breath Guide
+          </a>
+        </div>
+
+        <div class="entry-room">
+          <h3>Write</h3>
+          <p>Quiet journaling space with a gentle affirmation.</p>
+          <a href="tools/journal.html?mode=quiet" class="entry-btn">
+            Quiet Journal
+          </a>
+        </div>
+
+        <div class="entry-room">
+          <h3>Markings</h3>
+          <p>Express freely through meditative doodling.</p>
+          <a href="static/markings.html" class="entry-btn">
+            Markings
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const entryPage = document.querySelector('.entry-page');
+    const stillPanel = document.getElementById('stillPanel');
+    const stillBtn = document.getElementById('still-btn');
+    const backBtn = document.getElementById('still-back');
+
+    stillBtn.addEventListener('click', () => {
+      entryPage.style.opacity = '0';
+      entryPage.style.visibility = 'hidden';
+      stillPanel.classList.add('show');
+    });
+
+    backBtn.addEventListener('click', () => {
+      stillPanel.classList.remove('show');
+      entryPage.style.opacity = '1';
+      entryPage.style.visibility = 'visible';
+    });
+
+    async function goToMembersArea(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      
+      try {
+        const response = await fetch('/api/auth/check');
+        const data = await response.json();
+        
+        if (data.authenticated) {
+          window.location.href = '/members-dashboard.html';
+        } else {
+          window.location.href = '/login.html';
+        }
+      } catch (error) {
+        window.location.href = '/login.html';
+      }
+    }
+  </script>
+
+</body>
+</html>

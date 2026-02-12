@@ -1,0 +1,145 @@
+/*
+ * Brush engine for SoulArt Doodle Studio
+ *
+ * This module defines a series of brush functions that mimic real‑world media:
+ * Pencil, Ink, Soft Brush, Watercolour, Crayon, and Alcohol Ink.
+ *
+ * Each brush function receives:
+ * - ctx: the 2D rendering context of a canvas
+ * - from: object {x, y} for the previous mouse position
+ * - to: object {x, y} for the current mouse position
+ * - settings: object containing { colour, size, opacity }
+ *
+ * Usage:
+ *   import { pencilBrush, inkBrush, ... } from './brush_functions.js';
+ *   brushes = { pencil: pencilBrush, ink: inkBrush, ... };
+ */
+
+// Helper to convert a hex or rgb colour string into an rgba string with opacity
+function applyOpacity(colour, opacity) {
+  let r, g, b;
+  if (colour.startsWith('#')) {
+    const hex = colour.replace('#', '');
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
+  } else {
+    [r, g, b] = colour.match(/\d+/g).map(Number);
+  }
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
+
+// Pencil: grainy and slightly uneven
+function pencilBrush(ctx, from, to, { colour, size, opacity }) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const dist = Math.hypot(dx, dy);
+  const steps = Math.ceil(dist / 2);
+  for (let i = 0; i < steps; i++) {
+    const x = from.x + (dx * i) / steps + (Math.random() - 0.5) * 0.5;
+    const y = from.y + (dy * i) / steps + (Math.random() - 0.5) * 0.5;
+    ctx.fillStyle = applyOpacity(colour, opacity * (0.9 + 0.1 * Math.random()));
+    ctx.fillRect(x, y, size, size);
+  }
+}
+
+// Ink: crisp, saturated strokes
+function inkBrush(ctx, from, to, { colour, size, opacity }) {
+  ctx.strokeStyle = applyOpacity(colour, opacity);
+  ctx.lineWidth = size;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(from.x, from.y);
+  ctx.lineTo(to.x, to.y);
+  ctx.stroke();
+}
+
+// Soft brush: airbrush effect with soft edges
+function softBrush(ctx, from, to, { colour, size, opacity }) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const dist = Math.hypot(dx, dy);
+  const steps = Math.ceil(dist / (size / 2));
+  for (let i = 0; i < steps; i++) {
+    const x = from.x + (dx * i) / steps;
+    const y = from.y + (dy * i) / steps;
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+    gradient.addColorStop(0, applyOpacity(colour, opacity * 0.5));
+    gradient.addColorStop(1, applyOpacity(colour, 0));
+    ctx.fillStyle = gradient;
+    ctx.fillRect(x - size, y - size, size * 2, size * 2);
+  }
+}
+
+// Watercolour: translucent with bleeding edges
+function watercolourBrush(ctx, from, to, { colour, size, opacity }) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const dist = Math.hypot(dx, dy);
+  const steps = Math.ceil(dist / (size * 0.8));
+  for (let i = 0; i < steps; i++) {
+    const x = from.x + (dx * i) / steps + (Math.random() - 0.5) * size * 0.2;
+    const y = from.y + (dy * i) / steps + (Math.random() - 0.5) * size * 0.2;
+    const gradSize = size * (0.8 + Math.random() * 0.4);
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, gradSize);
+    gradient.addColorStop(0, applyOpacity(colour, opacity * (0.3 + Math.random() * 0.4)));
+    gradient.addColorStop(1, applyOpacity(colour, 0));
+    ctx.fillStyle = gradient;
+    ctx.fillRect(x - gradSize, y - gradSize, gradSize * 2, gradSize * 2);
+  }
+}
+
+// Crayon: waxy and textured
+function crayonBrush(ctx, from, to, { colour, size, opacity }) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const dist = Math.hypot(dx, dy);
+  const steps = Math.ceil(dist / (size / 2));
+  for (let i = 0; i < steps; i++) {
+    const x = from.x + (dx * i) / steps + (Math.random() - 0.5) * size;
+    const y = from.y + (dy * i) / steps + (Math.random() - 0.5) * size;
+    const w = size * (0.5 + Math.random() * 0.5);
+    const h = size * (0.5 + Math.random() * 0.5);
+    ctx.fillStyle = applyOpacity(colour, opacity * (0.7 + Math.random() * 0.3));
+    ctx.fillRect(x, y, w, h);
+  }
+}
+
+// Alcohol ink: blobs and blooms
+function alcoholInkBrush(ctx, from, to, { colour, size, opacity }) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const dist = Math.hypot(dx, dy);
+  const steps = Math.ceil(dist / (size * 1.5));
+  for (let i = 0; i < steps; i++) {
+    const x = from.x + (dx * i) / steps;
+    const y = from.y + (dy * i) / steps;
+    const radius = size * (0.8 + Math.random() * 0.4);
+    const grad = ctx.createRadialGradient(x, y, radius * 0.1, x, y, radius);
+    grad.addColorStop(0, applyOpacity(colour, opacity));
+    grad.addColorStop(1, applyOpacity(colour, 0));
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    // occasional random splash
+    if (Math.random() < 0.3) {
+      const splatRadius = radius * (0.4 + Math.random() * 0.3);
+      const offsetX = (Math.random() - 0.5) * radius * 2;
+      const offsetY = (Math.random() - 0.5) * radius * 2;
+      ctx.beginPath();
+      ctx.arc(x + offsetX, y + offsetY, splatRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+export {
+  applyOpacity,
+  pencilBrush,
+  inkBrush,
+  softBrush,
+  watercolourBrush,
+  crayonBrush,
+  alcoholInkBrush,
+};

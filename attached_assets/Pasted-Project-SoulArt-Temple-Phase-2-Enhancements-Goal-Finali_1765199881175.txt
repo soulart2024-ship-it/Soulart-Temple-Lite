@@ -1,0 +1,170 @@
+Project: SoulArt Temple – Phase 2 Enhancements
+
+Goal: Finalise the SoulArt Temple app so it is ready for launch in early 2025, with:
+	•	A finished and polished core experience
+	•	A working Doodle / Art Canvas module
+	•	A basic AI Companion (SoulArt Guide) using my custom logic/prompt
+	•	A clear Membership System (free vs member access)
+
+The app is already live; this spec is for extending and polishing the current build, not rebuilding from scratch.
+
+⸻
+
+1. Current State (High-Level)
+
+Use this section as context only — keep existing structure, just extend it.
+
+	•	The app is a web-based SoulArt Temple, focused on emotional healing and self-therapy, built in Replit.
+	•	Tech stack: HTML, CSS, JavaScript (no heavy frameworks required).
+	•	Existing features (do not remove, only improve/extend):
+	•	Home / Landing experience (intro to SoulArt Temple).
+	•	Emotion Decoder / Trapped Emotion Release flow.
+	•	Journal module (basic journalling).
+	•	Basic navigation between sections/pages.
+	•	Visual style: calm, spiritual, colour-coded by chakra/frequency themes (keep this aesthetic).
+
+⸻
+
+2. New Feature 1 – Doodle / Art Canvas Module
+
+2.1 Purpose
+
+Create a Doodle / Art Meditation area where users can draw freely as part of their self-therapy process. It should feel simple, calming, and accessible — not like a pro design tool.
+
+2.2 User Stories
+	•	As a user, I can open a “Doodle / Art Meditation” page from the main navigation.
+	•	I can draw freely on a canvas using my mouse or touch.
+	•	I can change brush colour and brush size.
+	•	I can clear the canvas and start again.
+	•	I can optionally download my drawing as an image (PNG/JPEG) to keep as part of my healing journey.
+	•	(If easy) As a logged-in member, I can save my doodle to local storage so it reappears next time I visit.
+
+2.3 Functional Requirements
+	•	Add a new navigation item: “Doodle / Art Meditation”.
+	•	On this page:
+	•	A full-width <canvas> element.
+	•	General controls:
+	•	Colour picker (pre-set swatches + a custom colour input).
+	•	Brush size slider.
+	•	Clear canvas button.
+	•	Download button (Download my art).
+	•	Implement drawing with:
+	•	mousedown / mousemove / mouseup (desktop).
+	•	touchstart / touchmove / touchend (mobile).
+	•	Default background: soft off-white or very light gradient, not pure white (#FAF9F6, for example).
+
+2.4 Non-Functional / UX
+	•	Keep UI minimal and calming. No clutter.
+	•	Buttons and palettes should follow the existing SoulArt style (rounded corners, soft colours).
+	•	Ensure it works on mobile and tablet.
+
+⸻
+
+3. New Feature 2 – AI Companion (SoulArt Guide)
+
+We want a very simple but powerful AI companion inside the app that:
+	•	Helps users reflect on emotions.
+	•	Suggests journal prompts.
+	•	Encourages self-therapy, not dependence.
+
+3.1 Purpose
+	•	Provide gentle, supportive reflections and prompt-based guidance, not fortune-telling or predictions.
+	•	Keep users grounded in self-sovereignty (AI is a supportive mirror, not an authority).
+
+3.2 User Stories
+	•	As a user, I can access a “SoulArt Guide (AI Companion)” from navigation or from a button on key pages (Emotion Decoder, Journal, Doodle).
+	•	I can type a short message or question (e.g. “I feel anxious today”).
+	•	The AI responds with:
+	•	Gentle reflection on what I’ve written
+	•	1–3 short journal prompts
+	•	Optional simple grounding suggestion (breath, doodle, or colour focus).
+
+3.3 Functional Requirements
+	•	Add a panel or page for the AI Companion:
+	•	Simple chat-style interface.
+	•	Input textbox + “Send” button.
+	•	Scrollable area showing conversation history.
+	•	Implement a call to an AI API endpoint (e.g. OpenAI) via fetch:
+	•	Use a single system prompt that encodes Soraya’s method (you can stub this and I will later refine the text).
+	•	Keep all logic on the backend/proxy if needed for API keys (Replit can help with that); client shouldn’t expose secrets.
+	•	The system prompt should enforce:
+	•	Trauma-aware, gentle tone.
+	•	No medical or crisis advice.
+	•	Focus on self-inquiry, not external predictions.
+	•	“You are here to help the user remember their own sovereignty, not to tell them who they are.”
+
+For now, create the UI and mock response logic. Wire up to a real AI API with environment variables for the key.
+
+3.4 UX
+	•	Keep the Guide visually distinct but integrated:
+	•	Calm colours (perhaps soft gold / blush / lavender).
+	•	A small subheading like:
+“This is a reflective companion, not a replacement for professional support or your own inner wisdom.”
+
+⸻
+
+4. New Feature 3 – Membership System
+
+We want a lightweight membership layer:
+	•	Some features free for everyone.
+	•	Some deeper tools only for members.
+	•	This doesn’t need complex billing yet (Stripe etc. can follow), but the structure must be ready.
+
+4.1 Access Levels
+	•	Guest / Free User
+	•	Can access:
+	•	Home / Intro
+	•	SoulArt Guide (with limited messages per day, e.g. 3)
+	•	Doodle / Art Meditation
+	•	Basic Journal (local only)
+	•	Emotion Decoder: maybe limited to X uses (e.g. 3 sessions).
+	•	Member (Logged In)
+	•	Unlimited access to:
+	•	Emotion Decoder / full healing flow.
+	•	Journal with saved entries.
+	•	Doodle with saved images (local).
+	•	AI Guide with higher daily message cap.
+	•	Membership flag stored in a simple user object.
+
+4.2 Functional Requirements
+	•	Add a simple auth layer:
+	•	For now: email + password login (no need for OAuth unless easy).
+	•	“Create account / Login / Logout” UI.
+	•	On login:
+	•	Store user session in local storage or simple backend session.
+	•	Gate pages:
+	•	If non-member tries to access member-only section:
+	•	Show a gentle message:
+“This area is for SoulArt Temple members. Create a free account or log in to continue.”
+	•	Add a basic User Profile area:
+	•	Show: email, membership level, simple stats (e.g. “Journal entries”, “Sessions completed”).
+	•	No heavy profile editing needed yet.
+
+You can stub the membership check and use a simple JSON store / localStorage for now. We just need the structure in place.
+
+⸻
+
+5. UX & Polish Tasks
+	•	Ensure navigation is consistent:
+	•	Clear menu items for: Home, Emotion Decoder, Journal, Doodle / Art Meditation, SoulArt Guide, Membership / Profile.
+	•	Validate that:
+	•	Each page loads cleanly (no leftover content from previous views).
+	•	Mobile views are usable (buttons, forms, canvas).
+	•	Add gentle microcopy across the app to remind users:
+	•	They are sovereign.
+	•	The app is a support tool, not a dictator.
+	•	Their inner wisdom matters more than any external voice.
+
+⸻
+
+6. Technical Notes for Dev/Agent
+	•	Please do not discard existing HTML/CSS/JS. Extend what is there.
+	•	Keep everything in a simple structure, e.g.:
+	•	index.html – main layout & navigation
+	•	styles.css – existing plus new classes for Doodle, Guide, Membership
+	•	script.js – app logic, routing, event handlers
+	•	Optional modules:
+	•	doodle.js
+	•	aiGuide.js
+	•	auth.js
+	•	All new features should be modular and commented, so I (Soraya) can understand and tweak text, colours, and flows.

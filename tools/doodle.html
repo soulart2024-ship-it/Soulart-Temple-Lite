@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e1e3f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>SoulArt Temple - Doodle Studio</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/doodle.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+</head>
+<body>
+  <!-- Sacred Arrival Overlay -->
+  <div id="arrivalOverlay" class="arrival-overlay">
+    <div class="arrival-content">
+      <p>Take a breath.<br>This space is yours.</p>
+    </div>
+  </div>
+
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+
+  <main class="page-wrapper doodle-container">
+    <div class="studio-layout-new">
+      <!-- Left Sidebar -->
+      <aside class="sidebar-panel" id="controlPanel">
+        <button class="mobile-tools-toggle" onclick="toggleMobileTools()" aria-label="Toggle tools panel">
+          <span class="toggle-arrow">▼</span>
+          <span class="toggle-text">Hide Tools</span>
+          <span class="toggle-text-collapsed">Show Tools</span>
+        </button>
+        
+        <div class="tools-content">
+        <!-- Today's Intention Card -->
+        <div class="intention-card">
+          <div class="intention-header">TODAY'S INTENTION</div>
+          <div class="intention-text" id="intentionText">Release what no longer serves you</div>
+          <select class="intention-dropdown" id="intentionSelect" onchange="changeIntention()">
+            <option value="Release what no longer serves you">Release what no longer serves you</option>
+            <option value="I am open to healing and growth">I am open to healing and growth</option>
+            <option value="My creativity flows freely">My creativity flows freely</option>
+            <option value="I trust my inner wisdom">I trust my inner wisdom</option>
+            <option value="I embrace peace and stillness">I embrace peace and stillness</option>
+            <option value="I am worthy of love and joy">I am worthy of love and joy</option>
+            <option value="I release fear and welcome courage">I release fear and welcome courage</option>
+            <option value="My heart is open to receive">My heart is open to receive</option>
+            <option value="I honour my emotions without judgment">I honour my emotions without judgment</option>
+            <option value="I am grounded and centred">I am grounded and centred</option>
+            <option value="I create from a place of love">I create from a place of love</option>
+            <option value="I allow myself to be present">I allow myself to be present</option>
+          </select>
+        </div>
+
+        <!-- Meditation Music Section -->
+        <div class="sidebar-section">
+          <div class="section-title-simple">Meditation Music</div>
+          <select id="trackSelect" class="track-dropdown">
+            <option value="">Choose Music...</option>
+            <option value="432hz">432Hz Meditation</option>
+            <option value="drums">Peaceful Morning Drums</option>
+            <option value="alpha">Alpha Music 432Hz</option>
+            <option value="calm">Calm Nature Sounds</option>
+            <option value="handpan">Handpan Soundscape</option>
+            <option value="serenity">Serenity Waves Zen</option>
+            <option value="chakras">Opening Chakras</option>
+            <option value="chakrabalance">Chakra Balance</option>
+            <option value="healing">Healing Frequency</option>
+            <option value="tibetan">Tibetan Bowls</option>
+            <option value="peaceful">Peaceful Meditation</option>
+            <option value="nature">Nature Sounds</option>
+          </select>
+          <div class="music-play-box">
+            <button id="musicToggleBtn" class="play-btn" title="Toggle meditation music">
+              <span id="playPauseLabel">Play</span>
+            </button>
+          </div>
+          <div class="volume-row" style="display: none;">
+            <input type="range" id="volumeSlider" min="0" max="100" value="50">
+          </div>
+          <div class="now-playing" id="nowPlaying" style="display: none;">
+            <span class="playing-icon">♪</span>
+            <span class="track-name" id="trackName">432Hz Meditation</span>
+          </div>
+        </div>
+
+        <!-- Drawing Modes Section -->
+        <div class="sidebar-section">
+          <div class="section-title-simple">Drawing Modes</div>
+          <div class="mode-grid">
+            <button class="mode-btn active" data-mode="free">Free Doodle</button>
+            <button class="mode-btn" data-mode="mandala">Mandala Symmetry</button>
+            <button class="mode-btn" data-mode="trace">Trace Template</button>
+            <button class="mode-btn" data-mode="colouring">Colouring Page</button>
+            <button class="mode-btn" data-mode="mirror">Mirror Flow</button>
+            <button class="mode-btn hand-tool-btn" data-mode="hand">Hand Tool</button>
+          </div>
+          
+          <div class="control-group" id="symmetryGroup" style="display: none;">
+            <label for="symmetrySelect">Mandala Segments</label>
+            <select id="symmetrySelect">
+              <option value="2">2-point (Mirror Line)</option>
+              <option value="4">4-point (Diamond)</option>
+              <option value="6">6-point (Flower)</option>
+              <option value="8" selected>8-point (Octagon)</option>
+              <option value="10">10-point (Decagon)</option>
+              <option value="12">12-point (Zodiac)</option>
+            </select>
+          </div>
+
+          <div class="control-group" id="templateGroup" style="display: none;">
+            <label for="templateSelect">Trace Template</label>
+            <select id="templateSelect">
+              <option value="">— Choose a Mandala —</option>
+              <option value="mandala1">Petals</option>
+              <option value="mandala2">Star Bloom</option>
+              <option value="mandala3">Lotus Wheel</option>
+              <option value="mandala4">Sun Halo</option>
+              <option value="mandala5">Spiral Flower</option>
+              <option value="mandala6">Sacred Web</option>
+              <option value="mandala7">Radiant Rings</option>
+              <option value="mandala8">Heart Bloom</option>
+              <option value="mandala9">Cosmic Petals</option>
+              <option value="mandala10">Temple Wheel</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Brushes Section - Collapsible -->
+        <div class="collapsible-section" data-section="brushes" id="brushesSection">
+          <button class="section-header" onclick="toggleSection('brushes')" aria-expanded="true">
+            <span class="section-icon"></span>
+            <span class="section-title">Brushes & Colours</span>
+            <span class="chevron">▼</span>
+          </button>
+          <div class="section-content" id="brushes-content">
+            <div class="control-group" id="brushTypeGroup">
+              <label>Brush Type</label>
+              <div class="brush-buttons">
+                <button class="brush-btn active" onclick="setBrush('pencil')" data-brush="pencil">Pencil</button>
+                <button class="brush-btn" onclick="setBrush('ink')" data-brush="ink">Ink</button>
+                <button class="brush-btn" onclick="setBrush('paint')" data-brush="paint">Soft Brush</button>
+                <button class="brush-btn" onclick="setBrush('water')" data-brush="water">Watercolour</button>
+                <button class="brush-btn" onclick="setBrush('crayon')" data-brush="crayon">Crayon</button>
+                <button class="brush-btn" onclick="setBrush('alcohol')" data-brush="alcohol">Alcohol Ink</button>
+                <button class="brush-btn eraser-btn" onclick="setBrush('eraser')" data-brush="eraser">Eraser</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label>Chakra Palettes</label>
+              <div class="chakra-palette-row">
+                <button class="chakra-btn" data-chakra="root">Root</button>
+                <button class="chakra-btn" data-chakra="sacral">Sacral</button>
+                <button class="chakra-btn" data-chakra="solar">Solar</button>
+                <button class="chakra-btn" data-chakra="heart">Heart</button>
+                <button class="chakra-btn" data-chakra="throat">Throat</button>
+                <button class="chakra-btn" data-chakra="thirdEye">Third Eye</button>
+                <button class="chakra-btn" data-chakra="crown">Crown</button>
+              </div>
+              <div class="chakra-swatch-row" id="chakraSwatches"></div>
+            </div>
+
+            <div class="control-group">
+              <label for="colorPicker">Brush Colour</label>
+              <div class="colour-row">
+                <input type="color" id="colorPicker" value="#C8963E">
+                <span id="colorLabel">Gold</span>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label for="brushSize">Brush Size: <span id="brushSizeValue">5</span>px</label>
+              <input type="range" id="brushSize" min="1" max="30" value="5">
+            </div>
+
+            <div class="control-group" id="opacityGroup">
+              <label for="brushOpacity">Opacity: <span id="opacityValue">100</span>%</label>
+              <input type="range" id="brushOpacity" min="10" max="100" value="100">
+            </div>
+          </div>
+        </div>
+
+        <!-- Sacred Stamps Section - Collapsible -->
+        <div class="collapsible-section" data-section="stamps">
+          <button class="section-header" onclick="toggleSection('stamps')" aria-expanded="true">
+            <span class="section-icon"></span>
+            <span class="section-title">Sacred Stamps</span>
+            <span class="chevron">▼</span>
+          </button>
+
+          <div class="section-content" id="stamps-content">
+            <div class="control-group">
+              <label for="stampSelect">Stamp Library</label>
+              <select id="stampSelect">
+                <option value="">— Choose a Stamp —</option>
+                <option value="seedOfLife">Seed of Life</option>
+                <option value="flowerOfLife">Flower of Life</option>
+                <option value="metatron">Metatron (simple)</option>
+                <option value="sriYantra">Sri Yantra (simple)</option>
+                <option value="hexagon">Hexagon</option>
+                <option value="triangle">Triangle</option>
+                <option value="heart">Heart</option>
+                <option value="leaf">Leaf</option>
+                <option value="lotus">Lotus</option>
+                <option value="catHead">Cat Head</option>
+              </select>
+
+              <div class="stamp-row">
+                <div class="stamp-field">
+                  <label for="stampSize">Stamp Size: <span id="stampSizeValue">90</span>px</label>
+                  <input type="range" id="stampSize" min="30" max="320" value="90">
+                </div>
+
+                <div class="stamp-field">
+                  <label for="stampRotation">Rotation: <span id="stampRotValue">0</span></label>
+                  <input type="range" id="stampRotation" min="0" max="360" value="0">
+                </div>
+              </div>
+
+              <div class="stamp-toggles">
+                <label class="toggle">
+                  <input type="checkbox" id="stampFillToggle">
+                  <span>Fill stamp</span>
+                </label>
+
+                <label class="toggle">
+                  <input type="checkbox" id="kaleidoscopeToggle">
+                  <span>Kaleidoscope mirror (Mandala)</span>
+                </label>
+              </div>
+
+              <p class="hint">Choose a stamp, then tap/click on the canvas to place it. In Mandala mode it repeats with symmetry.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colouring Pages Section - Collapsible (hidden by default) -->
+        <div class="collapsible-section" data-section="colouring" id="colouringSection" style="display:none;">
+          <button class="section-header" onclick="toggleSection('colouring')" aria-expanded="true">
+            <span class="section-icon"></span>
+            <span class="section-title">Choose a Design</span>
+            <span class="chevron">▼</span>
+          </button>
+
+          <div class="section-content" id="colouring-content">
+            <div class="control-group">
+              <label for="colouringSelect">Colouring Page</label>
+              <select id="colouringSelect">
+                <option value="">— Select a Colouring Page —</option>
+                <option value="lotus">Lotus Calm</option>
+                <option value="flower">Flower of Life</option>
+                <option value="heart">Sacred Heart</option>
+                <option value="mandala">Soft Mandala</option>
+                <option value="leaves">Botanical Flow</option>
+              </select>
+            </div>
+
+            <p class="hint colouring-hint">Let the colour arrive naturally. There is no right way.</p>
+          </div>
+        </div>
+
+        </div><!-- end tools-content -->
+
+      </aside>
+
+      <!-- Main Canvas Area -->
+      <section class="canvas-main">
+        <h1 class="canvas-title">Create Your Sacred Art</h1>
+        
+        <div class="canvas-action-bar">
+          <button id="undoBtn" class="action-btn" title="Undo last stroke">Undo</button>
+          <button id="clearBtn" class="action-btn" title="Clear all drawing">Clear</button>
+          <button id="downloadBtn" class="action-btn" title="Download your artwork">Download</button>
+          <button id="saveToJournalBtn" class="action-btn" title="Save to your Sacred Journal">Save to Journal</button>
+          <button class="action-btn print-doodle-btn" onclick="printMyDoodle()" title="Print on merchandise">Print my doodle</button>
+          <a href="#" onclick="showPrintHelp(); return false;" class="help-icon" title="How it works">?</a>
+        </div>
+        
+        <div class="canvas-frame">
+          <canvas id="doodleCanvas"></canvas>
+        </div>
+        
+        <div class="hidden-controls">
+          <button id="resetTemplateBtn" style="display:none;">Reset</button>
+          <button id="resetViewBtn" style="display:none;">View</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 SoulArt Temple | Walk gently in your becoming</p>
+  </footer>
+
+  <script>
+    function toggleSection(sectionName) {
+      const section = document.querySelector(`[data-section="${sectionName}"]`);
+      const content = document.getElementById(`${sectionName}-content`);
+      const header = section.querySelector('.section-header');
+      const chevron = section.querySelector('.chevron');
+      
+      const isExpanded = header.getAttribute('aria-expanded') === 'true';
+      
+      if (isExpanded) {
+        content.style.maxHeight = '0';
+        content.style.opacity = '0';
+        content.style.padding = '0';
+        header.setAttribute('aria-expanded', 'false');
+        chevron.textContent = '▶';
+      } else {
+        content.style.maxHeight = content.scrollHeight + 50 + 'px';
+        content.style.opacity = '1';
+        content.style.padding = '0.75rem 0';
+        header.setAttribute('aria-expanded', 'true');
+        chevron.textContent = '▼';
+      }
+    }
+    
+    // Mobile tools panel toggle
+    function toggleMobileTools() {
+      const panel = document.getElementById('controlPanel');
+      panel.classList.toggle('collapsed');
+    }
+    
+    // Intention system
+    function changeIntention() {
+      const select = document.getElementById('intentionSelect');
+      const text = document.getElementById('intentionText');
+      text.textContent = select.value;
+      localStorage.setItem('soulart_intention', select.value);
+    }
+    
+    function setRandomIntention() {
+      const select = document.getElementById('intentionSelect');
+      const options = select.options;
+      const randomIndex = Math.floor(Math.random() * options.length);
+      select.selectedIndex = randomIndex;
+      document.getElementById('intentionText').textContent = options[randomIndex].value;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.section-content').forEach(content => {
+        content.style.maxHeight = content.scrollHeight + 50 + 'px';
+        content.style.opacity = '1';
+        content.style.padding = '0.75rem 0';
+      });
+      
+      // On mobile, start with panel collapsed to show canvas first
+      if (window.innerWidth <= 600) {
+        const panel = document.getElementById('controlPanel');
+        panel.classList.add('collapsed');
+      }
+      
+      // Set random intention on page load (or restore from storage)
+      const savedIntention = localStorage.getItem('soulart_intention');
+      if (savedIntention) {
+        const select = document.getElementById('intentionSelect');
+        select.value = savedIntention;
+        document.getElementById('intentionText').textContent = savedIntention;
+      } else {
+        setRandomIntention();
+      }
+    });
+  </script>
+  <script type="module" src="../scripts/doodle.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('Service Worker registered'))
+          .catch(err => console.log('SW registration failed:', err));
+      });
+    }
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Skip overlay on repeat visits
+    if (sessionStorage.getItem('soulart_doodle_visited')) {
+      const overlay = document.getElementById('arrivalOverlay');
+      if (overlay) overlay.remove();
+    } else {
+      sessionStorage.setItem('soulart_doodle_visited', 'true');
+    }
+
+    // Print help modal functions
+    function showPrintHelp() {
+      document.getElementById('printHelpModal').classList.add('show');
+    }
+
+    function closePrintHelp(event) {
+      if (!event || event.target === document.getElementById('printHelpModal')) {
+        document.getElementById('printHelpModal').classList.remove('show');
+      }
+    }
+  </script>
+
+  <!-- Print Help Modal -->
+  <div class="print-help-modal" id="printHelpModal" onclick="closePrintHelp(event)">
+    <div class="print-help-content" onclick="event.stopPropagation()">
+      <button class="print-help-close" onclick="closePrintHelp()">&times;</button>
+      <h3>How to Print Your Artwork</h3>
+      <ol>
+        <li>Tap <strong>Print my doodle</strong></li>
+        <li>Save the image to your Photos or Downloads</li>
+        <li>On the Printify page, choose a product</li>
+        <li>Upload your saved artwork</li>
+        <li>Complete your order</li>
+      </ol>
+      <div class="print-help-video">
+        Video tutorial coming soon
+      </div>
+    </div>
+  </div>
+
+  <!-- Save to Journal Modal -->
+  <div id="saveJournalModal" class="journal-modal-overlay" style="display: none;">
+    <div class="journal-modal">
+      <button class="modal-close-btn" onclick="closeSaveJournalModal()">&times;</button>
+      <h2>Save to Sacred Journal</h2>
+      <p class="modal-date" id="journalDate"></p>
+      <div class="modal-form-group">
+        <label for="journalNote">Add a note (optional)</label>
+        <textarea id="journalNote" placeholder="How are you feeling? What came up during your creative meditation?"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeSaveJournalModal()">Cancel</button>
+        <button class="btn primary" id="confirmSaveJournal">Save to Journal</button>
+      </div>
+      <p class="modal-message" id="saveJournalMessage"></p>
+    </div>
+  </div>
+</body>
+</html>

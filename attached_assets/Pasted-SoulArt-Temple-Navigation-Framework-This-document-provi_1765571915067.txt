@@ -1,0 +1,93 @@
+SoulArt Temple Navigation & Framework
+
+This document provides a high‑level blueprint for structuring the SoulArt Temple web app into a cohesive sanctuary with chakra‑aligned rooms, intuitive navigation and a consistent look and feel. It’s intended as a developer‑ready guide for building the navigation scaffolding in Replit.
+
+1. Vision & Guiding Principles
+	•	Sacred yet modern: Blend ancient spirituality with clean, contemporary design. Use organic textures and sacred geometry alongside modern typography and responsive layouts.
+	•	Multi‑room sanctuary: Each chakra corresponds to a “room” containing tools and practices suited to that energy centre. Users can choose where to go based on their needs.
+	•	Seamless journey: Encourage users to flow between rooms and tools without feeling lost. Offer gentle prompts and cross‑links to maintain momentum.
+	•	Mobile‑ready: Design with responsiveness in mind so the sanctuary feels immersive on both desktop and mobile.
+
+2. Overall Site Structure
+
+/
+|-- index.html              # Landing page: Welcome Ground (Root), orientation, call to action
+|-- root.html               # Root Room
+|-- sacral.html             # Sacral Room
+|-- solar.html              # Solar Plexus Room
+|-- heart.html              # Heart Room
+|-- throat.html             # Throat Room
+|-- third_eye.html          # Third Eye Room
+|-- crown.html              # Crown Room
+|
+|-- tools/
+|    |-- emotion_decoder.html      # Emotion Release Decoder (Heart)
+|    |-- allergy_decoder.html      # Allergy Identifier (Root)
+|    |-- belief_decoder.html       # Belief Decoder (Root)
+|    |-- journal.html              # Sacred Journal (Throat)
+|    |-- doodle.html               # Sacred Doodle Canvas (Sacral)
+|    |-- frequency_snapshot.html   # Soul Frequency Snapshot (Solar/Throat)
+|    |-- body_map.html             # Energy Meridian Body Map (Heart/Third Eye)
+|    |-- mindful_play.html         # Mindful Playroom (Sacral)
+|    |-- meditation_player.html    # Meditation Player (Crown)
+|    |-- education.html            # Education Centre / Wisdom Library (Third Eye)
+|-- styles/
+|    |-- global.css                # Base styles, typography, colours
+|    |-- room.css                  # Room‑specific colour classes & textures
+|-- scripts/
+|    |-- navigation.js             # Handles active room highlighting, soundscapes, transitions
+|    |-- guide.js                  # Controls SoulArt Guide prompts across pages
+
+This file structure is a starting point; you can adjust naming to suit your current project.
+
+3. Navigation Design
+
+3.1 Chakra Map Navigation
+	•	Interactive map: The primary navigation element is a visual representation of the chakra map or a series of temple doors. Each door is colour‑coded and labelled with the chakra symbol/name.
+	•	Placement: The map can appear on the landing page (index.html) as an entryway.  Alternatively, you can implement a persistent side panel or footer navigation that displays the chakra icons.
+	•	Hover/active states: When a user hovers over or taps a chakra icon, show a brief description (“Heart Room: Love & Healing”).  Clicking navigates to the corresponding room page.
+	•	Mobile adaptation: Collapse the map into a vertical list or a carousel of chakra icons for smaller screens. Use swipe gestures to move between rooms.
+
+3.2 Header & Footer
+	•	Header: Keep it minimal—use only the logo and a “Temple Map” link that toggles the chakra navigation. On room pages, show the current room name and a subtle progress indicator if desired.
+	•	Footer: Provide secondary links such as About, Privacy Policy, Terms and a small note about the purpose of the temple. Include social media icons if relevant.
+
+3.3 Cross‑Room Links
+
+Within each room page, add gentle cues prompting users to explore neighbouring rooms:
+	•	Navigation bar: Use previous/next links at the bottom (e.g. “← Go to Sacral Room | Go to Solar Plexus Room →”) to guide users sequentially through the chakra journey.
+	•	Prompts: After completing a tool or practice, the SoulArt Guide can suggest visiting another room that complements the experience (“Feeling creative? Step into the Sacral Room to express yourself.”).
+
+4. Room Framework
+
+Each room page (e.g. root.html, sacral.html) should follow a consistent structure:
+	1.	Hero Section: A brief introduction to the room’s theme (e.g. “Welcome to the Root Room — Your Grounding Sanctuary”).  Include the chakra symbol and a short mantra.
+	2.	Core Tools & Practices: Present 2–3 primary tools relevant to the room (listed in your chakra map). Use card‑based layouts or panels with icons, titles and short descriptions.  These cards link to the tool pages in the tools/ folder.
+	3.	Support Practices: Offer quick exercises or meditations users can do immediately (breathwork, affirmations, visualisations).  Provide a “Start” button or play icon.
+	4.	SoulArt Guide Prompt: A small avatar or floating light appears with personalised messages and suggestions.  Keep interactions optional and non‑intrusive.
+	5.	Navigation Links: At the bottom, include previous/next room links and a button to return to the Temple Map.
+
+5. Look & Feel Guidelines
+	•	Colour scheme: Use chakra colours as dominant accents within each room. Keep backgrounds neutral and soft to maintain cohesion.  Use dark blue/navy for headers and footers to ground the palette.
+	•	Typography: Choose a legible serif for headings (e.g. Playfair Display, Garamond) and a clean sans‑serif for body text (e.g. Lato, Open Sans). Apply slight letter spacing for elegance.
+	•	Textures & imagery: Incorporate subtle, semi‑transparent mandala patterns or sacred geometry elements in the backgrounds.  Use gentle gradients and soft shadows for depth.
+	•	Animation & sound: Implement smooth fades, subtle pulses and glows on interactive elements. Add optional ambient soundscapes (e.g. chakra tones, water, wind) that users can toggle on/off.
+	•	Responsiveness: Ensure the grid of room cards collapses gracefully on small screens.  Use CSS media queries to adjust font sizes, padding and element placement for mobile devices.
+
+6. Implementation Steps
+	1.	Set up file structure in Replit according to the suggested hierarchy.
+	2.	Build the landing page (index.html) with an introduction to the sanctuary and the interactive chakra map navigation.
+	3.	Create the common styles in global.css and define chakra colour classes in room.css.
+	4.	Develop the template for room pages, starting with the Root Room.  Use placeholders for tools and support practices; integrate the actual content as features are built.
+	5.	Implement navigation.js to handle active states for chakra icons, toggle the Temple Map, and manage subtle transitions between pages.
+	6.	Create guide.js to provide context‑aware prompts from the SoulArt Guide across pages.  It can check the current page and user interactions to generate suggestions.
+	7.	Iterate room by room: Once the Root Room template is finalised, replicate it for the Sacral, Solar, Heart, Throat, Third Eye and Crown rooms.  Adjust the colour classes and feature listings accordingly.
+	8.	Integrate tools by linking each card in a room to its corresponding page in the tools/ directory.  Implement those tool pages as separate modules with their own functionality.
+	9.	Test on mobile and desktop to ensure navigation and layouts work seamlessly.  Gather feedback and refine transitions, animations and prompts.
+
+7. Launch Planning
+	•	Prioritise building the core room pages (Root, Sacral, Heart) and integrating the most important tools (Emotion Decoder, Journal, Doodle Canvas) first.  Add additional rooms and tools incrementally.
+	•	Set a milestone schedule: e.g. December: finalise navigation and Root Room; January: build the remaining rooms and refine the look/feel; prepare for launch.
+	•	Leave room for future enhancements (e.g. additional games, AI features, new decoders) but focus on delivering a cohesive minimum viable sanctuary by launch.
+
+By following this navigation and framework guide, you’ll provide users with an intuitive, immersive way to explore the SoulArt Temple and engage with its healing tools. The chakra‑aligned map not only reinforces the spiritual theme but also organizes content in a meaningful progression, making the app both inviting and easy to navigate.

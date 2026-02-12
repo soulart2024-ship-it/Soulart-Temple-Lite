@@ -1,0 +1,164 @@
+SoulArt Chakra Colour Palettes — One-Tap System
+
+Design Principles (Aligned with Your Vision)
+	•	One tap = instant palette
+	•	No overwhelm, no popups
+	•	Soft, sacred, intuitive
+	•	Works with:
+	•	Free Doodle
+	•	Mandala
+	•	Trace
+	•	Colouring Pages
+	•	Mobile-first friendly
+	•	No emojis
+
+1️⃣ Chakra Palette Definitions (JS)
+
+Add this once near the top of your doodle.js file:
+const CHAKRA_PALETTES = {
+  root: {
+    name: 'Root',
+    colours: ['#7A1F1F', '#A94442', '#C96A6A', '#E8B4B4', '#4A1C1C']
+  },
+  sacral: {
+    name: 'Sacral',
+    colours: ['#D35400', '#E67E22', '#F39C12', '#FAD7A0', '#A04000']
+  },
+  solar: {
+    name: 'Solar Plexus',
+    colours: ['#F1C40F', '#F7DC6F', '#FCF3CF', '#D4AC0D', '#9A7D0A']
+  },
+  heart: {
+    name: 'Heart',
+    colours: ['#2ECC71', '#58D68D', '#A9DFBF', '#1D8348', '#145A32']
+  },
+  throat: {
+    name: 'Throat',
+    colours: ['#3498DB', '#5DADE2', '#AED6F1', '#21618C', '#154360']
+  },
+  thirdEye: {
+    name: 'Third Eye',
+    colours: ['#5B2C6F', '#76448A', '#BB8FCE', '#4A235A', '#2E1A47']
+  },
+  crown: {
+    name: 'Crown',
+    colours: ['#F4ECF7', '#E8DAEF', '#D2B4DE', '#A569BD', '#7D3C98']
+  }
+};
+
+2️⃣ Chakra Palette UI (HTML)
+
+Place this inside your Brushes & Colours section, just above the colour picker:
+
+Html
+
+<div class="control-group">
+  <label>Chakra Palettes</label>
+  <div class="chakra-palette-row">
+    <button class="chakra-btn" data-chakra="root">Root</button>
+    <button class="chakra-btn" data-chakra="sacral">Sacral</button>
+    <button class="chakra-btn" data-chakra="solar">Solar</button>
+    <button class="chakra-btn" data-chakra="heart">Heart</button>
+    <button class="chakra-btn" data-chakra="throat">Throat</button>
+    <button class="chakra-btn" data-chakra="thirdEye">Third Eye</button>
+    <button class="chakra-btn" data-chakra="crown">Crown</button>
+  </div>
+</div>
+
+<div class="chakra-swatch-row" id="chakraSwatches"></div>
+
+3️⃣ Chakra Interaction Logic (JS)
+
+Add this below your existing colour picker logic:
+
+Js:
+const chakraButtons = document.querySelectorAll('.chakra-btn');
+const chakraSwatches = document.getElementById('chakraSwatches');
+
+chakraButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    chakraButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const chakraKey = btn.dataset.chakra;
+    const palette = CHAKRA_PALETTES[chakraKey];
+
+    chakraSwatches.innerHTML = '';
+
+    palette.colours.forEach(colour => {
+      const swatch = document.createElement('button');
+      swatch.className = 'chakra-swatch';
+      swatch.style.backgroundColor = colour;
+      swatch.setAttribute('aria-label', `${palette.name} colour`);
+
+      swatch.addEventListener('click', () => {
+        brushColor = colour;
+        colorPicker.value = colour;
+        colorLabel.textContent = palette.name;
+      });
+
+      chakraSwatches.appendChild(swatch);
+    });
+  });
+});
+
+4️⃣ Styling (CSS)
+
+Add this to your doodle.css:
+
+.chakra-palette-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.chakra-btn {
+  flex: 1 1 30%;
+  padding: 6px 8px;
+  background: #f5f1e8;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: #3d4449;
+  transition: all 0.2s ease;
+}
+
+.chakra-btn.active {
+  background: linear-gradient(135deg, #C8963E, #e0b050);
+  color: #fff;
+  border-color: #C8963E;
+}
+
+.chakra-swatch-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+
+.chakra-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.chakra-swatch:hover {
+  transform: scale(1.1);
+}
+
+Mobile automatically stacks beautifully with your existing media queries.
+
+5️⃣ UX Behaviour (Exactly as Desired)
+	•	Tap Heart
+	•	5 Heart colours appear
+	•	Tap a colour → brush updates instantly
+	•	Colour picker stays available for custom work
+	•	No modals
+	•	No interruption
+	•	No learning curve
+
+This feels intuitive, ceremonial, and calming.

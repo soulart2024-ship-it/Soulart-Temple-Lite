@@ -1,0 +1,45 @@
+4. Add this button to Drawing Modes section (HTML)                                                                       <button class="mode-btn" data-mode="mirror">
+  Mirror Flow
+  <span class="mode-tooltip">
+    Reflects strokes horizontally and vertically like a kaleidoscope
+  </span>
+</button>                                                                   5. Add this to your JS state                                  let mirrorMode = false;                                          6. Modify your mode switch logic                       if (currentMode === 'mirror') {
+  mirrorMode = true;
+  symmetryGroup.style.display = 'none';
+  templateGroup.style.display = 'none';
+} else {
+  mirrorMode = false;
+}                                                                                    7. Add this helper function (JS)                          function drawMirrorLine(x1, y1, x2, y2) {
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+
+  const points = [
+    [x1, y1, x2, y2],                             // original
+    [canvas.width - x1, y1, canvas.width - x2, y2], // horizontal
+    [x1, canvas.height - y1, x2, canvas.height - y2], // vertical
+    [canvas.width - x1, canvas.height - y1, canvas.width - x2, canvas.height - y2] // both
+  ];
+
+  ctx.globalAlpha = brushOpacity;
+
+  points.forEach(p => {
+    ctx.beginPath();
+    ctx.moveTo(p[0], p[1]);
+    ctx.lineTo(p[2], p[3]);
+    ctx.strokeStyle = brushColor;
+    ctx.lineWidth = brushSize;
+    ctx.stroke();
+  });
+
+  ctx.globalAlpha = 1;
+}                                                                                     
+ 8. Hook it into your draw() function                
+ Replace this section:                                             if (currentMode === 'mandala' && currentBrush !== 'eraser') {
+  drawMirroredLine(lastX, lastY, pos.x, pos.y);
+}                                                                                    With:                                                                           if (currentMode === 'mandala' && currentBrush !== 'eraser') {
+  drawMirroredLine(lastX, lastY, pos.x, pos.y);
+}
+
+if (currentMode === 'mirror' && currentBrush !== 'eraser') {
+  drawMirrorLine(lastX, lastY, pos.x, pos.y);
+}

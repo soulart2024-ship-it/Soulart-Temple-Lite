@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Soraya — SoulArt Temple</title>
+  <meta name="description" content="Meet Soraya, the soul behind SoulArt Temple. Learn about my journey to healing and why I created this sanctuary for emotional freedom.">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/landing.css">
+  <link rel="stylesheet" href="styles/legal.css">
+</head>
+<body>
+  <header class="branding-header">
+    <a href="home.html"><img src="SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="tools/education-centre.html">Education Centre</a>
+    <a href="tools/decoder.html">Quick Release</a>
+    <a href="tools/journal.html">Journal</a>
+    <a href="tools/doodle.html">Art Meditation</a>
+    <a href="tools/guide.html">SoulArt Guide</a>
+    <a href="profile.html">Members</a>
+    <a href="#" class="logout-link" id="nav-logout" style="display: none;" onclick="logoutUser(); return false;">Log Out</a>
+  </nav>
+  <script>
+    fetch('/api/auth/check').then(r => r.json()).then(data => {
+      if (data.authenticated) {
+        const logout = document.getElementById('nav-logout');
+        if (logout) logout.style.display = 'inline-block';
+      }
+    }).catch(() => {});
+    async function logoutUser() {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/home.html';
+    }
+  </script>
+
+  <main class="landing-wrapper">
+    <section class="about-page-hero">
+      <div class="about-photo-container">
+        <img src="soraya-photo.jpg" alt="Photo of Soraya" class="about-soraya-photo" loading="lazy">
+      </div>
+      <h1>Meet Soraya</h1>
+      <p class="about-tagline">Spiritual Kinesiologist & Vibration Artist</p>
+    </section>
+
+    <section class="about-section" aria-labelledby="about-heading">
+      <div class="about-container">
+        <div class="founder-story">
+          <h3>My Journey to Healing</h3>
+          <p>For years, I carried emotions I couldn't name — a heaviness that showed up in my body, my relationships, and my creative blocks. Traditional approaches helped, but something was missing. When I discovered Kinesiology and the concept of trapped emotions, everything changed.</p>
+          <p>I trained as a Spiritual Kinesiologist and found my calling: helping others release what no longer serves them. Along the way, I discovered that art became a powerful companion to this work — a way to express the inexpressible and anchor new frequencies into being.</p>
+          
+          <h3>Why I Created SoulArt Temple</h3>
+          <p>I believe healing should be accessible, gentle, and deeply personal. SoulArt Temple was born from my desire to share these transformative tools with anyone seeking emotional freedom. Whether you're processing grief, releasing inherited patterns, or simply wanting to feel more like yourself — you belong here.</p>
+          <p>My work is rooted in compassion, intention, and transformation. I hold space for your journey without judgment, knowing that your inner wisdom is your greatest guide.</p>
+          
+          <h3>My Approach</h3>
+          <p>Every session and tool I create is infused with the understanding that you already hold the answers within you. My role is simply to help you access them. Through muscle testing, affirmations, and creative expression, we work together to identify and release the emotional blocks that keep you from living fully.</p>
+          <p>I combine ancient wisdom with practical techniques, creating a bridge between the spiritual and the everyday. Whether you're working with me directly or using the digital tools here, you'll find the same gentle, trauma-aware approach that honors your unique journey.</p>
+          
+          <p class="founder-signature">With love and blessings,<br><span class="signature-name">Soraya</span></p>
+        </div>
+        
+        <div class="about-cta-section">
+          <a href="home.html#booking" class="btn-primary btn-large">Book a Session with Me</a>
+          <a href="tools/decoder.html" class="btn-secondary">Try the Quick Release Tool</a>
+        </div>
+      </div>
+    </section>
+    
+    <section class="ethics-section" style="padding: 60px 20px; background: rgba(0,0,0,0.2);">
+      <div class="about-container">
+        <h2 style="color: #C8963E; font-family: Georgia, serif; text-align: center; margin-bottom: 30px;">Energetic Ethics & Privacy</h2>
+        <div class="ethics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div class="ethics-card" style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; border-left: 3px solid #4CAF50;">
+            <p style="color: #ccc; line-height: 1.7;">Your healing journey is sacred and private. We never share your personal data or session information.</p>
+          </div>
+          <div class="ethics-card" style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; border-left: 3px solid #4CAF50;">
+            <p style="color: #ccc; line-height: 1.7;">This work is intended for personal exploration and spiritual growth. It is not a substitute for medical or psychological treatment.</p>
+          </div>
+          <div class="ethics-card" style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; border-left: 3px solid #4CAF50;">
+            <p style="color: #ccc; line-height: 1.7;">We honour your autonomy. You are always in control of your healing process and can pause or stop at any time.</p>
+          </div>
+          <div class="ethics-card" style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; border-left: 3px solid #4CAF50;">
+            <p style="color: #ccc; line-height: 1.7;">All guidance offered is with love and without judgment. There is no right or wrong way to heal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="faq-section" style="padding: 60px 20px;">
+      <div class="about-container">
+        <h2 style="color: #C8963E; font-family: Georgia, serif; text-align: center; margin-bottom: 30px;">FAQ for Spiritual Newcomers</h2>
+        
+        <div class="faq-list" style="max-width: 700px; margin: 0 auto;">
+          <div class="faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding: 25px 0;">
+            <h4 style="color: #C8963E; margin-bottom: 10px;">What are Stored Shadow Emotions?</h4>
+            <p style="color: #aaa; line-height: 1.7;">These are emotions that have become stuck in our energy field — from our own experiences, inherited from ancestors, or absorbed from others. They can influence our thoughts, behaviours, and physical wellbeing without us realising.</p>
+          </div>
+          
+          <div class="faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding: 25px 0;">
+            <h4 style="color: #C8963E; margin-bottom: 10px;">What is muscle testing (Kinesiology)?</h4>
+            <p style="color: #aaa; line-height: 1.7;">Muscle testing is a gentle technique that uses the body's subtle responses to identify what is true for you at a subconscious level. It helps us communicate with the body's wisdom to find stored emotions and beliefs.</p>
+          </div>
+          
+          <div class="faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding: 25px 0;">
+            <h4 style="color: #C8963E; margin-bottom: 10px;">Do I need any experience to use SoulArt Temple?</h4>
+            <p style="color: #aaa; line-height: 1.7;">Not at all. Our Discovery Portal and Education Centre will guide you through everything you need to know. The tools are designed to be gentle, intuitive, and accessible to everyone.</p>
+          </div>
+          
+          <div class="faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding: 25px 0;">
+            <h4 style="color: #C8963E; margin-bottom: 10px;">Is this a replacement for therapy?</h4>
+            <p style="color: #aaa; line-height: 1.7;">No. SoulArt Temple is a complementary tool for personal exploration and spiritual growth. If you are experiencing mental health challenges, please seek support from a qualified professional.</p>
+          </div>
+          
+          <div class="faq-item" style="padding: 25px 0;">
+            <h4 style="color: #C8963E; margin-bottom: 10px;">How often should I use the tools?</h4>
+            <p style="color: #aaa; line-height: 1.7;">Listen to your body. Some people use the Quick Release daily, others weekly. There is no right frequency — only what feels aligned for you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="SoulArt Brand full.png" alt="SoulArt Temple" class="footer-logo">
+        <p>A sanctuary for emotional healing and creative expression.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-nav-group">
+          <h4>Explore</h4>
+          <a href="home.html">Home</a>
+          <a href="tools/education-centre.html">Education Centre</a>
+          <a href="tools/decoder.html">Quick Release</a>
+          <a href="tools/journal.html">Sacred Journal</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Create</h4>
+          <a href="tools/doodle.html">Art Meditation</a>
+          <a href="tools/guide.html">SoulArt Guide</a>
+          <a href="profile.html">Your Profile</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Connect</h4>
+          <a href="home.html#booking">Book a Session</a>
+          <a href="contact.html">Contact</a>
+          <a href="about.html">About</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal-links">
+        <a href="medical-disclaimer.html">Medical Disclaimer</a>
+        <span class="divider">|</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span class="divider">|</span>
+        <a href="terms-of-use.html">Terms of Use</a>
+        <span class="divider">|</span>
+        <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+      </div>
+      <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

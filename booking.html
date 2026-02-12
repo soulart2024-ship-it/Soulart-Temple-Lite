@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Session - SoulArt Temple</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/landing.css">
+  <link rel="stylesheet" href="styles/legal.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0818 0%, #1a1235 50%, #0f0b24 100%);
+      min-height: 100vh;
+    }
+    
+    .booking-page-header {
+      background: rgba(10, 8, 24, 0.95);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(200, 150, 62, 0.2);
+    }
+    
+    .booking-page-header .logo {
+      height: 50px;
+    }
+    
+    .booking-page-header nav a {
+      color: #f4e4bc;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+    
+    .booking-page-header nav a:hover {
+      color: #C8963E;
+    }
+    
+    .booking-page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    .booking-hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .booking-hero h1 {
+      font-family: Georgia, serif;
+      font-size: 2.5rem;
+      color: #C8963E;
+      margin-bottom: 1rem;
+    }
+    
+    .booking-hero p {
+      color: #ccc;
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    .session-offerings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .session-card {
+      background: linear-gradient(135deg, rgba(200, 150, 62, 0.1) 0%, rgba(200, 150, 62, 0.03) 100%);
+      border: 1px solid rgba(200, 150, 62, 0.25);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .session-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(200, 150, 62, 0.5);
+      box-shadow: 0 10px 30px rgba(200, 150, 62, 0.15);
+    }
+    
+    .session-card.featured {
+      border-color: rgba(200, 150, 62, 0.5);
+      background: linear-gradient(135deg, rgba(200, 150, 62, 0.15) 0%, rgba(200, 150, 62, 0.05) 100%);
+    }
+    
+    .session-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .session-card h3 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .session-card .duration {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .session-card .price {
+      color: #f4e4bc;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .session-card p {
+      color: #aaa;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+    
+    .session-card .badge {
+      display: inline-block;
+      background: rgba(200, 150, 62, 0.2);
+      color: #C8963E;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .booking-form-section {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(200, 150, 62, 0.2);
+      border-radius: 20px;
+      padding: 3rem;
+    }
+    
+    .booking-form-section h2 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .booking-form {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .form-group label {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(200, 150, 62, 0.3);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      color: #f4e4bc;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #C8963E;
+    }
+    
+    .form-group select {
+      cursor: pointer;
+    }
+    
+    .form-group select option {
+      background: #1a1235;
+      color: #f4e4bc;
+    }
+    
+    .submit-btn {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 2rem auto 0;
+      background: linear-gradient(135deg, #C8963E, #a67b2e);
+      color: #0a0818;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(200, 150, 62, 0.3);
+    }
+    
+    .form-success {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .form-success .success-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(100, 200, 100, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      color: #64c864;
+      font-size: 2rem;
+    }
+    
+    .form-success h3 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      margin-bottom: 1rem;
+    }
+    
+    .form-success p {
+      color: #aaa;
+      line-height: 1.7;
+    }
+    
+    .form-error {
+      background: rgba(200, 100, 100, 0.1);
+      border: 1px solid rgba(200, 100, 100, 0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      color: #e88;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .booking-page-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      
+      .booking-page-header nav a {
+        margin: 0 0.8rem;
+        font-size: 0.85rem;
+      }
+      
+      .booking-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .booking-form-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="booking-page-header">
+    <a href="home.html">
+      <img src="SoulArt Brand full.png" alt="SoulArt Temple" class="logo">
+    </a>
+    <nav>
+      <a href="home.html">Welcome</a>
+      <a href="about.html">About</a>
+      <a href="tools/education-centre.html">Education</a>
+      <a href="login.html">Sign In</a>
+    </nav>
+  </header>
+  
+  <main class="booking-page-wrapper">
+    <section class="booking-hero">
+      <h1>Work With Soraya</h1>
+      <p>Receive personalised, gentle support wherever you are in your healing journey. Book a one-on-one session to explore your unique path to emotional freedom.</p>
+    </section>
+    
+    <section class="session-offerings">
+      <div class="session-card featured">
+        <span class="badge">Most Popular</span>
+        <div class="icon">&#9825;</div>
+        <h3>Discovery Session</h3>
+        <div class="duration">30 minutes</div>
+        <div class="price">Free</div>
+        <p>A gentle introduction to explore how we might work together. Ask questions, share your story, and discover if this path feels right for you.</p>
+      </div>
+      
+      <div class="session-card">
+        <div class="icon">&#10024;</div>
+        <h3>Emotional Release Session</h3>
+        <div class="duration">60 minutes</div>
+        <div class="price">Contact for pricing</div>
+        <p>Deep dive into identifying and releasing Stored Shadow Emotions using muscle testing, affirmations, and guided energy work.</p>
+      </div>
+      
+      <div class="session-card">
+        <div class="icon">&#9733;</div>
+        <h3>Soul Journey Package</h3>
+        <div class="duration">3 sessions</div>
+        <div class="price">Contact for pricing</div>
+        <p>A transformative series for comprehensive emotional clearing, ongoing support, and lasting transformation.</p>
+      </div>
+    </section>
+    
+    <section class="booking-form-section">
+      <h2>Request a Session</h2>
+      
+      <form id="booking-form" class="booking-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-name">Your Name *</label>
+            <input type="text" id="booking-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="booking-email">Email *</label>
+            <input type="email" id="booking-email" name="email" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-phone">Phone (optional)</label>
+            <input type="tel" id="booking-phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="booking-session">Session Type *</label>
+            <select id="booking-session" name="session_type" required>
+              <option value="">Choose a session...</option>
+              <option value="discovery">Discovery Session (30 min, Free)</option>
+              <option value="emotional-release">Emotional Release Session (60 min)</option>
+              <option value="soul-journey">Soul Journey Package (3 sessions)</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-day">Preferred Day</label>
+            <select id="booking-day" name="preferred_day">
+              <option value="">No preference</option>
+              <option value="monday">Monday</option>
+              <option value="tuesday">Tuesday</option>
+              <option value="wednesday">Wednesday</option>
+              <option value="thursday">Thursday</option>
+              <option value="friday">Friday</option>
+              <option value="saturday">Saturday</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="booking-time">Preferred Time</label>
+            <select id="booking-time" name="preferred_time">
+              <option value="">No preference</option>
+              <option value="morning">Morning (9am - 12pm)</option>
+              <option value="afternoon">Afternoon (12pm - 5pm)</option>
+              <option value="evening">Evening (5pm - 8pm)</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group full-width">
+          <label for="booking-message">Tell me about yourself (optional)</label>
+          <textarea id="booking-message" name="message" rows="4" placeholder="Share what's drawing you to this work, or any questions you have..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Request Booking</button>
+      </form>
+      
+      <div id="booking-success" class="form-success" style="display: none;">
+        <div class="success-icon">&#10003;</div>
+        <h3>Thank You — Your Request Has Been Received!</h3>
+        <p>I'm so glad you've taken this step on your healing journey. I'll review your request and be in touch within 24-48 hours to confirm your session.</p>
+        <p style="margin-top: 1rem;">In the meantime, feel free to explore the <a href="tools/discovery.html" style="color: #C8963E;">Discovery Portal</a> to begin your transformation.</p>
+      </div>
+      
+      <div id="booking-error" class="form-error" style="display: none;"></div>
+    </section>
+  </main>
+  
+  <script>
+    document.getElementById('booking-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const successEl = document.getElementById('booking-success');
+      const errorEl = document.getElementById('booking-error');
+      
+      const formData = {
+        name: document.getElementById('booking-name').value,
+        email: document.getElementById('booking-email').value,
+        phone: document.getElementById('booking-phone').value,
+        session_type: document.getElementById('booking-session').value,
+        preferred_day: document.getElementById('booking-day').value,
+        preferred_time: document.getElementById('booking-time').value,
+        message: document.getElementById('booking-message').value
+      };
+      
+      try {
+        const response = await fetch('/api/booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+          form.style.display = 'none';
+          successEl.style.display = 'block';
+          errorEl.style.display = 'none';
+        } else {
+          const data = await response.json();
+          errorEl.textContent = data.error || 'Something went wrong. Please try again.';
+          errorEl.style.display = 'block';
+        }
+      } catch (err) {
+        errorEl.textContent = 'Connection error. Please try again.';
+        errorEl.style.display = 'block';
+      }
+    });
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

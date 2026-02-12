@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulArt Temple - Members</title>
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/profile.css">
+  <link rel="stylesheet" href="styles/legal.css">
+</head>
+<body>
+  <header class="branding-header">
+    <a href="home.html"><img src="SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="temple.html">Temple Rooms</a>
+    <a href="tools/education-centre.html">Education Centre</a>
+    <a href="tools/decoder.html">Quick Release</a>
+    <a href="tools/journal.html">Journal</a>
+    <a href="tools/doodle.html">Art Meditation</a>
+    <a href="tools/guide.html">SoulArt Guide</a>
+    <a href="profile.html" class="active">Members</a>
+    <a href="#" class="logout-link" id="nav-logout" style="display: none;" onclick="logoutUser(); return false;">Log Out</a>
+  </nav>
+  <script>
+    fetch('/api/auth/check').then(r => r.json()).then(data => {
+      if (data.authenticated) {
+        const logout = document.getElementById('nav-logout');
+        if (logout) logout.style.display = 'inline-block';
+      }
+    }).catch(() => {});
+    async function logoutUser() {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/home.html';
+    }
+  </script>
+
+  <main class="page-wrapper profile-container">
+    <section class="profile-hero">
+      <h1>Your Sacred Space</h1>
+      <p class="profile-subtitle">Welcome to your personal sanctuary within SoulArt Temple</p>
+    </section>
+
+    <div id="auth-section">
+      <div id="logged-out-view" style="display: none;">
+        <section class="membership-tiers-section">
+          <h3>Choose Your Membership</h3>
+          <p>Unlock deeper access to SoulArt Temple and elevate your healing journey.</p>
+          
+          <div class="membership-tiers-grid">
+            <div class="tier-card tier-free">
+              <h4>Free Member</h4>
+              <p class="tier-price">Free</p>
+              <ul class="tier-features">
+                <li>Education Centre</li>
+                <li>Sacred Journal</li>
+                <li>Art Meditation</li>
+                <li>3 Quick Release sessions (total)</li>
+              </ul>
+              <a href="/register.html" class="tier-btn">Sign Up Free</a>
+            </div>
+            
+            <div class="tier-card tier-essential">
+              <h4>Essential</h4>
+              <p class="tier-price">&pound;4.99<span>/month</span></p>
+              <ul class="tier-features">
+                <li>Everything in Free</li>
+                <li>Unlimited Quick Release Decoder</li>
+                <li>Priority support</li>
+              </ul>
+              <a href="/register.html" class="tier-btn">Get Started</a>
+            </div>
+            
+            <div class="tier-card tier-premium featured">
+              <div class="featured-label">Most Popular</div>
+              <h4>Premium</h4>
+              <p class="tier-price">&pound;6.99<span>/month</span></p>
+              <ul class="tier-features">
+                <li>Everything in Essential</li>
+                <li>SoulArt AI Guide</li>
+                <li>Exclusive content</li>
+              </ul>
+              <a href="/register.html" class="tier-btn tier-btn-primary">Get Started</a>
+            </div>
+          </div>
+          
+          <p class="tier-note">Multi-month discounts available: 3 months (&pound;13.75), 6 months (&pound;25), 12 months (&pound;47.99)</p>
+          
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="/login.html" class="auth-btn login-btn">Sign In</a>
+          </div>
+        </section>
+      </div>
+
+      <div id="logged-in-view" style="display: none;">
+        <section class="profile-card">
+          <div class="profile-header">
+            <div class="profile-image-wrapper">
+              <img id="profile-image" src="" alt="Profile" class="profile-image">
+              <label for="profile-upload" class="profile-upload-btn" title="Change profile picture">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </label>
+              <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+            </div>
+            <div class="profile-info">
+              <h2 id="profile-name">Loading...</h2>
+              <p id="profile-email" class="profile-email">...</p>
+              <span id="membership-badge" class="membership-badge">Free Member</span>
+            </div>
+          </div>
+          
+          <div class="dashboard-cta">
+            <a href="members-dashboard.html" class="dashboard-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              Go to Dashboard
+            </a>
+          </div>
+          
+          <div class="profile-stats">
+            <div class="stat-card clickable" id="journal-entries-card" onclick="toggleJournalEntries()">
+              <span class="stat-value" id="journal-count">0</span>
+              <span class="stat-label">Journal Entries</span>
+              <span class="view-entries-hint">Click to view</span>
+            </div>
+            <div class="stat-card clickable" id="oracle-readings-card" onclick="toggleOracleReadings()">
+              <span class="stat-value" id="oracle-count">0</span>
+              <span class="stat-label">Oracle Readings</span>
+              <span class="view-entries-hint">Click to view</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="member-since">-</span>
+              <span class="stat-label">Member Since</span>
+            </div>
+          </div>
+        </section>
+        
+        <section class="journal-entries-section" id="journal-entries-section" style="display: none;">
+          <div class="journal-entries-header">
+            <h3>Your Journal Entries</h3>
+            <button class="close-entries-btn" onclick="toggleJournalEntries()">Close</button>
+          </div>
+          <div id="profile-journal-entries" class="profile-journal-entries">
+            <p class="loading-entries">Loading your entries...</p>
+          </div>
+        </section>
+
+        <section class="oracle-readings-section" id="oracle-readings-section" style="display: none;">
+          <div class="journal-entries-header">
+            <h3>Your Oracle Readings</h3>
+            <button class="close-entries-btn" onclick="toggleOracleReadings()">Close</button>
+          </div>
+          <div id="profile-oracle-readings" class="profile-oracle-readings">
+            <p class="loading-entries">Loading your readings...</p>
+          </div>
+        </section>
+
+        <section class="membership-tiers-section" id="upgrade-section">
+          <h3>Choose Your Membership</h3>
+          <p>Unlock deeper access to SoulArt Temple and elevate your healing journey.</p>
+          
+          <div class="membership-tiers-grid">
+            <div class="tier-card tier-free">
+              <h4>Free Member</h4>
+              <p class="tier-price">Free</p>
+              <ul class="tier-features">
+                <li>Education Centre</li>
+                <li>Sacred Journal</li>
+                <li>Art Meditation</li>
+                <li>3 Quick Release sessions (total)</li>
+              </ul>
+              <span class="current-tier-badge" id="free-badge" style="display: none;">Current Plan</span>
+            </div>
+            
+            <div class="tier-card tier-essential">
+              <h4>Essential</h4>
+              <p class="tier-price">&pound;4.99<span>/month</span></p>
+              <ul class="tier-features">
+                <li>Everything in Free</li>
+                <li>Unlimited Quick Release Decoder</li>
+                <li>Priority support</li>
+              </ul>
+              <a href="membership.html" class="tier-btn" id="essential-btn">Upgrade</a>
+              <span class="current-tier-badge" id="essential-badge" style="display: none;">Current Plan</span>
+            </div>
+            
+            <div class="tier-card tier-premium featured">
+              <div class="featured-label">Most Popular</div>
+              <h4>Premium</h4>
+              <p class="tier-price">&pound;6.99<span>/month</span></p>
+              <ul class="tier-features">
+                <li>Everything in Essential</li>
+                <li>SoulArt AI Guide</li>
+                <li>Exclusive content</li>
+              </ul>
+              <a href="membership.html" class="tier-btn tier-btn-primary" id="premium-btn">Upgrade</a>
+              <span class="current-tier-badge" id="premium-badge" style="display: none;">Current Plan</span>
+            </div>
+          </div>
+          
+          <p class="tier-note">Multi-month discounts available: 3 months (&pound;13.75), 6 months (&pound;25), 12 months (&pound;47.99)</p>
+        </section>
+
+        <section class="actions-card">
+          <a href="#" class="auth-btn logout-btn" onclick="logoutUser(); return false;">Sign Out</a>
+        </section>
+      </div>
+    </div>
+
+    <section class="sovereignty-reminder">
+      <p>Remember: You are sovereign. Your healing journey is uniquely yours, and every step you take is meaningful.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+
+  <script src="scripts/profile.js"></script>
+</body>
+</html>

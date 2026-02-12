@@ -1,0 +1,116 @@
+:root {
+  --chakra-root: #8B0000;
+  --chakra-root-light: #DC143C;
+  --chakra-root-glow: rgba(139, 0, 0, 0.4);
+  --chakra-root-gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+  --chakra-root-bg: rgba(139, 0, 0, 0.08);
+  
+  --chakra-sacral: #FF6B00;
+  --chakra-sacral-light: #FF8C42;
+  --chakra-sacral-glow: rgba(255, 107, 0, 0.4);
+  --chakra-sacral-gradient: linear-gradient(135deg, #FF6B00 0%, #FF8C42 100%);
+  --chakra-sacral-bg: rgba(255, 107, 0, 0.08);
+  
+  --chakra-solar: #FFD700;
+  --chakra-solar-light: #FFEC8B;
+  --chakra-solar-glow: rgba(255, 215, 0, 0.4);
+  --chakra-solar-gradient: linear-gradient(135deg, #D4A017 0%, #FFD700 100%);
+  --chakra-solar-bg: rgba(255, 215, 0, 0.08);
+  
+  --chakra-heart: #228B22;
+  --chakra-heart-light: #3CB371;
+  --chakra-heart-glow: rgba(34, 139, 34, 0.4);
+  --chakra-heart-gradient: linear-gradient(135deg, #228B22 0%, #3CB371 100%);
+  --chakra-heart-bg: rgba(34, 139, 34, 0.08);
+  
+  --chakra-throat: #4169E1;
+  --chakra-throat-light: #6495ED;
+  --chakra-throat-glow: rgba(65, 105, 225, 0.4);
+  --chakra-throat-gradient: linear-gradient(135deg, #4169E1 0%, #6495ED 100%);
+  --chakra-throat-bg: rgba(65, 105, 225, 0.08);
+  
+  --chakra-third-eye: #6A0DAD;
+  --chakra-third-eye-light: #9370DB;
+  --chakra-third-eye-glow: rgba(106, 13, 173, 0.4);
+  --chakra-third-eye-gradient: linear-gradient(135deg, #6A0DAD 0%, #9370DB 100%);
+  --chakra-third-eye-bg: rgba(106, 13, 173, 0.08);
+  
+  --chakra-crown: #9400D3;
+  --chakra-crown-light: #E6E6FA;
+  --chakra-crown-glow: rgba(148, 0, 211, 0.4);
+  --chakra-crown-gradient: linear-gradient(135deg, #9400D3 0%, #E6E6FA 100%);
+  --chakra-crown-bg: rgba(148, 0, 211, 0.08);
+  
+  --temple-bg: #FAF9F6;
+  --temple-bg-gradient: linear-gradient(180deg, #FFFFFF 0%, #F5F0E8 50%, #EDE4D4 100%);
+  --temple-navy: #1E1E3F;
+  --temple-gold: #C8963E;
+  --temple-gold-light: #D4B56A;
+  --temple-cream: #F5E6C3;
+  
+  --transition-gentle: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-glow: box-shadow 0.5s ease, transform 0.3s ease;
+  
+  --glow-subtle: 0 0 15px rgba(200, 150, 62, 0.2);
+  --glow-medium: 0 0 25px rgba(200, 150, 62, 0.4);
+  --glow-strong: 0 0 40px rgba(200, 150, 62, 0.6);
+  
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-floating: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: var(--glow-subtle); }
+  50% { box-shadow: var(--glow-medium); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.chakra-root { color: var(--chakra-root); }
+.chakra-sacral { color: var(--chakra-sacral); }
+.chakra-solar { color: var(--chakra-solar); }
+.chakra-heart { color: var(--chakra-heart); }
+.chakra-throat { color: var(--chakra-throat); }
+.chakra-third-eye { color: var(--chakra-third-eye); }
+.chakra-crown { color: var(--chakra-crown); }
+
+.bg-chakra-root { background: var(--chakra-root-gradient); }
+.bg-chakra-sacral { background: var(--chakra-sacral-gradient); }
+.bg-chakra-solar { background: var(--chakra-solar-gradient); }
+.bg-chakra-heart { background: var(--chakra-heart-gradient); }
+.bg-chakra-throat { background: var(--chakra-throat-gradient); }
+.bg-chakra-third-eye { background: var(--chakra-third-eye-gradient); }
+.bg-chakra-crown { background: var(--chakra-crown-gradient); }
+
+.glow-chakra-root:hover { box-shadow: 0 0 30px var(--chakra-root-glow); }
+.glow-chakra-sacral:hover { box-shadow: 0 0 30px var(--chakra-sacral-glow); }
+.glow-chakra-solar:hover { box-shadow: 0 0 30px var(--chakra-solar-glow); }
+.glow-chakra-heart:hover { box-shadow: 0 0 30px var(--chakra-heart-glow); }
+.glow-chakra-throat:hover { box-shadow: 0 0 30px var(--chakra-throat-glow); }
+.glow-chakra-third-eye:hover { box-shadow: 0 0 30px var(--chakra-third-eye-glow); }
+.glow-chakra-crown:hover { box-shadow: 0 0 30px var(--chakra-crown-glow); }

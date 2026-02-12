@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership - SoulArt Temple</title>
+    <meta name="theme-color" content="#c9a227">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SoulArt">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/legal.css">
+    <style>
+        .membership-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .membership-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .membership-header h1 {
+            font-size: 2.5rem;
+            color: #1F1F2E;
+            margin-bottom: 0.5rem;
+        }
+        
+        .membership-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .pricing-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-card.recommended {
+            border: 3px solid #C8963E;
+        }
+        
+        .pricing-card.recommended::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #C8963E;
+            color: #fff;
+            padding: 0.3rem 3rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+        
+        .pricing-card.best-value::before {
+            content: 'Best Value';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #28a745;
+            color: #fff;
+            padding: 0.3rem 3rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+        
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1F1F2E;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tier-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-display {
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #C8963E;
+        }
+        
+        .price-period {
+            color: #888;
+            font-size: 1rem;
+        }
+        
+        .price-savings {
+            display: inline-block;
+            background: #d4edda;
+            color: #155724;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #444;
+        }
+        
+        .features-list li.included::before {
+            content: '\2713';
+            color: #28a745;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .features-list li.excluded::before {
+            content: '\2717';
+            color: #dc3545;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .features-list li.excluded {
+            color: #999;
+        }
+        
+        .subscribe-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #C8963E;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .subscribe-btn:hover {
+            background: #b5802d;
+            transform: translateY(-2px);
+        }
+        
+        .subscribe-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .subscribe-btn.current {
+            background: #1F1F2E;
+        }
+        
+        .free-tier-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px dashed #C8963E;
+        }
+        
+        .multi-month-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #eee;
+        }
+        
+        .multi-month-section h2 {
+            text-align: center;
+            color: #1F1F2E;
+            margin-bottom: 1.5rem;
+        }
+        
+        .multi-month-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .multi-month-card {
+            background: #fff;
+            border: 2px solid #C8963E;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .multi-month-card:hover {
+            box-shadow: 0 4px 15px rgba(200, 150, 62, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .multi-month-card h3 {
+            color: #1F1F2E;
+            margin-bottom: 0.5rem;
+        }
+        
+        .current-plan-badge {
+            display: inline-block;
+            background: #1F1F2E;
+            color: #C8963E;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .manage-subscription {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .manage-btn {
+            padding: 0.8rem 2rem;
+            background: #1F1F2E;
+            color: #C8963E;
+            border: 2px solid #C8963E;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .manage-btn:hover {
+            background: #C8963E;
+            color: #1F1F2E;
+        }
+        
+        .login-prompt {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(200, 150, 62, 0.1) 0%, rgba(200, 150, 62, 0.05) 100%);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .login-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #C8963E;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background: #b5802d;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .membership-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="home.html"><img src="SoulArt Brand full.png" alt="SoulArt Temple" class="logo"></a>
+    </header>
+    
+    <nav class="main-nav">
+        <a href="home.html">Home</a>
+        <a href="temple.html">Temple Rooms</a>
+        <a href="tools/education-centre.html">Education Centre</a>
+        <a href="tools/decoder.html">Quick Release</a>
+        <a href="tools/journal.html">Journal</a>
+        <a href="tools/doodle.html">Art Meditation</a>
+        <a href="tools/guide.html">SoulArt Guide</a>
+        <a href="profile.html">Members</a>
+    </nav>
+    
+    <div class="membership-container">
+        <div class="membership-header">
+            <h1>Choose Your Healing Journey</h1>
+            <p>Unlock the full power of SoulArt Temple with a membership that suits you</p>
+        </div>
+        
+        <div id="success-message" class="success-message" style="display: none;">
+            <h3>Welcome to SoulArt Temple!</h3>
+            <p>Your subscription is now active. Enjoy full access to your healing tools.</p>
+        </div>
+        
+        <div id="login-prompt" class="login-prompt" style="display: none;">
+            <h3>Sign in to Subscribe</h3>
+            <p>Create an account or sign in to start your membership</p>
+            <a href="/login.html" class="login-btn">Sign In</a>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card free-tier-card">
+                <div class="tier-name">Free Member</div>
+                <div class="tier-description">Get started with essential healing tools</div>
+                <div class="price-display">
+                    <span class="price-amount">Free</span>
+                    <span class="price-period">forever</span>
+                </div>
+                <ul class="features-list">
+                    <li class="included">Education Centre access</li>
+                    <li class="included">Sacred Journal (unlimited)</li>
+                    <li class="included">Art Meditation / Doodle Studio</li>
+                    <li class="included">3 Quick Release sessions (total)</li>
+                    <li class="excluded">Unlimited Quick Release</li>
+                    <li class="excluded">SoulArt AI Guide</li>
+                </ul>
+                <button class="subscribe-btn" id="free-btn" disabled>Current Plan</button>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="tier-name">Essential</div>
+                <div class="tier-description">Unlimited access to core healing tools</div>
+                <div class="price-display">
+                    <span class="price-amount">£4.99</span>
+                    <span class="price-period">/month</span>
+                </div>
+                <ul class="features-list">
+                    <li class="included">Education Centre access</li>
+                    <li class="included">Sacred Journal (unlimited)</li>
+                    <li class="included">Art Meditation / Doodle Studio</li>
+                    <li class="included">Unlimited Quick Release Decoder</li>
+                    <li class="included">All Recoding & Hidden Shadows</li>
+                    <li class="excluded">SoulArt AI Guide</li>
+                </ul>
+                <button class="subscribe-btn" id="essential-btn" data-tier="basic">Subscribe Now</button>
+            </div>
+            
+            <div class="pricing-card recommended">
+                <div class="tier-name">Premium</div>
+                <div class="tier-description">Complete access to everything</div>
+                <div class="price-display">
+                    <span class="price-amount">£6.99</span>
+                    <span class="price-period">/month</span>
+                </div>
+                <ul class="features-list">
+                    <li class="included">Education Centre access</li>
+                    <li class="included">Sacred Journal (unlimited)</li>
+                    <li class="included">Art Meditation / Doodle Studio</li>
+                    <li class="included">Unlimited Quick Release Decoder</li>
+                    <li class="included">All Recoding & Hidden Shadows</li>
+                    <li class="included">SoulArt AI Guide (unlimited)</li>
+                </ul>
+                <button class="subscribe-btn" id="premium-btn" data-tier="premium">Subscribe Now</button>
+            </div>
+        </div>
+        
+        <div class="multi-month-section">
+            <h2>Save More with Multi-Month Plans</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Premium tier features with significant savings</p>
+            
+            <div class="multi-month-grid">
+                <div class="multi-month-card">
+                    <h3>3 Months</h3>
+                    <div class="price-display">
+                        <span class="price-amount">£13.75</span>
+                    </div>
+                    <div class="price-savings">Save 34%</div>
+                    <p style="color: #666; margin: 1rem 0;">£4.58/month</p>
+                    <button class="subscribe-btn" id="premium-3month-btn" data-tier="premium" data-plan="3month">Get 3 Months</button>
+                </div>
+                
+                <div class="multi-month-card">
+                    <h3>6 Months</h3>
+                    <div class="price-display">
+                        <span class="price-amount">£25.00</span>
+                    </div>
+                    <div class="price-savings">Save 40%</div>
+                    <p style="color: #666; margin: 1rem 0;">£4.17/month</p>
+                    <button class="subscribe-btn" id="premium-6month-btn" data-tier="premium" data-plan="6month">Get 6 Months</button>
+                </div>
+                
+                <div class="multi-month-card best-value">
+                    <h3>12 Months</h3>
+                    <div class="price-display">
+                        <span class="price-amount">£47.99</span>
+                    </div>
+                    <div class="price-savings">Save 43%</div>
+                    <p style="color: #666; margin: 1rem 0;">£4.00/month</p>
+                    <button class="subscribe-btn" id="premium-annual-btn" data-tier="premium" data-plan="annual">Get 12 Months</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="manage-subscription" class="manage-subscription" style="display: none;">
+            <h3>Manage Your Subscription</h3>
+            <p>Update payment method, change plans, or cancel your subscription</p>
+            <button class="manage-btn" id="manage-btn">Manage Subscription</button>
+        </div>
+    </div>
+    
+    <script>
+        let stripeProducts = [];
+        let currentUser = null;
+        
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/auth/check');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                return { authenticated: false };
+            }
+        }
+        
+        async function getSubscriptionStatus() {
+            try {
+                const response = await fetch('/api/stripe/subscription');
+                if (response.ok) {
+                    return await response.json();
+                }
+                return null;
+            } catch (error) {
+                console.error('Subscription check failed:', error);
+                return null;
+            }
+        }
+        
+        async function loadStripeProducts() {
+            try {
+                const response = await fetch('/api/stripe/products');
+                const data = await response.json();
+                stripeProducts = data.products || [];
+                return stripeProducts;
+            } catch (error) {
+                console.error('Failed to load products:', error);
+                return [];
+            }
+        }
+        
+        function findPriceId(tier, planType = 'monthly') {
+            for (const product of stripeProducts) {
+                if (product.tier === tier) {
+                    for (const price of product.prices) {
+                        if (price.plan_type === planType) {
+                            return price.id;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        
+        async function subscribe(priceId) {
+            try {
+                const response = await fetch('/api/stripe/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ price_id: priceId })
+                });
+                
+                const data = await response.json();
+                
+                if (data.url) {
+                    window.location.href = data.url;
+                } else if (data.error) {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Subscription error:', error);
+                alert('Unable to start checkout. Please try again.');
+            }
+        }
+        
+        async function openCustomerPortal() {
+            try {
+                const response = await fetch('/api/stripe/customer-portal', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.url) {
+                    window.location.href = data.url;
+                } else if (data.error) {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Portal error:', error);
+                alert('Unable to open subscription management. Please try again.');
+            }
+        }
+        
+        async function initPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.get('success') === 'true') {
+                document.getElementById('success-message').style.display = 'block';
+            }
+            
+            const authData = await checkAuth();
+            
+            if (!authData.authenticated) {
+                document.getElementById('login-prompt').style.display = 'block';
+                
+                document.querySelectorAll('.subscribe-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        window.location.href = '/login.html';
+                    });
+                });
+                return;
+            }
+            
+            currentUser = authData.user;
+            
+            const subscription = await getSubscriptionStatus();
+            await loadStripeProducts();
+            
+            if (subscription) {
+                updateUIForSubscription(subscription);
+            }
+            
+            setupButtons();
+        }
+        
+        function updateUIForSubscription(subscription) {
+            const tier = subscription.subscription_tier;
+            const hasActive = subscription.has_active_subscription;
+            
+            const freeBtn = document.getElementById('free-btn');
+            const essentialBtn = document.getElementById('essential-btn');
+            const premiumBtn = document.getElementById('premium-btn');
+            
+            freeBtn.disabled = true;
+            freeBtn.textContent = 'Current Plan';
+            freeBtn.classList.remove('current');
+            
+            essentialBtn.disabled = false;
+            essentialBtn.textContent = 'Subscribe Now';
+            essentialBtn.classList.remove('current');
+            
+            premiumBtn.disabled = false;
+            premiumBtn.textContent = 'Subscribe Now';
+            premiumBtn.classList.remove('current');
+            
+            if (tier === 'free' || !hasActive) {
+                freeBtn.classList.add('current');
+            } else if (tier === 'basic') {
+                essentialBtn.textContent = 'Current Plan';
+                essentialBtn.classList.add('current');
+                freeBtn.textContent = 'Free Tier';
+                freeBtn.classList.remove('current');
+            } else if (tier === 'premium') {
+                premiumBtn.textContent = 'Current Plan';
+                premiumBtn.classList.add('current');
+                freeBtn.textContent = 'Free Tier';
+                freeBtn.classList.remove('current');
+            }
+            
+            if (hasActive) {
+                document.getElementById('manage-subscription').style.display = 'block';
+            }
+        }
+        
+        function setupButtons() {
+            document.getElementById('essential-btn').addEventListener('click', async function() {
+                if (this.classList.contains('current')) return;
+                const priceId = findPriceId('basic', 'monthly');
+                if (priceId) subscribe(priceId);
+            });
+            
+            document.getElementById('premium-btn').addEventListener('click', async function() {
+                if (this.classList.contains('current')) return;
+                const priceId = findPriceId('premium', 'monthly');
+                if (priceId) subscribe(priceId);
+            });
+            
+            document.getElementById('premium-3month-btn').addEventListener('click', async function() {
+                const priceId = findPriceId('premium', '3month');
+                if (priceId) subscribe(priceId);
+            });
+            
+            document.getElementById('premium-6month-btn').addEventListener('click', async function() {
+                const priceId = findPriceId('premium', '6month');
+                if (priceId) subscribe(priceId);
+            });
+            
+            document.getElementById('premium-annual-btn').addEventListener('click', async function() {
+                const priceId = findPriceId('premium', 'annual');
+                if (priceId) subscribe(priceId);
+            });
+            
+            document.getElementById('manage-btn').addEventListener('click', openCustomerPortal);
+        }
+        
+        initPage();
+    </script>
+
+    <footer class="site-footer legal-footer">
+      <div class="footer-legal-links">
+        <a href="medical-disclaimer.html">Medical Disclaimer</a>
+        <span class="divider">|</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span class="divider">|</span>
+        <a href="terms-of-use.html">Terms of Use</a>
+        <span class="divider">|</span>
+        <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+      </div>
+      <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+    </footer>
+</body>
+</html>

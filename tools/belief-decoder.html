@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belief Decoder - SoulArt Temple</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/room.css">
+  <link rel="stylesheet" href="../styles/disclaimer.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+    
+    .decoder-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .decoder-header {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    
+    .decoder-header h1 {
+      font-family: Georgia, serif;
+      color: #C8963E;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    .decoder-header p {
+      color: #aaa;
+      font-size: 1.1rem;
+    }
+    
+    .premium-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #C8963E 0%, #E5B84C 100%);
+      color: #1a1a2e;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .belief-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    @media (min-width: 900px) {
+      .belief-categories {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .belief-categories {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+    
+    .belief-card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .belief-card:hover {
+      background: rgba(200, 150, 62, 0.1);
+      border-color: #C8963E;
+    }
+    
+    .belief-card.selected {
+      background: rgba(200, 150, 62, 0.15);
+      border-color: #C8963E;
+      box-shadow: 0 0 30px rgba(200, 150, 62, 0.2);
+    }
+    
+    .belief-card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .belief-line-icon {
+      flex-shrink: 0;
+      margin-bottom: 5px;
+    }
+    
+    .belief-card h3 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      margin: 0;
+      line-height: 1.3;
+    }
+    
+    .belief-card .chakra-tie {
+      color: #888;
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+    
+    .belief-card .core-beliefs {
+      display: none;
+    }
+    
+    .belief-card.selected .core-beliefs {
+      display: block;
+      color: #ccc;
+      font-style: italic;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    
+    .belief-card .transformation {
+      display: none;
+    }
+    
+    .belief-card.selected .transformation {
+      display: block;
+      background: rgba(76, 175, 80, 0.15);
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-top: 15px;
+    }
+    
+    .belief-card .transformation-label {
+      color: #4CAF50;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+    
+    .belief-card .transformation-path {
+      color: #8BC34A;
+    }
+    
+    .step-content {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 20px 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .step-content h2 {
+      color: #C8963E;
+      font-family: Georgia, serif;
+      margin-bottom: 20px;
+    }
+    
+    .step-content p {
+      color: #ccc;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    
+    .affirmation-box {
+      background: linear-gradient(135deg, rgba(139, 69, 69, 0.3) 0%, rgba(200, 150, 62, 0.2) 100%);
+      border: 2px solid #8B4545;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .affirmation-box p {
+      font-size: 1.2rem;
+      color: #fff;
+      font-style: italic;
+      margin: 0;
+    }
+    
+    .affirmation-box.positive {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.3) 0%, rgba(139, 195, 74, 0.2) 100%);
+      border-color: #4CAF50;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .nav-btn {
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .nav-btn.secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    
+    .nav-btn.secondary:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .nav-btn.primary {
+      background: #C8963E;
+      color: #1a1a2e;
+    }
+    
+    .nav-btn.primary:hover {
+      background: #E5B84C;
+    }
+    
+    .step-hidden {
+      display: none;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #C8963E;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    
+    .instruction {
+      background: rgba(200, 150, 62, 0.1);
+      border-left: 4px solid #C8963E;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .instruction p {
+      margin: 0;
+      font-style: italic;
+      color: #E5B84C;
+    }
+    
+    .release-steps {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0;
+    }
+    
+    .release-steps li {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .release-steps .step-number {
+      background: #C8963E;
+      color: #1a1a2e;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    
+    .release-steps .step-text {
+      color: #ccc;
+      line-height: 1.6;
+    }
+    
+    .completion-celebration {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .completion-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    
+    @media (max-width: 600px) {
+      .decoder-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .step-content {
+        padding: 25px 20px;
+      }
+      
+      .belief-card {
+        padding: 20px;
+      }
+      
+      .nav-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+
+  <div class="decoder-container">
+    
+    <header class="decoder-header">
+      <span class="premium-badge">✦ Premium Tool</span>
+      <h1>Belief Decoder</h1>
+      <p>Release Inherited Limiting Beliefs</p>
+      <p style="color: #888; font-size: 0.95rem;">Identify core beliefs blocking your sense of safety and belonging</p>
+    </header>
+    
+    <!-- Step 1: Identify Belief Category -->
+    <div class="step-content" id="step-1">
+      <h2>Step 1: Identify the Limiting Belief</h2>
+      <p>Using kinesiology, identify which belief category is ready to be transformed. Select the one that tests strongest:</p>
+      
+      <div class="belief-categories" id="belief-categories">
+        
+        <div class="belief-card" data-belief="worthiness">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8963E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21C12 21 3 13.5 3 8.5C3 5.5 5.5 3 8.5 3C10.24 3 11.91 3.81 13 5.08C14.09 3.81 15.76 3 17.5 3C20.5 3 23 5.5 23 8.5C23 13.5 14 21 14 21"/>
+              <path d="M12 21L3 13.5M12 21L21 13.5" stroke-dasharray="2 2"/>
+            </svg>
+            <div>
+              <h3>Worthiness</h3>
+              <p class="chakra-tie">Root / Sacral Chakra</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"I'm not enough" • "I don't deserve" • "I'm broken"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Self-acceptance • Inner Child healing</p>
+          </div>
+        </div>
+        
+        <div class="belief-card" data-belief="control-safety">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3L3 7V12C3 16.5 7 20.5 12 22C17 20.5 21 16.5 21 12V7L12 3Z"/>
+              <path d="M12 8V13M12 16V16.5"/>
+            </svg>
+            <div>
+              <h3>Control & Safety</h3>
+              <p class="chakra-tie">Solar Plexus Chakra</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"I must control to feel safe" • "The world is dangerous"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Trust • Grounding • Surrender</p>
+          </div>
+        </div>
+        
+        <div class="belief-card" data-belief="love-connection">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21C12 21 3 13.5 3 8.5C3 5.5 5.5 3 8.5 3C10.24 3 11.91 3.81 13 5.08C14.09 3.81 15.76 3 17.5 3C20.5 3 23 5.5 23 8.5C23 13.5 12 21 12 21Z"/>
+            </svg>
+            <div>
+              <h3>Love & Connection</h3>
+              <p class="chakra-tie">Heart Chakra</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"I'm unlovable" • "Love always hurts" • "I'll be abandoned"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Compassion • Forgiveness</p>
+          </div>
+        </div>
+        
+        <div class="belief-card" data-belief="expression">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 12H8.01M12 12H12.01M16 12H16.01"/>
+              <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"/>
+            </svg>
+            <div>
+              <h3>Expression</h3>
+              <p class="chakra-tie">Throat Chakra</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"I can't speak up" • "I'm not heard" • "My voice doesn't matter"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Truth-telling • Empowered voice</p>
+          </div>
+        </div>
+        
+        <div class="belief-card" data-belief="vision-faith">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M2 12C2 12 5 5 12 5C19 5 22 12 22 12C22 12 19 19 12 19C5 19 2 12 2 12Z"/>
+            </svg>
+            <div>
+              <h3>Vision & Faith</h3>
+              <p class="chakra-tie">Third Eye Chakra</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"It won't work" • "I can't see the way" • "I lack vision"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Vision activation • Intuition</p>
+          </div>
+        </div>
+        
+        <div class="belief-card" data-belief="divine-alignment">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L14.5 9H22L16 14L18.5 21L12 17L5.5 21L8 14L2 9H9.5L12 2Z"/>
+            </svg>
+            <div>
+              <h3>Divine Alignment</h3>
+              <p class="chakra-tie">Crown Chakra</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"I'm alone" • "Source abandoned me" • "I'm disconnected"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Unity • Divine Trust</p>
+          </div>
+        </div>
+        
+        <div class="belief-card" data-belief="boundaries">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 12H21"/>
+            </svg>
+            <div>
+              <h3>Boundaries & Identity</h3>
+              <p class="chakra-tie">Solar Plexus / Throat</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"It's not safe to say no" • "I lose myself in others"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Empowered boundaries • Identity clarity</p>
+          </div>
+        </div>
+        
+        <div class="belief-card" data-belief="receiving">
+          <div class="belief-card-header">
+            <svg class="belief-line-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3V12M12 12L8 8M12 12L16 8"/>
+              <path d="M5 21H19"/>
+              <path d="M5 17C5 17 5 21 12 21C19 21 19 17 19 17"/>
+            </svg>
+            <div>
+              <h3>Receiving & Abundance</h3>
+              <p class="chakra-tie">Sacral / Heart</p>
+            </div>
+          </div>
+          <p class="core-beliefs">"I shouldn't want more" • "There's not enough for me"</p>
+          <div class="transformation">
+            <p class="transformation-label">Transformation Pathway:</p>
+            <p class="transformation-path">Open to receive • Gratitude practice</p>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="nav-buttons">
+        <div></div>
+        <button class="nav-btn primary" id="step1-next" disabled onclick="goToStep(2)">Belief Identified →</button>
+      </div>
+    </div>
+    
+    <!-- Step 2: Acknowledge & Feel -->
+    <div class="step-content step-hidden" id="step-2">
+      <h2>Step 2: Acknowledge the Belief</h2>
+      <p>You have identified a limiting belief in: <strong id="belief-name" style="color: #C8963E;"></strong></p>
+      
+      <div class="instruction">
+        <p>Take a moment to acknowledge this belief without judgment. It served a purpose at some point in your life or lineage.</p>
+      </div>
+      
+      <p>Reflect on these questions:</p>
+      <ul style="color: #ccc; line-height: 2;">
+        <li>When did this belief first take root?</li>
+        <li>Whose voice do you hear when this belief speaks?</li>
+        <li>How has this belief tried to protect you?</li>
+      </ul>
+      
+      <div class="affirmation-box">
+        <p>"I acknowledge this belief with compassion. It no longer serves my highest good."</p>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(1)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(3)">I Acknowledge →</button>
+      </div>
+    </div>
+    
+    <!-- Step 3: Release Process -->
+    <div class="step-content step-hidden" id="step-3">
+      <h2>Step 3: Release the Limiting Belief</h2>
+      <p>Now we release this inherited pattern from your energetic system:</p>
+      
+      <div style="margin: 25px 0; border-radius: 12px; overflow: hidden; background: rgba(0,0,0,0.3);">
+        <video controls style="width: 100%; display: block;" poster="">
+          <source src="../videos/meridian-release.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <p style="text-align: center; padding: 12px; margin: 0; color: #aaa; font-size: 0.9rem;">Watch: Meridian Release Technique</p>
+      </div>
+      
+      <ol class="release-steps">
+        <li>
+          <span class="step-number">1</span>
+          <span class="step-text">Place your hand over your heart. Take 3 deep breaths, exhaling fully each time.</span>
+        </li>
+        <li>
+          <span class="step-number">2</span>
+          <span class="step-text">State aloud: "I release this limiting belief from my body, mind, and ancestral line."</span>
+        </li>
+        <li>
+          <span class="step-number">3</span>
+          <span class="step-text">Swipe your hand down the governing meridian (top of head to back of neck) 3 times.</span>
+        </li>
+        <li>
+          <span class="step-number">4</span>
+          <span class="step-text">Visualize the belief dissolving into light and leaving your field.</span>
+        </li>
+      </ol>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(2)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(4)">Belief Released →</button>
+      </div>
+    </div>
+    
+    <!-- Step 4: Replace with New Truth -->
+    <div class="step-content step-hidden" id="step-4">
+      <h2>Step 4: Install New Truth</h2>
+      <p>Now we invite a new, empowering belief to take root.</p>
+      
+      <p>Your transformation pathway: <strong id="transformation-path" style="color: #4CAF50;"></strong></p>
+      
+      <div class="instruction">
+        <p>Use muscle testing to confirm which new affirmation resonates most strongly with your system.</p>
+      </div>
+      
+      <div class="affirmation-box positive" id="new-belief-box">
+        <p id="new-belief-text">"I am worthy of love, safety, and belonging."</p>
+      </div>
+      
+      <p>Repeat this affirmation 3 times, feeling it settle into your cells:</p>
+      
+      <ol class="release-steps">
+        <li>
+          <span class="step-number">1</span>
+          <span class="step-text">Place your hand over your heart</span>
+        </li>
+        <li>
+          <span class="step-number">2</span>
+          <span class="step-text">Speak the new belief aloud with conviction</span>
+        </li>
+        <li>
+          <span class="step-number">3</span>
+          <span class="step-text">Breathe it into every cell of your body</span>
+        </li>
+      </ol>
+      
+      <div class="nav-buttons">
+        <button class="nav-btn secondary" onclick="goToStep(3)">← Back</button>
+        <button class="nav-btn primary" onclick="goToStep(5)">Truth Installed →</button>
+      </div>
+    </div>
+    
+    <!-- Step 5: Complete -->
+    <div class="step-content step-hidden" id="step-5">
+      <h2>Session Complete</h2>
+      
+      <div class="completion-celebration">
+        <div class="completion-icon">🦋</div>
+        <h2 style="color: #4CAF50;">Beautiful Transformation!</h2>
+        <p>You have released a limiting belief and installed a new empowering truth.</p>
+        
+        <div class="affirmation-box positive" style="margin-top: 30px;">
+          <p>"This healing is complete. I seal it with love, light, and integration."</p>
+        </div>
+        
+        <p style="color: #888; margin-top: 30px;">Consider journaling about this experience or creating SoulArt to anchor your new belief.</p>
+      </div>
+      
+      <div class="nav-buttons" style="justify-content: center; gap: 20px;">
+        <button class="nav-btn secondary" onclick="goToStep(1)">🔄 Release Another Belief</button>
+        <a href="../tools/journal.html" class="nav-btn primary" style="text-decoration: none;">📝 Journal This</a>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="../root.html" class="back-link" style="color: #888;">Return to Root Chakra Room</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    let selectedBelief = null;
+    
+    const beliefData = {
+      'worthiness': {
+        name: 'Worthiness',
+        transformation: 'Self-acceptance • Inner Child healing',
+        newBelief: '"I am inherently worthy. I deserve love, joy, and all good things."'
+      },
+      'control-safety': {
+        name: 'Control & Safety',
+        transformation: 'Trust • Grounding • Surrender',
+        newBelief: '"I am safe in this world. I release the need to control and trust in divine order."'
+      },
+      'love-connection': {
+        name: 'Love & Connection',
+        transformation: 'Compassion • Forgiveness',
+        newBelief: '"I am deeply lovable. Love flows to me and through me safely."'
+      },
+      'expression': {
+        name: 'Expression',
+        transformation: 'Truth-telling • Empowered voice',
+        newBelief: '"My voice matters. I speak my truth with confidence and grace."'
+      },
+      'vision-faith': {
+        name: 'Vision & Faith',
+        transformation: 'Vision activation • Intuition',
+        newBelief: '"I trust my inner vision. The path unfolds perfectly before me."'
+      },
+      'divine-alignment': {
+        name: 'Divine Alignment',
+        transformation: 'Unity • Divine Trust',
+        newBelief: '"I am connected to Source. I am never alone. Divine love flows through me always."'
+      },
+      'boundaries': {
+        name: 'Boundaries & Identity',
+        transformation: 'Empowered boundaries • Identity clarity',
+        newBelief: '"I honor my boundaries. I am safe to be fully myself."'
+      },
+      'receiving': {
+        name: 'Receiving & Abundance',
+        transformation: 'Open to receive • Gratitude practice',
+        newBelief: '"I am open to receive abundance in all forms. There is more than enough for me."'
+      }
+    };
+    
+    function goToStep(step) {
+      document.querySelectorAll('.step-content').forEach(el => el.classList.add('step-hidden'));
+      document.getElementById('step-' + step).classList.remove('step-hidden');
+      
+      if (step === 2 && selectedBelief) {
+        document.getElementById('belief-name').textContent = beliefData[selectedBelief].name;
+      }
+      
+      if (step === 4 && selectedBelief) {
+        document.getElementById('transformation-path').textContent = beliefData[selectedBelief].transformation;
+        document.getElementById('new-belief-text').textContent = beliefData[selectedBelief].newBelief;
+      }
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    document.querySelectorAll('.belief-card').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.belief-card').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedBelief = this.dataset.belief;
+        document.getElementById('step1-next').disabled = false;
+      });
+    });
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

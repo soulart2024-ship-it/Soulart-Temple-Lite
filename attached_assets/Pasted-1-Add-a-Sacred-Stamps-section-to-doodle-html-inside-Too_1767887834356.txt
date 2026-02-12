@@ -1,0 +1,398 @@
+1) Add a “Sacred Stamps” section to doodle.html (inside Tools panel)
+
+Place this under Brushes & Colours (or right after it):
+
+Html
+<!-- Sacred Stamps Section - Collapsible -->
+<div class="collapsible-section" data-section="stamps">
+  <button class="section-header" onclick="toggleSection('stamps')" aria-expanded="true">
+    <span class="section-icon"></span>
+    <span class="section-title">Sacred Stamps</span>
+    <span class="chevron">▼</span>
+  </button>
+
+  <div class="section-content" id="stamps-content">
+    <div class="control-group">
+      <label for="stampSelect">Stamp Library</label>
+      <select id="stampSelect">
+        <option value="">— Choose a Stamp —</option>
+        <option value="seedOfLife">Seed of Life</option>
+        <option value="flowerOfLife">Flower of Life</option>
+        <option value="metatron">Metatron (simple)</option>
+        <option value="sriYantra">Sri Yantra (simple)</option>
+        <option value="hexagon">Hexagon</option>
+        <option value="triangle">Triangle</option>
+        <option value="heart">Heart</option>
+        <option value="leaf">Leaf</option>
+        <option value="lotus">Lotus</option>
+        <option value="catHead">Cat Head</option>
+      </select>
+
+      <div class="stamp-row">
+        <div class="stamp-field">
+          <label for="stampSize">Stamp Size: <span id="stampSizeValue">90</span>px</label>
+          <input type="range" id="stampSize" min="30" max="320" value="90">
+        </div>
+
+        <div class="stamp-field">
+          <label for="stampRotation">Rotation: <span id="stampRotValue">0</span>°</label>
+          <input type="range" id="stampRotation" min="0" max="360" value="0">
+        </div>
+      </div>
+
+      <div class="stamp-toggles">
+        <label class="toggle">
+          <input type="checkbox" id="stampFillToggle">
+          <span>Fill stamp</span>
+        </label>
+
+        <label class="toggle">
+          <input type="checkbox" id="kaleidoscopeToggle">
+          <span>Kaleidoscope mirror (Mandala)</span>
+        </label>
+      </div>
+
+      <p class="hint">Choose a stamp, then tap/click on the canvas to place it. In Mandala mode it repeats with symmetry.</p>
+    </div>
+  </div>
+</div>
+
+2) Add small CSS styles to doodle.css
+
+Paste near your collapsible sections / controls:
+
+.stamp-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.stamp-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3d4449;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stamp-toggles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #3d4449;
+}
+
+.toggle input {
+  width: 18px;
+  height: 18px;
+}
+
+3) Add symmetry “2-directional” option in doodle.html
+
+In your existing Mandala Segments <select id="symmetrySelect">, add:
+
+html
+<option value="2">2-point (Mirror Line)</option>
+
+Put it at the top of the list.
+
+4) Add stamping logic to doodle.js (vector based)
+
+A) Add these DOM refs near your other controls:
+
+const stampSelect = document.getElementById('stampSelect');
+const stampSizeSlider = document.getElementById('stampSize');
+const stampSizeValue = document.getElementById('stampSizeValue');
+const stampRotationSlider = document.getElementById('stampRotation');
+const stampRotValue = document.getElementById('stampRotValue');
+const stampFillToggle = document.getElementById('stampFillToggle');
+const kaleidoscopeToggle = document.getElementById('kaleidoscopeToggle');
+
+let currentStamp = '';
+let stampSize = 90;
+let stampRotation = 0;
+let stampFill = false;
+let kaleidoscopeMirror = false;
+
+B) Add event listeners;
+
+if (stampSelect) {
+  stampSelect.addEventListener('change', function() {
+    currentStamp = this.value || '';
+  });
+}
+
+if (stampSizeSlider) {
+  stampSizeSlider.addEventListener('input', function() {
+    stampSize = parseInt(this.value, 10);
+    if (stampSizeValue) stampSizeValue.textContent = stampSize;
+  });
+}
+
+if (stampRotationSlider) {
+  stampRotationSlider.addEventListener('input', function() {
+    stampRotation = parseInt(this.value, 10);
+    if (stampRotValue) stampRotValue.textContent = stampRotation;
+  });
+}
+
+if (stampFillToggle) {
+  stampFillToggle.addEventListener('change', function() {
+    stampFill = !!this.checked;
+  });
+}
+
+if (kaleidoscopeToggle) {
+  kaleidoscopeToggle.addEventListener('change', function() {
+    kaleidoscopeMirror = !!this.checked;
+  });
+}
+
+C) Add a vector stamp library (Path2D)
+
+Paste this somewhere above your drawing functions (inside DOMContentLoaded):
+
+js;
+// --- Vector Stamp Library (Path2D) ---
+// Each stamp is built from SVG path data (vector). Crisp at any size.
+const STAMPS = {
+  hexagon: {
+    paths: [
+      "M 50 5 L 90 27.5 L 90 72.5 L 50 95 L 10 72.5 L 10 27.5 Z"
+    ]
+  },
+  triangle: {
+    paths: [
+      "M 50 8 L 92 88 L 8 88 Z"
+    ]
+  },
+  heart: {
+    paths: [
+      "M 50 88 C 22 68 10 52 10 36 C 10 22 22 12 36 12 C 44 12 48 16 50 20 C 52 16 56 12 64 12 C 78 12 90 22 90 36 C 90 52 78 68 50 88 Z"
+    ]
+  },
+  leaf: {
+    paths: [
+      "M 18 78 C 22 38 50 12 82 18 C 78 50 54 84 18 78 Z",
+      "M 22 72 C 46 62 62 46 78 26"
+    ]
+  },
+  lotus: {
+    paths: [
+      "M 50 10 C 44 22 44 34 50 44 C 56 34 56 22 50 10 Z",
+      "M 32 22 C 30 38 38 52 50 58 C 46 44 42 32 32 22 Z",
+      "M 68 22 C 58 32 54 44 50 58 C 62 52 70 38 68 22 Z",
+      "M 22 46 C 30 62 40 72 50 76 C 44 64 34 54 22 46 Z",
+      "M 78 46 C 66 54 56 64 50 76 C 60 72 70 62 78 46 Z"
+    ]
+  },
+
+  // Simple geometric “Seed of Life” (7 circles)
+  seedOfLife: {
+    circles: [
+      { x: 50, y: 50, r: 22 },
+      { x: 50, y: 28, r: 22 },
+      { x: 69, y: 39, r: 22 },
+      { x: 69, y: 61, r: 22 },
+      { x: 50, y: 72, r: 22 },
+      { x: 31, y: 61, r: 22 },
+      { x: 31, y: 39, r: 22 }
+    ]
+  },
+
+  // Flower of Life (simple: seed + outer ring of circles)
+  flowerOfLife: {
+    circles: [
+      { x: 50, y: 50, r: 20 },
+      { x: 50, y: 30, r: 20 },
+      { x: 67, y: 40, r: 20 },
+      { x: 67, y: 60, r: 20 },
+      { x: 50, y: 70, r: 20 },
+      { x: 33, y: 60, r: 20 },
+      { x: 33, y: 40, r: 20 },
+
+      // outer
+      { x: 50, y: 10, r: 20 },
+      { x: 84, y: 30, r: 20 },
+      { x: 84, y: 70, r: 20 },
+      { x: 50, y: 90, r: 20 },
+      { x: 16, y: 70, r: 20 },
+      { x: 16, y: 30, r: 20 }
+    ]
+  },
+
+  // Metatron (simple: circles + connecting lines)
+  metatron: {
+    circles: [
+      { x: 50, y: 50, r: 18 },
+      { x: 50, y: 22, r: 8 },
+      { x: 74, y: 36, r: 8 },
+      { x: 74, y: 64, r: 8 },
+      { x: 50, y: 78, r: 8 },
+      { x: 26, y: 64, r: 8 },
+      { x: 26, y: 36, r: 8 }
+    ],
+    lines: [
+      [50,22,74,36],[74,36,74,64],[74,64,50,78],[50,78,26,64],[26,64,26,36],[26,36,50,22],
+      [50,22,50,78],[26,36,74,64],[74,36,26,64]
+    ]
+  },
+
+  // Sri Yantra (simple triangle layers)
+  sriYantra: {
+    paths: [
+      "M 50 12 L 86 78 L 14 78 Z",
+      "M 50 20 L 80 74 L 20 74 Z",
+      "M 50 78 L 14 30 L 86 30 Z",
+      "M 50 70 L 20 34 L 80 34 Z"
+    ],
+    circles: [{ x: 50, y: 50, r: 40 }]
+  },
+
+  // Cat head outline (simple)
+  catHead: {
+    paths: [
+      "M 22 44 L 18 18 L 34 30 L 50 20 L 66 30 L 82 18 L 78 44 C 78 70 64 84 50 84 C 36 84 22 70 22 44 Z",
+      "M 36 54 C 40 50 44 50 48 54",
+      "M 64 54 C 60 50 56 50 52 54",
+      "M 50 58 C 48 62 46 64 44 66",
+      "M 50 58 C 52 62 54 64 56 66"
+    ]
+  }
+};
+
+// Convert path strings to Path2D (cached)
+const STAMP_CACHE = {};
+function getStampPaths(stampKey) {
+  if (!stampKey || !STAMPS[stampKey]) return null;
+  if (STAMP_CACHE[stampKey]) return STAMP_CACHE[stampKey];
+
+  const def = STAMPS[stampKey];
+  const compiled = {
+    paths: (def.paths || []).map(d => new Path2D(d)),
+    circles: def.circles || [],
+    lines: def.lines || []
+  };
+  STAMP_CACHE[stampKey] = compiled;
+  return compiled;
+}
+
+D) Add a function to stamp at position
+Paste below your mirrored-line helpers:
+function stampAt(x, y) {
+  if (!currentStamp) return;
+
+  const stamp = getStampPaths(currentStamp);
+  if (!stamp) return;
+
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+
+  // draw one stamp with transforms
+  function drawStampOnce(px, py, rotationRad, mirrorX = false) {
+    ctx.save();
+    ctx.globalAlpha = brushOpacity;
+
+    ctx.translate(px, py);
+    ctx.rotate(rotationRad);
+
+    if (mirrorX) ctx.scale(-1, 1);
+
+    // normalize stamp coordinate space (0..100) to pixels
+    const s = stampSize / 100;
+    ctx.scale(s, s);
+    ctx.translate(-50, -50);
+
+    ctx.lineWidth = Math.max(1, brushSize / 4);
+    ctx.strokeStyle = brushColor;
+    ctx.fillStyle = brushColor;
+
+    // circles
+    if (stamp.circles.length) {
+      stamp.circles.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        stampFill ? ctx.fill() : ctx.stroke();
+      });
+    }
+
+    // lines
+    if (stamp.lines.length) {
+      stamp.lines.forEach(l => {
+        ctx.beginPath();
+        ctx.moveTo(l[0], l[1]);
+        ctx.lineTo(l[2], l[3]);
+        ctx.stroke();
+      });
+    }
+
+    // paths
+    stamp.paths.forEach(p => {
+      stampFill ? ctx.fill(p) : ctx.stroke(p);
+    });
+
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  }
+
+  const baseRot = (stampRotation * Math.PI) / 180;
+
+  // Free / Trace = single stamp
+  if (currentMode !== 'mandala') {
+    drawStampOnce(x, y, baseRot, false);
+    saveState();
+    return;
+  }
+
+  // Mandala = repeat around centre
+  const segmentAngle = (Math.PI * 2) / currentSymmetry;
+
+  // translate to vector from center then rotate around center
+  const dx = x - centerX;
+  const dy = y - centerY;
+
+  for (let i = 0; i < currentSymmetry; i++) {
+    const angle = i * segmentAngle;
+    const rx = dx * Math.cos(angle) - dy * Math.sin(angle);
+    const ry = dx * Math.sin(angle) + dy * Math.cos(angle);
+
+    const px = centerX + rx;
+    const py = centerY + ry;
+
+    const mirror = kaleidoscopeMirror ? (i % 2 === 1) : false;
+    drawStampOnce(px, py, baseRot + angle, mirror);
+  }
+
+  saveState();
+}
+
+E) Trigger stamping on click/tap when a stamp is selected
+Add this inside startDrawing(e) right after you compute the pointer pos:
+
+// If a stamp is selected, place stamp on click/tap (not while dragging)
+if (currentStamp) {
+  const pos = getPointerPosition(e);
+  stampAt(pos.x, pos.y);
+  isDrawing = false;
+  return;
+}
+
+What you’ll see immediately
+
+✅ Vector stamps render crisp
+✅ Tap/click places stamp
+✅ Mandala mode repeats stamps around the centre
+✅ Optional kaleidoscope mirror for extra magic
+✅ Works on mobile (tap to stamp)
+✅ No emojis in UI

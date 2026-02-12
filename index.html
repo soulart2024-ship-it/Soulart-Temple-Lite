@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulArt Temple - Emotion Decoding</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/home.css">
+  <link rel="stylesheet" href="styles/legal.css">
+</head>
+<body>
+  <header class="branding-header">
+    <a href="home.html"><img src="SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="home.html" class="active">Home</a>
+    <a href="tools/education-centre.html">Education Centre</a>
+    <a href="tools/decoder.html">Quick Release</a>
+    <a href="tools/journal.html">Journal</a>
+    <a href="tools/doodle.html">Art Meditation</a>
+    <a href="tools/guide.html">SoulArt Guide</a>
+    <a href="profile.html">Members</a>
+    <a href="#" class="logout-link" id="nav-logout" style="display: none;" onclick="logoutUser(); return false;">Log Out</a>
+  </nav>
+  <script>
+    fetch('/api/auth/check').then(r => r.json()).then(data => {
+      if (data.authenticated) {
+        const logout = document.getElementById('nav-logout');
+        if (logout) logout.style.display = 'inline-block';
+      }
+    }).catch(() => {});
+    async function logoutUser() {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/home.html';
+    }
+  </script>
+
+  <main class="page-wrapper home-container">
+    <!-- Welcome Header -->
+    <section class="welcome-header">
+      <h1 class="welcome-title">Welcome to SoulArt Temple</h1>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h2 class="hero-title">Emotion Decoding: Understanding Trapped Emotions</h2>
+      <p class="hero-subtitle">Discover how unprocessed emotional energy can shape your life — and how to gently release it.</p>
+    </section>
+
+    <!-- Intro Text Block -->
+    <section class="intro-section">
+      <div class="intro-content">
+        <h2>What Are Trapped Emotions?</h2>
+        <p>Trapped emotions are unprocessed emotional energies that become lodged in our physical and energetic bodies. When we experience intense emotions but cannot fully process them in the moment, these energies can remain, affecting our wellbeing, relationships, and life path.</p>
+        
+        <h3>How Do They Form?</h3>
+        <p>Trapped emotions arise from various sources:</p>
+        <ul>
+          <li><strong>Unprocessed Experiences:</strong> Moments when we couldn't fully feel or express our emotions</li>
+          <li><strong>Trauma:</strong> Overwhelming events that our system couldn't integrate</li>
+          <li><strong>Ancestral Memory:</strong> Inherited emotional patterns passed down through generations</li>
+          <li><strong>Societal Conditioning:</strong> Cultural messages that taught us to suppress certain feelings</li>
+        </ul>
+
+        <h3>Why Decoding Matters</h3>
+        <p>Understanding and releasing trapped emotions is essential for spiritual harmony and self-healing. When we identify and gently release these energies, we create space for joy, peace, and authentic self-expression to flourish.</p>
+      </div>
+    </section>
+
+    <!-- Kinesiology Section -->
+    <section class="kinesiology-section">
+      <div class="intro-content">
+        <h2>How Do We Identify and Decode Them?</h2>
+        <p>The key to identifying trapped emotions lies in the ancient art of <strong>Kinesiology</strong> — specifically, muscle testing. This powerful technique allows us to communicate directly with the body's innate wisdom, bypassing the conscious mind to access deep truths about our emotional state.</p>
+        
+        <h3>What is Kinesiology?</h3>
+        <p>Kinesiology, from the Greek words "kinesis" (movement) and "logos" (study), is the scientific study of human movement and muscular function. Applied Kinesiology uses muscle testing as a biofeedback mechanism to evaluate the body's structural, chemical, and emotional state.</p>
+
+        <h3>A Brief History</h3>
+        <p>The foundation of modern Kinesiology was laid by Dr. George Goodheart in 1964 when he discovered that muscle testing could reveal imbalances in the body's energy system. Dr. Goodheart, a chiropractor in Detroit, observed that manual muscle testing could identify not just physical issues, but also nutritional deficiencies and emotional stressors.</p>
+        
+        <p>In the 1970s, Dr. John Thie developed "Touch for Health," making these techniques accessible to the general public. Later, Dr. Bradley Nelson built upon this work to create "The Emotion Code," which specifically focused on using muscle testing to identify and release trapped emotions.</p>
+
+        <h3>How Muscle Testing Works</h3>
+        <p>Our subconscious mind knows the truth about what we're feeling and storing in our bodies. Muscle testing provides a binary response system (strong/weak) that allows us to ask yes/no questions/statements and receive accurate answers from the body's wisdom. When we ask about a trapped emotion, the body will respond with either muscle weakness or strength. A strong response in the muscle means the body is strong in response to the statement indicating a positive response, a weak muscle reaction normally indicates a negative response. This can be identified using several techniques, that helps you to focus on your response 'yes' or 'no'. We provide 4 different simple ways in our education centre. Be patient with yourself as this takes a little practice to get, but once you do, it is a tool for life.</p>
+
+        <div class="education-cta">
+          <p>Want to learn the techniques and dive deeper into Kinesiology?</p>
+          <a href="tools/education-centre.html" class="education-button">Visit Our Education Centre</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 Core Emotions Grid -->
+    <section class="emotions-info-section">
+      <h2 class="section-title">The 12 Core Trapped Emotions</h2>
+      <p class="section-subtitle">Click each emotion to learn more about its nature and effects</p>
+      
+      <div class="emotions-info-grid">
+        <div class="emotion-tile" data-emotion="fear">
+          <h3>Fear</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="guilt">
+          <h3>Guilt</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="shame">
+          <h3>Shame</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="grief">
+          <h3>Grief</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="anger">
+          <h3>Anger</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="despair">
+          <h3>Despair</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="abandonment">
+          <h3>Abandonment</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="rejection">
+          <h3>Rejection</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="hopelessness">
+          <h3>Hopelessness</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="powerlessness">
+          <h3>Powerlessness</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="anxiety">
+          <h3>Anxiety</h3>
+        </div>
+        <div class="emotion-tile" data-emotion="worthlessness">
+          <h3>Worthlessness</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <h2>Are you ready to do a Quick Release?</h2>
+      <p>Experience the healing power of emotional release through our guided decoder</p>
+      <a href="tools/decoder.html" class="cta-button">Start Your Quick Release</a>
+    </section>
+  </main>
+
+  <!-- Emotion Info Modal -->
+  <div id="emotion-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2 id="modal-emotion-name"></h2>
+      <div id="modal-emotion-content"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+
+  <script src="scripts/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulArt Temple - SoulArt Guide</title>
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/guide.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+</head>
+<body>
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+
+  <main class="page-wrapper guide-container">
+    <section class="guide-hero">
+      <h1>SoulArt Guide</h1>
+      <p class="guide-subtitle">Your Reflective AI Companion</p>
+      <p class="guide-disclaimer">This is a reflective companion, not a replacement for professional support or your own inner wisdom.</p>
+    </section>
+
+    <section class="chat-section">
+      <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+          <div class="message guide-message">
+            <div class="message-avatar">
+              <img src="../SoulArt Brand full.png" alt="SoulArt Guide" class="guide-avatar">
+            </div>
+            <div class="message-content">
+              <p>Welcome, beautiful soul. I am here as a gentle mirror to support your self-inquiry and emotional exploration.</p>
+              <p>Share what's on your heart today, and I will reflect back with compassion, offer journal prompts, and remind you of your innate wisdom.</p>
+              <p>What would you like to explore?</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <div class="usage-indicator" id="usage-indicator">
+            <span id="messages-remaining">Messages: <span id="message-count">-</span></span>
+          </div>
+          <form id="chat-form" class="chat-form">
+            <textarea 
+              id="user-input" 
+              placeholder="Share what's on your heart... (e.g., 'I feel anxious today' or 'I'm struggling with letting go')"
+              rows="3"
+              maxlength="500"
+            ></textarea>
+            <button type="submit" id="send-btn" class="send-btn">
+              <span class="btn-text">Send</span>
+              <span class="btn-loading" style="display: none;">...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="sovereignty-reminder">
+      <p>Remember: You are sovereign. Your inner wisdom is the greatest guide of all. Use this companion as a supportive mirror, but always trust your own knowing.</p>
+    </section>
+
+    <section class="guide-suggestions">
+      <h3>Not sure what to share?</h3>
+      <div class="suggestion-chips">
+        <button class="suggestion-chip" data-prompt="I feel anxious and I'm not sure why">I feel anxious</button>
+        <button class="suggestion-chip" data-prompt="I'm having trouble letting go of the past">Trouble letting go</button>
+        <button class="suggestion-chip" data-prompt="I want to connect more deeply with myself">Deeper self-connection</button>
+        <button class="suggestion-chip" data-prompt="I'm feeling stuck in my healing journey">Feeling stuck</button>
+        <button class="suggestion-chip" data-prompt="I need help processing a difficult emotion">Processing emotions</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+
+  <script src="../scripts/guide.js"></script>
+</body>
+</html>

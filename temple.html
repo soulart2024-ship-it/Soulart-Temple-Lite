@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulArt Temple — Enter Your Sacred Space</title>
+  <meta name="description" content="Enter the SoulArt Temple and choose your healing room. Each chakra-aligned space supports a different part of your soul journey.">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  
+  <link rel="preload" href="attached_assets/generated_images/temple_hallway_with_lotus_window.png" as="image">
+  <link rel="preload" href="SoulArt Brand full.png" as="image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/chakra-tokens.css">
+  <link rel="stylesheet" href="styles/temple-hallway.css">
+  <link rel="stylesheet" href="styles/disclaimer.css">
+  <link rel="stylesheet" href="styles/legal.css">
+</head>
+<body class="temple-hallway">
+  <div class="temple-background">
+    <img src="attached_assets/generated_images/temple_hallway_with_lotus_window.png" alt="" class="bg-image" loading="eager" decoding="async">
+    <div class="overlay"></div>
+  </div>
+
+  <div class="fireflies" id="fireflies"></div>
+  <div class="light-particles"></div>
+
+  <nav class="temple-nav">
+    <a href="home.html" class="nav-logo">
+      <img src="SoulArt Brand full.png" alt="SoulArt Temple">
+    </a>
+    <div class="nav-menu-wrapper">
+      <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span>Menu</span>
+      </button>
+      <div class="nav-dropdown" id="navDropdown">
+        <a href="home.html" class="dropdown-item">Home</a>
+        <a href="tools/education-centre.html" class="dropdown-item">Education Centre</a>
+        <a href="profile.html" class="dropdown-item">My Profile</a>
+        <a href="members-dashboard.html" class="dropdown-item">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <button class="sound-toggle" id="sound-toggle" aria-label="Toggle ambient music">
+    <span class="sound-label">Sound Off</span>
+    <svg class="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path class="sound-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  </button>
+
+  <main class="temple-content">
+    <header class="temple-header">
+      <h1 class="temple-title">Welcome to SoulArt Temple</h1>
+      <p class="temple-subtitle">Choose a Room to Explore Your Chakra Energy...</p>
+    </header>
+
+    <div class="hallway-container">
+      <div class="doors-left">
+        <a href="root.html" class="chakra-door door-root" data-chakra="root">
+          <div class="door-frame">
+            <div class="door-glow"></div>
+            <div class="chakra-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <polygon points="50,25 75,65 25,65" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll">
+            <h3>Root Chakra Room</h3>
+            <p>Release fear and ground your essence</p>
+          </div>
+        </a>
+
+        <a href="sacral.html" class="chakra-door door-sacral" data-chakra="sacral">
+          <div class="door-frame">
+            <div class="door-glow"></div>
+            <div class="chakra-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M30,50 Q50,30 70,50 Q50,70 30,50" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll">
+            <h3>Sacral Chakra Room</h3>
+            <p>Ignite your creativity, passion and joy</p>
+          </div>
+        </a>
+
+        <a href="solar.html" class="chakra-door door-solar" data-chakra="solar">
+          <div class="door-frame">
+            <div class="door-glow"></div>
+            <div class="chakra-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <polygon points="50,20 65,45 90,50 65,55 50,80 35,55 10,50 35,45" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll">
+            <h3>Solar Plexus Chakra Room</h3>
+            <p>Reclaim your power and confidence</p>
+          </div>
+        </a>
+
+        <a href="heart.html" class="chakra-door door-heart" data-chakra="heart">
+          <div class="door-frame">
+            <div class="door-glow"></div>
+            <div class="chakra-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M50,35 L65,50 L50,65 L35,50 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M50,25 L75,50 L50,75 L25,50 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll">
+            <h3>Heart Chakra Room</h3>
+            <p>Heal your heart and radiate love</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="central-altar">
+        <div class="altar-glow"></div>
+        <div class="altar-crystal"></div>
+        <div class="altar-light-beam"></div>
+      </div>
+
+      <div class="doors-right">
+        <a href="throat.html" class="chakra-door door-throat" data-chakra="throat">
+          <div class="door-frame">
+            <div class="door-glow"></div>
+            <div class="chakra-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="50" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="50" r="8" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll">
+            <h3>Throat Chakra Room</h3>
+            <p>Open to truth, express your voice</p>
+          </div>
+        </a>
+
+        <a href="third-eye.html" class="chakra-door door-third-eye" data-chakra="third-eye">
+          <div class="door-frame">
+            <div class="door-glow"></div>
+            <div class="chakra-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <ellipse cx="50" cy="50" rx="25" ry="12" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="50" r="6" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll">
+            <h3>Third Eye Chakra Room</h3>
+            <p>Connect with spirit and pure consciousness</p>
+          </div>
+        </a>
+
+        <a href="crown.html" class="chakra-door door-crown" data-chakra="crown">
+          <div class="door-frame">
+            <div class="door-glow"></div>
+            <div class="chakra-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="50" r="5" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll">
+            <h3>Crown Chakra Room</h3>
+            <p>Embrace divine stillness and pure consciousness</p>
+          </div>
+        </a>
+
+        <a href="tools/playroom.html" class="chakra-door door-playroom" data-chakra="playroom">
+          <div class="door-frame playroom-frame">
+            <div class="door-glow rainbow-glow"></div>
+            <div class="chakra-symbol playroom-symbol">
+              <svg viewBox="0 0 100 100" class="symbol-svg">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="50" cy="35" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="35" cy="55" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="65" cy="55" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M50,43 L50,47 M35,47 L50,47 L65,47" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="door-scroll playroom-scroll">
+            <h3>SoulArt Playroom</h3>
+            <p>Zen games for a peaceful mind</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer legal-footer temple-footer">
+    <div class="footer-legal-links">
+      <a href="medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+
+  <audio id="ambient-music" loop preload="auto">
+    <source src="static/audio/opening-chakras-with-water-intro-outro-fx-395549.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="scripts/disclaimer.js"></script>
+  <script>
+    // Generate fireflies
+    const firefliesContainer = document.getElementById('fireflies');
+    for (let i = 0; i < 25; i++) {
+      const firefly = document.createElement('div');
+      firefly.className = 'firefly';
+      firefly.style.left = Math.random() * 100 + '%';
+      firefly.style.top = Math.random() * 100 + '%';
+      firefly.style.animationDelay = Math.random() * 8 + 's';
+      firefly.style.animationDuration = (6 + Math.random() * 4) + 's';
+      firefliesContainer.appendChild(firefly);
+    }
+
+    // Sound toggle
+    const audio = document.getElementById('ambient-music');
+    const soundToggle = document.getElementById('sound-toggle');
+    const soundLabel = soundToggle.querySelector('.sound-label');
+    const soundWaves = soundToggle.querySelector('.sound-waves');
+    let isPlaying = false;
+
+    audio.volume = 0.25;
+
+    soundToggle.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        soundLabel.textContent = 'Sound Off';
+        soundWaves.style.opacity = '0.3';
+        isPlaying = false;
+      } else {
+        audio.play();
+        soundLabel.textContent = 'Sound On';
+        soundWaves.style.opacity = '1';
+        isPlaying = true;
+      }
+    });
+
+    // Door hover effects
+    document.querySelectorAll('.chakra-door').forEach(door => {
+      door.addEventListener('mouseenter', function() {
+        this.classList.add('door-hover');
+      });
+      door.addEventListener('mouseleave', function() {
+        this.classList.remove('door-hover');
+      });
+    });
+
+    // Navigation dropdown toggle
+    const navMenuToggle = document.getElementById('navMenuToggle');
+    const navDropdown = document.getElementById('navDropdown');
+    
+    navMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navDropdown.classList.toggle('active');
+    });
+    
+    document.addEventListener('click', (e) => {
+      if (!navDropdown.contains(e.target) && !navMenuToggle.contains(e.target)) {
+        navDropdown.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

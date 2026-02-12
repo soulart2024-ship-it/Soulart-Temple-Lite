@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulArt Temple — Healing & Vibration Art</title>
+  <meta name="description" content="Release Stored Shadow Emotions and awaken your authentic self through Spiritual Kinesiology and Vibration Art.">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  
+  <link rel="preload" href="SoulArt Brand full.png" as="image">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/home.css">
+  <link rel="stylesheet" href="styles/disclaimer.css">
+</head>
+<body class="landing-page">
+  <header class="landing-header">
+    <a href="landing.html" class="header-logo">
+      <img src="SoulArt Brand full.png" alt="SoulArt Temple - Spiritual Kinesiology and Vibration Art healing sanctuary" class="logo" />
+    </a>
+    <nav class="landing-nav" aria-label="Primary navigation">
+      <a href="#about">About</a>
+      <a href="#tools">Tools</a>
+      <a href="#testimonials">Stories</a>
+      <a href="#booking">Book</a>
+      <a href="login.html" class="nav-signin">Sign In</a>
+      <a href="#" class="nav-cta auth-nav-link">Enter Temple</a>
+    </nav>
+    <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="landing-wrapper">
+    <section id="hero" class="hero-section" role="banner">
+      <div class="hero-fluid-bg">
+        <div class="hero-fluid-layer-1"></div>
+        <div class="hero-fluid-layer-2"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Embody Your Soul Vibration Through Spiritual Kinesiology</h1>
+        <p class="hero-subtitle">Release stuck energy — reawaken your authentic self and reconnect to your frequency in a safe, caring and intuitive space.</p>
+        <a href="#" class="btn-primary btn-large" id="enter-temple-btn">Enter the Temple</a>
+        <p class="hero-sub-note">Guided healing &bull; Creative expression &bull; Inner transformation</p>
+      </div>
+    </section>
+
+    <section id="benefits" class="benefits-section" aria-labelledby="benefits-heading">
+      <h2 id="benefits-heading" class="visually-hidden">Key Benefits</h2>
+      <div class="benefit-grid">
+        <article class="benefit-card">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Release Energy Blocks</h3>
+          <p>Transform how you navigate life through releasing trapped energy which has built up over the years. Attain clarity and inner peace using the gentle method of kinesiology.</p>
+        </article>
+        <article class="benefit-card">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.96-4.48-9-10-9z"/>
+              <circle cx="6.5" cy="11.5" r="1.5"/>
+              <circle cx="9.5" cy="7.5" r="1.5"/>
+              <circle cx="14.5" cy="7.5" r="1.5"/>
+              <circle cx="17.5" cy="11.5" r="1.5"/>
+            </svg>
+          </div>
+          <h3>Breathe, Grow, Enjoy</h3>
+          <p>Express your inner vibration through doodling that enables your expression to become its own signature.</p>
+        </article>
+        <article class="benefit-card">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <h3>Awaken Inner Voice</h3>
+          <p>Gain clarity, direction, and authenticity by decoding your body's wisdom and aligning with your true path.</p>
+        </article>
+      </div>
+      <div class="learn-more-cta">
+        <a href="tools/education-centre.html#trapped-emotions" class="btn-secondary">Learn About Stored Shadow Emotions & Kinesiology</a>
+      </div>
+    </section>
+
+    <section id="tools" class="tools-section journey-section" aria-labelledby="tools-heading">
+      <h2 id="tools-heading" class="section-title">Your Healing Journey</h2>
+      <p class="tools-description">Explore the sacred spaces within SoulArt Temple. Each room offers unique tools for emotional healing and creative awakening.</p>
+      <div class="tools-grid journey-grid">
+        <div class="journey-card" style="--card-gradient: linear-gradient(135deg, #8B3A3A 0%, #5a2525 100%);">
+          <div class="journey-preview">
+            <svg class="journey-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6V12L16 14"/>
+            </svg>
+          </div>
+          <h3>Quick Release Decoder</h3>
+          <p>Identify and release Stored Shadow Emotions using affirmations and meridian swiping techniques. Your first step to emotional freedom.</p>
+          <span class="journey-label">Root Chakra</span>
+        </div>
+        <div class="journey-card" style="--card-gradient: linear-gradient(135deg, #FF7F50 0%, #cc5a30 100%);">
+          <div class="journey-preview">
+            <svg class="journey-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+              <circle cx="11" cy="11" r="2"/>
+            </svg>
+          </div>
+          <h3>Art Meditation Studio</h3>
+          <p>Express your inner world through mandala creation, meditative doodling, and sacred pattern tracing. Creative healing through art.</p>
+          <span class="journey-label">Sacral Chakra</span>
+        </div>
+        <div class="journey-card" style="--card-gradient: linear-gradient(135deg, #4169E1 0%, #2a4a9a 100%);">
+          <div class="journey-preview">
+            <svg class="journey-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              <path d="M8 7h8M8 11h8M8 15h5"/>
+            </svg>
+          </div>
+          <h3>Sacred Journal</h3>
+          <p>Document your healing journey with guided prompts, reflection spaces, and vibration tracking. Your personal record of transformation.</p>
+          <span class="journey-label">Throat Chakra</span>
+        </div>
+        <div class="journey-card" style="--card-gradient: linear-gradient(135deg, #6B5B95 0%, #4a3f6a 100%);">
+          <div class="journey-preview">
+            <svg class="journey-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+          <h3>SoulArt AI Guide</h3>
+          <p>Chat with our gentle AI companion for emotional reflection, grounding techniques, and personalised guidance on your healing path.</p>
+          <span class="journey-label">Third Eye Chakra</span>
+        </div>
+        <div class="journey-card" style="--card-gradient: linear-gradient(135deg, #3CB371 0%, #2a8050 100%);">
+          <div class="journey-preview">
+            <svg class="journey-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <h3>Seven Chakra Rooms</h3>
+          <p>Journey through the Temple of Seven Rooms, each aligned to a chakra energy centre. Discover healing, play, and transformation.</p>
+          <span class="journey-label">Heart Chakra</span>
+        </div>
+        <div class="journey-card" style="--card-gradient: linear-gradient(135deg, #C8963E 0%, #a67b2e 100%);">
+          <div class="journey-preview">
+            <svg class="journey-icon" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <h3>Members Dashboard</h3>
+          <p>Your sacred hub for accessing all Temple features, tracking progress, and unlocking premium healing tools.</p>
+          <span class="journey-label">Crown Chakra</span>
+        </div>
+      </div>
+      <div class="journey-cta">
+        <a href="tools/discovery.html" class="btn-primary btn-large">Begin Your Journey</a>
+      </div>
+    </section>
+
+    <section id="transformation" class="transformation-section" aria-labelledby="transformation-heading">
+      <h2 id="transformation-heading" class="section-title">What Transformation Looks Like</h2>
+      <div class="transformation-grid">
+        <div class="transformation-before">
+          <h3>Before</h3>
+          <ul>
+            <li>Carrying unexplained heaviness or tension</li>
+            <li>Repeating the same emotional patterns</li>
+            <li>Feeling disconnected from your authentic self</li>
+            <li>Creative blocks and stagnant energy</li>
+            <li>Difficulty processing past experiences</li>
+          </ul>
+        </div>
+        <div class="transformation-divider" aria-hidden="true"></div>
+        <div class="transformation-after">
+          <h3>After</h3>
+          <ul>
+            <li>Emotional lightness and clarity</li>
+            <li>Breaking free from old patterns</li>
+            <li>Deep connection with your inner wisdom</li>
+            <li>Creative flow and inspired expression</li>
+            <li>Peace with your journey and story</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="testimonials-section" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading" class="section-title">Healing Stories from Our Community</h2>
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <blockquote>
+            <p>"After using the Quick Release tool, I felt a weight lift from my chest. The affirmations helped me process emotions I'd been carrying for years. I finally understand why I felt stuck."</p>
+          </blockquote>
+          <footer class="author">— Sarah M., Melbourne</footer>
+        </article>
+        <article class="testimonial-card">
+          <blockquote>
+            <p>"The Art Meditation feature is my go-to for unwinding. Creating mandalas while processing my day has become a sacred ritual. It's meditation without having to sit still."</p>
+          </blockquote>
+          <footer class="author">— James L., Sydney</footer>
+        </article>
+        <article class="testimonial-card">
+          <blockquote>
+            <p>"I love how the SoulArt Guide gently helps me explore my feelings without judgment. It's like having a supportive friend available anytime I need to process something."</p>
+          </blockquote>
+          <footer class="author">— Emma K., Brisbane</footer>
+        </article>
+        <article class="testimonial-card">
+          <blockquote>
+            <p>"I was skeptical at first, but after my third session with the decoder, I noticed I wasn't reacting to my triggers the same way. Something had genuinely shifted."</p>
+          </blockquote>
+          <footer class="author">— Michael T., Perth</footer>
+        </article>
+        <article class="testimonial-card">
+          <blockquote>
+            <p>"The Sacred Journal prompts helped me uncover patterns I'd never noticed before. Writing became a form of therapy, and I finally made peace with my past."</p>
+          </blockquote>
+          <footer class="author">— Lisa R., Adelaide</footer>
+        </article>
+        <article class="testimonial-card">
+          <blockquote>
+            <p>"As someone who struggles with anxiety, the combination of art meditation and emotional release has been transformative. I feel more grounded than I have in years."</p>
+          </blockquote>
+          <footer class="author">— David H., Gold Coast</footer>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about-strip" aria-labelledby="about-heading">
+      <a href="about.html" class="about-strip-link">
+        <div class="about-strip-image">
+          <div class="photo-halo">
+            <img src="soraya-photo.jpg" alt="Photo of Soraya" class="soraya-photo" loading="lazy">
+          </div>
+        </div>
+        <div class="about-strip-content">
+          <h2 id="about-heading">Meet Soraya — Creator of SoulArt Temple</h2>
+          <p class="about-strip-tagline">The Soul Behind SoulArt</p>
+          <p class="about-strip-intro">Soraya blends spiritual kinesiology, intuitive artistry and emotional self-healing into a unique sanctuary for transformation.</p>
+          <span class="about-strip-cta">Read My Story <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </section>
+
+    <section id="booking" class="booking-section" aria-labelledby="booking-heading">
+      <div class="booking-container">
+        <div class="booking-info">
+          <h2 id="booking-heading">Work With Soraya (1:1 Sessions)</h2>
+          <p class="booking-intro">Receive personalised, gentle support wherever you are in your healing journey.</p>
+          
+          <div class="session-types">
+            <div class="session-type-card">
+              <span class="session-icon">&#9825;</span>
+              <h3>Discovery Call</h3>
+              <p class="session-duration">30 minutes &bull; Free</p>
+              <p>A gentle introduction to explore how we might work together and answer your questions.</p>
+            </div>
+            <div class="session-type-card">
+              <span class="session-icon">&#10024;</span>
+              <h3>Emotional Release Session</h3>
+              <p class="session-duration">60 minutes</p>
+              <p>Deep dive into identifying and releasing Stored Shadow Emotions using muscle testing and affirmations.</p>
+            </div>
+            <div class="session-type-card">
+              <span class="session-icon">&#9733;</span>
+              <h3>Soul Journey Package</h3>
+              <p class="session-duration">3 sessions</p>
+              <p>A transformative series for comprehensive emotional clearing and ongoing support.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="booking-form-wrapper">
+          <h3>Request a Session</h3>
+          <form id="booking-form" class="booking-form" aria-label="Booking request form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="booking-name">Your Name *</label>
+                <input type="text" id="booking-name" name="name" autocomplete="name" required>
+              </div>
+              <div class="form-group">
+                <label for="booking-email">Email *</label>
+                <input type="email" id="booking-email" name="email" autocomplete="email" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="booking-phone">Phone (optional)</label>
+                <input type="tel" id="booking-phone" name="phone" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="booking-session">Session Type *</label>
+                <select id="booking-session" name="session_type" required>
+                  <option value="">Choose a session...</option>
+                  <option value="discovery">Discovery Call (30 min, Free)</option>
+                  <option value="emotional-release">Emotional Release Session (60 min)</option>
+                  <option value="soul-journey">Soul Journey Package (3 sessions)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="booking-day">Preferred Day</label>
+                <select id="booking-day" name="preferred_day">
+                  <option value="">No preference</option>
+                  <option value="monday">Monday</option>
+                  <option value="tuesday">Tuesday</option>
+                  <option value="wednesday">Wednesday</option>
+                  <option value="thursday">Thursday</option>
+                  <option value="friday">Friday</option>
+                  <option value="saturday">Saturday</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="booking-time">Preferred Time</label>
+                <select id="booking-time" name="preferred_time">
+                  <option value="">No preference</option>
+                  <option value="morning">Morning (9am - 12pm)</option>
+                  <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                  <option value="evening">Evening (5pm - 8pm)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="booking-message">Tell me about yourself (optional)</label>
+              <textarea id="booking-message" name="message" rows="4" placeholder="Share what's drawing you to this work, or any questions you have..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-primary btn-large">Request Booking</button>
+          </form>
+          <div id="booking-success" class="form-success" style="display: none;" role="alert">
+            <div class="success-icon-lg">✓</div>
+            <h4>Thank You — Your Request Has Been Received!</h4>
+            <p>I'm so glad you've taken this step on your healing journey. I'll review your request and be in touch within 24-48 hours to confirm your session.</p>
+            <p style="margin-top: 1em; font-size: 0.95rem; color: #666;">In the meantime, feel free to explore the <a href="#" class="auth-nav-link" style="color: #B8963D;">Quick Release Decoder</a> to begin your transformation.</p>
+          </div>
+          <div id="booking-error" class="form-error" style="display: none;" role="alert"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="final-cta" class="cta-section" aria-labelledby="cta-heading">
+      <div class="cta-inner">
+        <h2 id="cta-heading">Ready to Begin Your Transformation?</h2>
+        <p>Start releasing Stored Shadow Emotions and creating soul-aligned art today.</p>
+        <a href="#" class="btn-primary btn-large" id="cta-enter-temple-btn">Enter the Temple</a>
+        <p class="cta-tagline">Your healing begins with one gentle step.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="SoulArt Brand full.png" alt="SoulArt Temple" class="footer-logo">
+        <p>A sanctuary for emotional healing and creative expression.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-nav-group">
+          <h4>Explore</h4>
+          <a href="home.html">Home</a>
+          <a href="tools/education-centre.html">Education Centre</a>
+          <a href="#" class="auth-nav-link">Quick Release</a>
+          <a href="#" class="auth-nav-link">Sacred Journal</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Create</h4>
+          <a href="#" class="auth-nav-link">Art Meditation</a>
+          <a href="#" class="auth-nav-link">SoulArt Guide</a>
+          <a href="#" class="auth-nav-link">Your Profile</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Connect</h4>
+          <a href="#booking">Book a Session</a>
+          <a href="contact.html">Contact</a>
+          <a href="about.html">About</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 SoulArt Temple — All rights reserved.</p>
+      <p><a href="medical-disclaimer.html">Medical Disclaimer</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-use.html">Terms of Use</a> | <a href="#" class="placeholder-link">Liability Insurance Certificate</a></p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta-bar">
+    <a href="#" class="btn-primary" id="start-healing-btn">Start Healing</a>
+  </div>
+
+  <script>
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+    
+    function showFieldError(input, message) {
+      input.classList.add('invalid');
+      input.classList.remove('valid');
+      let errorEl = input.parentNode.querySelector('.field-error');
+      if (!errorEl) {
+        errorEl = document.createElement('div');
+        errorEl.className = 'field-error';
+        input.parentNode.appendChild(errorEl);
+      }
+      errorEl.textContent = message;
+      errorEl.classList.add('show');
+    }
+    
+    function clearFieldError(input) {
+      input.classList.remove('invalid');
+      const errorEl = input.parentNode.querySelector('.field-error');
+      if (errorEl) {
+        errorEl.classList.remove('show');
+      }
+    }
+    
+    function markValid(input) {
+      input.classList.add('valid');
+      input.classList.remove('invalid');
+      clearFieldError(input);
+    }
+    
+    function validateField(input) {
+      const value = input.value.trim();
+      
+      if (input.required && !value) {
+        showFieldError(input, 'This field is required');
+        return false;
+      }
+      
+      if (input.type === 'email' && value && !validateEmail(value)) {
+        showFieldError(input, 'Please enter a valid email address');
+        return false;
+      }
+      
+      if (value) {
+        markValid(input);
+      } else {
+        clearFieldError(input);
+      }
+      return true;
+    }
+    
+    document.querySelectorAll('.booking-form input, .booking-form select').forEach(input => {
+      input.addEventListener('blur', function() {
+        validateField(this);
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.classList.contains('invalid')) {
+          validateField(this);
+        }
+      });
+    });
+
+    document.getElementById('booking-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const successMsg = document.getElementById('booking-success');
+      const errorMsg = document.getElementById('booking-error');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const inputs = form.querySelectorAll('input, select, textarea');
+      let isValid = true;
+      
+      inputs.forEach(input => {
+        if (!validateField(input)) {
+          isValid = false;
+        }
+      });
+      
+      if (!isValid) {
+        form.querySelector('.invalid')?.focus();
+        return;
+      }
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      errorMsg.style.display = 'none';
+      
+      const formData = {
+        name: document.getElementById('booking-name').value,
+        email: document.getElementById('booking-email').value,
+        phone: document.getElementById('booking-phone').value,
+        session_type: document.getElementById('booking-session').value,
+        preferred_day: document.getElementById('booking-day').value,
+        preferred_time: document.getElementById('booking-time').value,
+        message: document.getElementById('booking-message').value
+      };
+      
+      try {
+        const response = await fetch('/api/booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+          successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error(data.error || 'Something went wrong. Please try again.');
+        }
+      } catch (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request Booking';
+      }
+    });
+
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const landingNav = document.querySelector('.landing-nav');
+    
+    if (mobileMenuBtn && landingNav) {
+      mobileMenuBtn.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        landingNav.classList.toggle('nav-open');
+        this.classList.toggle('menu-open');
+      });
+    }
+    
+    document.querySelectorAll('.landing-nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (window.innerWidth < 768) {
+            landingNav.classList.remove('nav-open');
+            mobileMenuBtn.classList.remove('menu-open');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+    });
+  </script>
+  <script src="scripts/disclaimer.js"></script>
+  <script>
+    // Auth-aware navigation helper
+    function handleAuthNavigation(e) {
+      e.preventDefault();
+      fetch('/api/auth/check')
+        .then(response => response.json())
+        .then(data => {
+          if (data.authenticated) {
+            if (hasAcceptedDisclaimer()) {
+              window.location.href = 'members-dashboard.html';
+            } else {
+              showDisclaimer(function() {
+                window.location.href = 'members-dashboard.html';
+              }, function() {
+                window.location.href = 'home.html';
+              });
+            }
+          } else {
+            window.location.href = 'register.html';
+          }
+        })
+        .catch(() => {
+          window.location.href = 'register.html';
+        });
+    }
+    
+    document.getElementById('enter-temple-btn').addEventListener('click', handleAuthNavigation);
+    document.getElementById('cta-enter-temple-btn').addEventListener('click', handleAuthNavigation);
+    document.getElementById('start-healing-btn').addEventListener('click', handleAuthNavigation);
+    
+   <script>
+  // Auth-aware footer and inline links
+  document.querySelectorAll('.auth-nav-link').forEach(link => {
+    link.addEventListener('click', handleAuthNavigation);
+  });
+
+  const footerDisclaimer = document.getElementById('footer-disclaimer-link');
+  if (footerDisclaimer) {
+    footerDisclaimer.addEventListener('click', function(e) {
+      e.preventDefault();
+      showDisclaimerReadOnly();
+    });
+  }
+</script>
+
+<script src="scripts/disclaimer.js"></script>
+
+<!-- 🌿 GENTLE ENTRY MODAL (THIS LIVES INSIDE BODY, AFTER SCRIPTS) -->
+<div class="entry-modal" id="entryModal" aria-hidden="true">
+  <div class="entry-modal-overlay"></div>
+
+  <div class="entry-modal-content" role="dialog" aria-modal="true">
+    <button class="entry-modal-close" aria-label="Close">×</button>
+
+    <h2>How would you like to enter today?</h2>
+    <p class="entry-modal-subtitle">
+      There is no right way. Choose what feels most supportive right now.
+    </p>
+
+    <div class="entry-options">
+
+      <div class="entry-option">
+        <h3>Be still</h3>
+        <p>A soft landing for breathing, writing, or drawing. No fixing.</p>
+        <button class="entry-btn" data-entry="still">Enter Still</button>
+      </div>
+
+      <div class="entry-option">
+        <h3>Explore gently</h3>
+        <p>Wander the Temple spaces intuitively and creatively.</p>
+        <button class="entry-btn" data-entry="temple">Enter the Temple</button>
+      </div>
+
+      <div class="entry-option">
+        <h3>Understand what’s held</h3>
+        <p>Learn about emotions and decoding at your own pace.</p>
+        <button class="entry-btn" data-entry="education">Education Centre</button>
+      </div>
+
+    </div>
+
+    <p class="entry-modal-footer">
+      You can return and choose differently at any time.
+    </p>
+  </div>
+</div>
+<!-- 🌿 END MODAL -->
+
+</body>
+</html>

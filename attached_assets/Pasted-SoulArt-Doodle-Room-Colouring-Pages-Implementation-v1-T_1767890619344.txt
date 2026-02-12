@@ -1,0 +1,197 @@
+SoulArt Doodle Room — Colouring Pages (Implementation v1)
+
+This approach:
+	•	works on desktop + mobile
+	•	uses canvas + vector drawing (not flood fill)
+	•	feels gentle, meditative, grown-up
+	•	is expandable later (paid packs, chakra sets, printables)
+
+1️⃣ Add “Colouring Pages” as a Drawing Mode (HTML)
+
+In your Drawing Modes section, add this button:
+<button class="mode-btn" data-mode="colouring">
+  Colouring Pages
+  <span class="mode-tooltip">
+    Gently colour sacred designs without drawing outlines
+  </span>
+</button>
+No emojis. Calm language. Perfect.
+
+2️⃣ Add the Colouring Selector (HTML)
+
+Place this below Drawing Modes, matching your existing collapsible pattern:
+
+Html:
+<div class="collapsible-section" data-section="colouring" id="colouringSection" style="display:none;">
+  <button class="section-header" onclick="toggleSection('colouring')" aria-expanded="true">
+    <span class="section-title">Choose a Design</span>
+    <span class="chevron">▼</span>
+  </button>
+
+  <div class="section-content" id="colouring-content">
+    <select id="colouringSelect">
+      <option value="">— Select a Colouring Page —</option>
+      <option value="lotus">Lotus Calm</option>
+      <option value="flower">Flower of Life</option>
+      <option value="heart">Sacred Heart</option>
+      <option value="mandala">Soft Mandala</option>
+      <option value="leaves">Botanical Flow</option>
+    </select>
+
+    <p class="hint">
+      Let the colour arrive naturally. There is no right way.
+    </p>
+  </div>
+</div>
+
+3️⃣ JS — Add Colouring Mode State
+
+Near your existing state variables:
+
+Js:
+let currentColouringPage = null;
+
+4️⃣ JS — Show / Hide Colouring Section on Mode Change
+
+Inside your mode button handler, add:
+
+if (currentMode === 'colouring') {
+  symmetryGroup.style.display = 'none';
+  templateGroup.style.display = 'none';
+  colouringSection.style.display = 'block';
+
+  setBrush('paint');
+  brushOpacity = 0.85;
+  brushSize = 12;
+  brushSizeSlider.value = 12;
+  opacityValue.textContent = '85';
+
+  resetViewport();
+  canvas.style.cursor = 'crosshair';
+} else {
+  colouringSection.style.display = 'none';
+}
+
+This ensures:
+	•	calm defaults
+	•	no symmetry noise
+	•	immediate usability
+
+5️⃣ JS — Render Colouring Pages (Core Logic)
+
+Add this function below your template functions:
+
+JS:
+function renderColouringPage(type) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  const size = Math.min(canvas.width, canvas.height) * 0.4;
+
+  ctx.save();
+  ctx.strokeStyle = '#C8C3B8'; // warm stone
+  ctx.lineWidth = 2.5;
+  ctx.globalAlpha = 0.9;
+
+  switch (type) {
+
+    case 'lotus':
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.ellipse(
+          cx + Math.cos(angle) * size * 0.25,
+          cy + Math.sin(angle) * size * 0.25,
+          size * 0.22,
+          size * 0.42,
+          angle,
+          0,
+          Math.PI * 2
+        );
+        ctx.stroke();
+      }
+      break;
+
+    case 'flower':
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.arc(
+          cx + Math.cos(angle) * size * 0.32,
+          cy + Math.sin(angle) * size * 0.32,
+          size * 0.32,
+          0,
+          Math.PI * 2
+        );
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.32, 0, Math.PI * 2);
+      ctx.stroke();
+      break;
+
+    case 'heart':
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + size * 0.25);
+      ctx.bezierCurveTo(
+        cx - size * 0.5, cy - size * 0.1,
+        cx - size * 0.25, cy - size * 0.45,
+        cx, cy - size * 0.2
+      );
+      ctx.bezierCurveTo(
+        cx + size * 0.25, cy - size * 0.45,
+        cx + size * 0.5, cy - size * 0.1,
+        cx, cy + size * 0.25
+      );
+      ctx.stroke();
+      break;
+
+    case 'mandala':
+      for (let r = size * 0.2; r <= size * 0.8; r += size * 0.15) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      break;
+
+    case 'leaves':
+      for (let i = 0; i < 10; i++) {
+        const angle = (i / 10) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.ellipse(
+          cx + Math.cos(angle) * size * 0.35,
+          cy + Math.sin(angle) * size * 0.35,
+          size * 0.12,
+          size * 0.28,
+          angle,
+          0,
+          Math.PI * 2
+        );
+        ctx.stroke();
+      }
+      break;
+  }
+
+  ctx.restore();
+  saveState();
+}
+
+6️⃣ Hook Selector to Canvas
+
+document.getElementById('colouringSelect').addEventListener('change', function () {
+  if (!this.value) return;
+  currentColouringPage = this.value;
+  renderColouringPage(this.value);
+});
+
+7️⃣ Behaviour Summary (What the User Feels)
+	•	Opens Colouring → calm outline appears
+	•	Chooses colours → soft brush flows naturally
+	•	No pressure to stay “inside the lines”
+	•	Undo works
+	•	Download works
+	•	Mobile feels native, not fiddly
+
+This is exactly the nervous-system-friendly experience you described.
+

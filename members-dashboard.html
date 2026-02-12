@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Members Dashboard - SoulArt Temple</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/members-dashboard.css">
+  <link rel="stylesheet" href="styles/chakra-tokens.css">
+  <link rel="stylesheet" href="styles/legal.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="auth-loading" id="authLoading">
+      <div class="loading-spinner"></div>
+      <p>Loading your sacred space...</p>
+    </div>
+    <header class="dashboard-header">
+      <a href="home.html" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Welcome
+      </a>
+      
+      <div class="header-nav-icons">
+        <a href="home.html" class="home-nav-icon" data-tooltip="Home">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3L2 12h3v9h6v-6h2v6h6v-9h3L12 3z"/>
+          </svg>
+        </a>
+        <a href="membership.html" class="home-nav-icon" data-tooltip="Membership Options">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </a>
+      </div>
+      
+      <div class="header-content">
+        <a href="home.html" class="logo-link">
+          <img src="SoulArt Brand full.png" alt="SoulArt Temple" class="dashboard-logo">
+        </a>
+        <h1>Your Sacred Space</h1>
+        <p class="dashboard-subtitle">Welcome to your Members Dashboard</p>
+      </div>
+      
+      <div class="member-strip" id="memberStrip">
+        <div class="member-info">
+          <div class="member-avatar" id="memberAvatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+            </svg>
+          </div>
+          <div class="member-details">
+            <span class="member-name" id="memberName">Guest</span>
+            <span class="member-tier" id="memberTier">Free Member</span>
+          </div>
+        </div>
+        <div class="member-actions">
+          <a href="profile.html" class="action-btn">My Profile</a>
+          <a href="membership.html" class="action-btn upgrade" id="upgradeBtn">Upgrade</a>
+          <button class="action-btn logout" id="logoutBtn" style="display: none;">Sign Out</button>
+        </div>
+      </div>
+    </header>
+    
+    <main class="dashboard-main">
+      <section class="tile-section">
+        <h2 class="section-title">
+          <span class="section-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Your Journey
+        </h2>
+        <div class="tile-grid">
+          <a href="tools/discovery.html" class="dashboard-tile" data-tier="free">
+            <div class="tile-icon" style="--tile-color: #9370DB;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Discovery Portal</h3>
+              <p>Explore your shadow emotion categories and understand what awaits release</p>
+            </div>
+            <div class="discovery-stats" id="discoveryStats" style="display: none;">
+              <span class="discovery-stat"><strong id="discoveryCats">0</strong> categories</span>
+              <span class="discovery-stat"><strong id="discoveryCount">0</strong> emotions</span>
+            </div>
+          </a>
+          <a href="temple.html" class="dashboard-tile temple-tile">
+            <div class="tile-icon chakra-rainbow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Temple of Seven Rooms</h3>
+              <p>Journey through chakra-aligned sacred spaces for healing and transformation</p>
+            </div>
+            <span class="tile-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </section>
+      
+      <section class="tile-section">
+        <h2 class="section-title">
+          <span class="section-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </span>
+          Free Tools
+        </h2>
+        <div class="tile-grid">
+          <a href="tools/decoder.html" class="dashboard-tile" data-tier="free" data-limited="true">
+            <div class="tile-badge limited">3 Sessions</div>
+            <div class="tile-icon" style="--tile-color: var(--chakra-heart);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Quick Release Decoder</h3>
+              <p>Identify and release Stored Shadow Emotions with guided affirmations</p>
+            </div>
+          </a>
+          
+          <a href="tools/journal.html" class="dashboard-tile" data-tier="free">
+            <div class="tile-icon" style="--tile-color: var(--chakra-throat);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                <line x1="8" y1="7" x2="16" y2="7"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Sacred Journal</h3>
+              <p>Document your healing journey with guided prompts and reflections</p>
+            </div>
+          </a>
+          
+          <a href="tools/doodle.html" class="dashboard-tile" data-tier="free">
+            <div class="tile-icon" style="--tile-color: var(--chakra-sacral);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                <path d="M2 2l7.586 7.586"/>
+                <circle cx="11" cy="11" r="2"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Art Meditation</h3>
+              <p>Express through creative doodling, mandalas, and sacred patterns</p>
+            </div>
+          </a>
+          
+          <a href="tools/education-centre.html" class="dashboard-tile" data-tier="free">
+            <div class="tile-icon" style="--tile-color: var(--chakra-third-eye);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Education Centre</h3>
+              <p>Learn about Kinesiology, energy healing, and chakra wisdom</p>
+            </div>
+          </a>
+          
+          <a href="oracle.html" class="dashboard-tile" data-tier="free" data-limited="true">
+            <div class="tile-badge limited">3 Cards</div>
+            <div class="tile-icon" style="--tile-color: #C8963E;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2"/>
+                <path d="M12 20v2"/>
+                <path d="M2 12h2"/>
+                <path d="M20 12h2"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>SoulArt Oracle Cards</h3>
+              <p>Draw guidance cards for spiritual insight and reflection</p>
+            </div>
+          </a>
+        </div>
+      </section>
+      
+      <section class="tile-section">
+        <h2 class="section-title">
+          <span class="section-icon essential">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </span>
+          Essential Membership
+          <span class="tier-price">£4.99/month</span>
+        </h2>
+        <div class="tile-grid">
+          <a href="tools/decoder.html" class="dashboard-tile" data-tier="essential" id="unlimitedDecoder">
+            <div class="tile-lock" id="essentialLock1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="tile-icon" style="--tile-color: var(--chakra-heart);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Unlimited Quick Release</h3>
+              <p>Release as many Stored Shadow Emotions as you need, whenever you need</p>
+            </div>
+          </a>
+          
+          <a href="oracle.html" class="dashboard-tile" data-tier="essential" id="oracleCardsFull">
+            <div class="tile-lock" id="essentialLock2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="tile-icon" style="--tile-color: #C8963E;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2"/>
+                <path d="M12 20v2"/>
+                <path d="M2 12h2"/>
+                <path d="M20 12h2"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Full Oracle Access</h3>
+              <p>Unlimited card draws with 1, 3, and 5 card spreads</p>
+            </div>
+          </a>
+        </div>
+      </section>
+      
+      <section class="tile-section">
+        <h2 class="section-title">
+          <span class="section-icon premium">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </span>
+          Premium Membership (Sacred Depth Room)
+          <span class="tier-price">£6.99/month</span>
+        </h2>
+        <div class="tile-grid">
+          <a href="tools/emotion-decoder.html" class="dashboard-tile" data-tier="premium" id="emotionDecoder">
+            <div class="tile-badge premium">Premium</div>
+            <div class="tile-lock" id="premiumLock1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="tile-icon" style="--tile-color: var(--chakra-root);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Emotion Decoder</h3>
+              <p>7-step Kinesiology protocol to identify deep shadow emotions</p>
+            </div>
+          </a>
+          
+          <a href="tools/allergy-decoder.html" class="dashboard-tile" data-tier="premium" id="allergyDecoder">
+            <div class="tile-badge premium">Premium</div>
+            <div class="tile-lock" id="premiumLock2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="tile-icon" style="--tile-color: var(--chakra-solar);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Allergy Decoder</h3>
+              <p>7-step healing workflow for energetic sensitivities</p>
+            </div>
+          </a>
+          
+          <a href="tools/belief-decoder.html" class="dashboard-tile" data-tier="premium" id="beliefDecoder">
+            <div class="tile-badge premium">Premium</div>
+            <div class="tile-lock" id="premiumLock3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="tile-icon" style="--tile-color: var(--chakra-crown);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>Belief Decoder</h3>
+              <p>8 belief categories to transform inherited limiting patterns</p>
+            </div>
+          </a>
+          
+          <a href="tools/guide.html" class="dashboard-tile" data-tier="premium" id="soulartGuide">
+            <div class="tile-badge premium">Premium</div>
+            <div class="tile-lock" id="premiumLock4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="tile-icon" style="--tile-color: #b8a9c9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>SoulArt AI Guide</h3>
+              <p>Your gentle AI companion for emotional reflection and support</p>
+            </div>
+          </a>
+          
+          <a href="tools/playroom.html" class="dashboard-tile" data-tier="premium" id="playroom">
+            <div class="tile-badge premium">Premium</div>
+            <div class="tile-lock" id="premiumLock5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="tile-icon playroom-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+            </div>
+            <div class="tile-content">
+              <h3>SoulArt Playroom</h3>
+              <p>Zen games for mindfulness: Lotus Breath, Chakra Flow, Zen Sand Garden</p>
+            </div>
+          </a>
+        </div>
+      </section>
+      
+      <section class="tile-section shop-section">
+        <h2 class="section-title">
+          <span class="section-icon shop-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </span>
+          Shop
+        </h2>
+        <div class="shop-tile-wrapper">
+          <a href="https://www.etsy.com/uk/shop/SoulArtLimited" target="_blank" rel="noopener" class="shop-tile">
+            <div class="shop-tile-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </div>
+            <div class="shop-tile-content">
+              <h3>Shop SoulArt Creations</h3>
+              <p>Browse our collection of spiritual art, prints, and merchandise</p>
+            </div>
+            <span class="shop-tile-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </section>
+    </main>
+    
+    <footer class="dashboard-footer">
+      <p>Need support? <a href="home.html#contact">Contact us</a></p>
+    </footer>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      checkAuthAndUpdateUI();
+      loadDiscoveryStats();
+    });
+    
+    async function loadDiscoveryStats() {
+      try {
+        const response = await fetch('/api/discovery/sessions/latest');
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.total_categories > 0) {
+            document.getElementById('discoveryStats').style.display = 'flex';
+            document.getElementById('discoveryCats').textContent = data.total_categories;
+            document.getElementById('discoveryCount').textContent = data.total_shadow_count;
+          }
+        }
+      } catch (err) {
+        console.log('No discovery session found');
+      }
+    }
+    
+    async function checkAuthAndUpdateUI() {
+      try {
+        const response = await fetch('/api/auth/check');
+        const data = await response.json();
+        
+        document.getElementById('authLoading').style.display = 'none';
+        
+        if (data.authenticated) {
+          updateMemberInfo(data.user);
+          updateTileAccess(data.user.membership_tier);
+          document.querySelector('.dashboard-container').classList.add('loaded');
+        } else {
+          window.location.href = 'login.html?redirect=members-dashboard.html';
+          return;
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        window.location.href = 'login.html?redirect=members-dashboard.html';
+        return;
+      }
+    }
+    
+    function updateMemberInfo(user) {
+      const nameEl = document.getElementById('memberName');
+      const tierEl = document.getElementById('memberTier');
+      const upgradeBtn = document.getElementById('upgradeBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      
+      if (user) {
+        nameEl.textContent = user.name || user.email.split('@')[0];
+        
+        const tierLabels = {
+          'free': 'Free Member',
+          'essential': 'Essential Member',
+          'premium': 'Premium Member'
+        };
+        tierEl.textContent = tierLabels[user.membership_tier] || 'Free Member';
+        tierEl.className = 'member-tier ' + (user.membership_tier || 'free');
+        
+        if (user.membership_tier === 'premium') {
+          upgradeBtn.style.display = 'none';
+        } else {
+          upgradeBtn.style.display = 'inline-block';
+          upgradeBtn.textContent = user.membership_tier === 'essential' ? 'Go Premium' : 'Upgrade';
+        }
+        
+        logoutBtn.style.display = 'inline-block';
+        logoutBtn.onclick = logout;
+      } else {
+        nameEl.textContent = 'Guest';
+        tierEl.textContent = 'Sign in for full access';
+        tierEl.className = 'member-tier guest';
+        upgradeBtn.textContent = 'Sign Up';
+        upgradeBtn.href = 'register.html';
+        logoutBtn.style.display = 'none';
+      }
+    }
+    
+    function updateTileAccess(tier) {
+      const tiles = document.querySelectorAll('.dashboard-tile[data-tier]');
+      
+      tiles.forEach(tile => {
+        const requiredTier = tile.dataset.tier;
+        const lock = tile.querySelector('.tile-lock');
+        
+        let hasAccess = false;
+        
+        if (requiredTier === 'free') {
+          hasAccess = true;
+        } else if (requiredTier === 'essential') {
+          hasAccess = tier === 'essential' || tier === 'premium';
+        } else if (requiredTier === 'premium') {
+          hasAccess = tier === 'premium';
+        }
+        
+        if (hasAccess) {
+          tile.classList.remove('locked');
+          if (lock) lock.style.display = 'none';
+        } else {
+          tile.classList.add('locked');
+          if (lock) lock.style.display = 'flex';
+          tile.addEventListener('click', function(e) {
+            if (this.classList.contains('locked')) {
+              e.preventDefault();
+              showUpgradePrompt(requiredTier);
+            }
+          });
+        }
+      });
+    }
+    
+    function showUpgradePrompt(tier) {
+      const tierNames = {
+        'essential': 'Essential (£4.99/month)',
+        'premium': 'Premium (£6.99/month)'
+      };
+      
+      const message = `This feature requires ${tierNames[tier]} membership. Would you like to upgrade?`;
+      
+      if (confirm(message)) {
+        window.location.href = 'membership.html';
+      }
+    }
+    
+    async function logout() {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+        window.location.href = 'home.html';
+      } catch (error) {
+        console.error('Logout failed:', error);
+      }
+    }
+  </script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+
+  </footer>
+</body>
+</html>

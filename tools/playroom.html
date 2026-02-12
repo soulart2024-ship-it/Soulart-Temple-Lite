@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <title>SoulArt Playroom - Mindful Games</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/chakra-tokens.css">
+  <link rel="stylesheet" href="../styles/playroom.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+</head>
+<body>
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+
+  <main class="playroom-container">
+    <section class="playroom-hero">
+      <div class="hero-glow"></div>
+      <h1>SoulArt Playroom</h1>
+      <p class="playroom-subtitle">Gentle games for a peaceful mind. Each experience is designed to bring you into a state of calm, presence, and flow.</p>
+    </section>
+
+    <div id="access-gate" class="access-gate" style="display: none;">
+      <div class="gate-content">
+        <div class="gate-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <circle cx="12" cy="16" r="1"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <h2>Members Only Sanctuary</h2>
+        <p>The Playroom is a special space for our temple members. Sign up to access these mindful experiences.</p>
+        <div class="gate-actions">
+          <a href="../membership.html" class="gate-btn primary">View Membership</a>
+          <a href="../login.html" class="gate-btn secondary">Sign In</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="games-grid" class="games-grid">
+      <article class="game-card" data-game="lotus-breath">
+        <div class="game-preview lotus-preview">
+          <div class="lotus-demo">
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-petal"></div>
+            <div class="lotus-center"></div>
+          </div>
+        </div>
+        <div class="game-info">
+          <h3>Lotus Breath Guide</h3>
+          <p>Follow the lotus as it blooms and closes, guiding your breath into peaceful rhythm.</p>
+          <span class="game-tag">Breathing</span>
+        </div>
+        <a href="games/lotus-breath.html" class="game-play-btn">Begin</a>
+      </article>
+
+      <article class="game-card" data-game="chakra-flow">
+        <div class="game-preview flow-preview">
+          <div class="flow-demo">
+            <div class="flow-orb orb-1"></div>
+            <div class="flow-orb orb-2"></div>
+            <div class="flow-orb orb-3"></div>
+            <div class="flow-path"></div>
+          </div>
+        </div>
+        <div class="game-info">
+          <h3>Chakra Flow Path</h3>
+          <p>Guide glowing orbs through chakra-colored pathways with smooth, flowing movements.</p>
+          <span class="game-tag">Focus</span>
+        </div>
+        <a href="games/chakra-flow.html" class="game-play-btn">Begin</a>
+      </article>
+
+      <article class="game-card" data-game="zen-sand">
+        <div class="game-preview sand-preview">
+          <div class="sand-demo">
+            <div class="sand-circle"></div>
+            <div class="sand-line line-1"></div>
+            <div class="sand-line line-2"></div>
+            <div class="sand-line line-3"></div>
+          </div>
+        </div>
+        <div class="game-info">
+          <h3>Zen Sand Garden</h3>
+          <p>Create peaceful patterns in digital sand. Draw, rake, and design your own meditation space.</p>
+          <span class="game-tag">Creative</span>
+        </div>
+        <a href="games/zen-sand.html" class="game-play-btn">Begin</a>
+      </article>
+    </section>
+
+    <section class="playroom-footer">
+      <p>Each game saves your progress locally. Take your time — there's no rush in the Playroom.</p>
+    </section>
+  </main>
+
+  <script src="../scripts/playroom.js"></script>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+</body>
+</html>

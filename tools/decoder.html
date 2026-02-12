@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulArt Temple - Quick Emotion Release</title>
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+</head>
+<body>
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+  
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+  
+  <main class="page-wrapper container">
+    <h1>Quick Release Emotion Decoder</h1>
+    <p>Identify the Stored Shadow Emotion for quick release</p>
+    
+    <div class="usage-indicator-bar">
+      <span id="decoder-usage-indicator">Loading...</span>
+    </div>
+
+    <div class="decoder-intro">
+      <p><strong>Need help with muscle testing techniques?</strong> <a href="education-centre.html" class="inline-link">Visit our Education Centre</a> for video tutorials and comprehensive guidance.</p>
+    </div>
+
+    <div class="emotion-grid">
+        <button class="emotion-btn" onclick="startRelease(event, 'Fear')">Fear</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Guilt')">Guilt</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Shame')">Shame</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Grief')">Grief</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Anger')">Anger</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Despair')">Despair</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Abandonment')">Abandonment</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Rejection')">Rejection</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Hopelessness')">Hopelessness</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Powerlessness')">Powerlessness</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Anxiety')">Anxiety</button>
+        <button class="emotion-btn" onclick="startRelease(event, 'Worthlessness')">Worthlessness</button>
+      </div>
+
+      <div id="release-output" class="release-output"></div>
+
+      <div class="deeper-release-prompt">
+        <p>Looking for deeper emotional release? Our Premium Emotion Decoder helps you identify and release hidden shadow emotions with a comprehensive 7-step protocol.</p>
+        <a href="../membership.html" class="deeper-release-btn">Consider Becoming a Member for Deeper Removal</a>
+      </div>
+  </main>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+
+  <div id="limit-modal" class="limit-modal" style="display: none;">
+    <div class="limit-modal-content">
+      <h2>Free Sessions Used</h2>
+      <p>You've used all 3 of your free Quick Release sessions.</p>
+      <p>Unlock unlimited access to the Quick Release Decoder, Hidden Shadows, and Recoding features with a membership.</p>
+      <div class="limit-modal-pricing">
+        <p><strong>Essential - £4.99/month</strong> - Unlimited decoder access</p>
+        <p><strong>Premium - £6.99/month</strong> - Everything + AI Guide</p>
+      </div>
+      <div class="limit-modal-actions">
+        <a href="../membership.html" class="limit-cta-btn">View Membership Options</a>
+        <button onclick="closeLimitModal()" class="limit-close-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../scripts/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SoulArt Temple — A Place to Arrive</title>
+  <meta name="description" content="A calm digital sanctuary for emotional presence, creative expression, and gentle self-healing." />
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#c9a227" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SoulArt" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/home.css" />
+  <link rel="stylesheet" href="styles/entry-modal.css" />
+  <link rel="stylesheet" href="styles/disclaimer.css" />
+</head>
+
+<body class="landing-page">
+
+<!-- ================= HEADER ================= -->
+<header class="landing-header">
+  <div class="header-logo-group">
+    <a href="home.html" class="header-logo">
+      <img src="SoulArt Brand full.png" alt="SoulArt Temple" />
+    </a>
+    <a href="https://still.soularttemple.com" class="still-icon-link" target="_blank" title="Still">
+      <img src="attached_assets/Still.png" alt="Still" class="still-icon" />
+      <span class="still-label">Still</span>
+    </a>
+  </div>
+
+  <nav class="landing-nav" id="landing-nav">
+    <a href="login.html">Sign In</a>
+  </nav>
+
+  <a href="login.html" class="mobile-user-icon" aria-label="Sign In">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+  </a>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>A place to arrive with what you’re carrying</h1>
+      <p>
+        SoulArt Temple is a calm digital sanctuary for emotional presence,
+        creative expression, and gentle self-healing.
+      </p>
+      <a href="entry.html" class="room-door-card">
+        <span class="room-door-text">Enter your temple</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <p>© 2026 SoulArt Temple — All rights reserved.</p>
+  <p>
+    <a href="medical-disclaimer.html">Medical Disclaimer</a> |
+    <a href="privacy-policy.html">Privacy Policy</a> |
+    <a href="terms-of-use.html">Terms of Use</a>
+  </p>
+</footer>
+
+<!-- ================= ENTRY MODAL ================= -->
+<div class="entry-modal" id="entryModal" aria-hidden="true">
+
+  <div class="entry-modal-overlay"></div>
+
+  <div class="entry-modal-panel" role="dialog" aria-modal="true">
+    <button class="entry-close" aria-label="Close entry">×</button>
+
+    <h2>How would you like to enter today?</h2>
+    <p class="entry-subtitle">
+      There is no right way. Choose what feels most supportive.
+    </p>
+
+    <div class="entry-rooms">
+
+      <div class="entry-room">
+        <h3>Be Still</h3>
+        <p>A soft landing for breathing, writing, or drawing.</p>
+        <button class="entry-btn" id="open-still-modal">
+          Enter Still
+        </button>
+      </div>
+
+      <div class="entry-room">
+        <h3>Explore Gently</h3>
+        <p>Move through the Temple spaces intuitively.</p>
+        <button class="entry-btn" data-target="temple.html">
+          Enter the Temple
+        </button>
+      </div>
+
+      <div class="entry-room">
+        <h3>Understand What’s Held</h3>
+        <p>Learn about emotions and decoding at your own pace.</p>
+        <button class="entry-btn" data-target="tools/education-centre.html">
+          Education Centre
+        </button>
+      </div>
+
+    </div>
+
+    <p class="entry-footer">
+      You can return and choose differently at any time.
+    </p>
+  </div>
+</div>
+
+<!-- ================= BE STILL MODAL ================= -->
+<div class="entry-modal" id="stillModal" aria-hidden="true">
+
+  <div class="entry-modal-overlay"></div>
+
+  <div class="entry-modal-panel still-panel" role="dialog" aria-modal="true">
+    <button class="entry-close" id="still-close" aria-label="Close">×</button>
+    <button class="entry-back" id="still-back" aria-label="Go back">← Back</button>
+
+    <h2>Be Still</h2>
+    <p class="entry-subtitle">
+      Choose a gentle way to settle into yourself.
+    </p>
+
+    <div class="entry-rooms">
+
+      <div class="entry-room still-card">
+        <h3>Breathe</h3>
+        <p>Follow a calming breath guide to center yourself.</p>
+        <button class="entry-btn" onclick="window.location.href='tools/games/lotus-breath.html'">
+          Breath Guide
+        </button>
+      </div>
+
+      <div class="entry-room still-card">
+        <h3>Write</h3>
+        <p>Quiet journaling space with a gentle affirmation.</p>
+        <button class="entry-btn" onclick="window.location.href='tools/journal.html?mode=quiet'">
+          Quiet Journal
+        </button>
+      </div>
+
+      <div class="entry-room still-card">
+        <h3>Markings</h3>
+        <p>Express freely through meditative doodling.</p>
+        <button class="entry-btn" onclick="window.location.href='static/markings.html'">
+          Markings
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="scripts/disclaimer.js"></script>
+
+<script>
+  const modal = document.getElementById('entryModal');
+  const stillModal = document.getElementById('stillModal');
+  const openButtons = [
+    document.getElementById('open-entry')
+  ];
+  const closeButton = document.querySelector('#entryModal .entry-close');
+  const openStillBtn = document.getElementById('open-still-modal');
+  const stillCloseBtn = document.getElementById('still-close');
+  const stillBackBtn = document.getElementById('still-back');
+
+  openButtons.forEach(btn => {
+    if (btn) {
+      btn.addEventListener('click', () => {
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+  });
+
+  closeButton.addEventListener('click', () => {
+    modal.setAttribute('aria-hidden', 'true');
+  });
+
+  // Open Be Still modal
+  openStillBtn.addEventListener('click', () => {
+    modal.setAttribute('aria-hidden', 'true');
+    stillModal.setAttribute('aria-hidden', 'false');
+  });
+
+  // Close Be Still modal
+  stillCloseBtn.addEventListener('click', () => {
+    stillModal.setAttribute('aria-hidden', 'true');
+  });
+
+  // Back to previous page
+  stillBackBtn.addEventListener('click', () => {
+    history.back();
+  });
+
+  // Handle navigation buttons in main modal (except Be Still)
+  modal.querySelectorAll('.entry-btn[data-target]').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.target;
+      if (target) window.location.href = target;
+    });
+  });
+
+  // Handle navigation buttons in Be Still modal
+  stillModal.querySelectorAll('.entry-btn[data-target]').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.target;
+      if (target) window.location.href = target;
+    });
+  });
+
+  // Close on overlay click
+  modal.addEventListener('click', e => {
+    if (e.target.classList.contains('entry-modal-overlay')) {
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  stillModal.addEventListener('click', e => {
+    if (e.target.classList.contains('entry-modal-overlay')) {
+      stillModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+@import url('chakra-tokens.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.temple-page {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  background: var(--temple-bg-gradient);
+  color: var(--temple-navy);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.temple-bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sacred-geometry-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(200, 150, 62, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(106, 13, 173, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(65, 105, 225, 0.02) 0%, transparent 60%);
+  animation: breathe 12s ease-in-out infinite;
+}
+
+.light-particles-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 10% 20%, rgba(255, 215, 0, 0.4), transparent),
+    radial-gradient(2px 2px at 90% 30%, rgba(255, 215, 0, 0.3), transparent),
+    radial-gradient(2px 2px at 30% 80%, rgba(255, 215, 0, 0.4), transparent),
+    radial-gradient(2px 2px at 70% 60%, rgba(255, 215, 0, 0.3), transparent),
+    radial-gradient(2px 2px at 50% 10%, rgba(255, 215, 0, 0.3), transparent);
+  animation: gentlePulse 8s ease-in-out infinite;
+}
+
+.temple-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-soft);
+}
+
+.temple-logo .logo {
+  height: 50px;
+  width: auto;
+}
+
+.temple-nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.temple-nav a {
+  color: var(--temple-navy);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition-gentle);
+}
+
+.temple-nav a:hover {
+  color: var(--temple-gold);
+}
+
+.temple-nav .nav-signin {
+  border: 2px solid var(--temple-navy);
+  padding: 8px 18px;
+  border-radius: 8px;
+}
+
+.temple-nav .nav-signin:hover {
+  background: var(--temple-navy);
+  color: #fff;
+}
+
+.temple-main {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+.temple-intro {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.temple-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--temple-navy);
+  margin-bottom: 0.5em;
+  letter-spacing: -0.5px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.temple-subtitle {
+  font-size: 1.15rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  animation: fadeInUp 0.6s ease-out 0.1s both;
+}
+
+.temple-rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.room-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-gentle), var(--transition-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.room-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transition: height 0.3s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-floating);
+}
+
+.room-card:hover::before {
+  height: 6px;
+}
+
+.room-card:focus {
+  outline: 3px solid var(--temple-gold);
+  outline-offset: 2px;
+}
+
+.room-root::before { background: var(--chakra-root-gradient); }
+.room-sacral::before { background: var(--chakra-sacral-gradient); }
+.room-solar::before { background: var(--chakra-solar-gradient); }
+.room-heart::before { background: var(--chakra-heart-gradient); }
+.room-throat::before { background: var(--chakra-throat-gradient); }
+.room-third-eye::before { background: var(--chakra-third-eye-gradient); }
+.room-crown::before { background: var(--chakra-crown-gradient); }
+
+.room-root:hover { border-color: var(--chakra-root); box-shadow: var(--shadow-floating), 0 0 25px var(--chakra-root-glow); }
+.room-sacral:hover { border-color: var(--chakra-sacral); box-shadow: var(--shadow-floating), 0 0 25px var(--chakra-sacral-glow); }
+.room-solar:hover { border-color: var(--chakra-solar); box-shadow: var(--shadow-floating), 0 0 25px var(--chakra-solar-glow); }
+.room-heart:hover { border-color: var(--chakra-heart); box-shadow: var(--shadow-floating), 0 0 25px var(--chakra-heart-glow); }
+.room-throat:hover { border-color: var(--chakra-throat); box-shadow: var(--shadow-floating), 0 0 25px var(--chakra-throat-glow); }
+.room-third-eye:hover { border-color: var(--chakra-third-eye); box-shadow: var(--shadow-floating), 0 0 25px var(--chakra-third-eye-glow); }
+.room-crown:hover { border-color: var(--chakra-crown); box-shadow: var(--shadow-floating), 0 0 25px var(--chakra-crown-glow); }
+
+.room-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  transition: var(--transition-gentle);
+}
+
+.room-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.room-root .room-icon { background: var(--chakra-root-bg); color: var(--chakra-root); }
+.room-sacral .room-icon { background: var(--chakra-sacral-bg); color: var(--chakra-sacral); }
+.room-solar .room-icon { background: var(--chakra-solar-bg); color: var(--chakra-solar); }
+.room-heart .room-icon { background: var(--chakra-heart-bg); color: var(--chakra-heart); }
+.room-throat .room-icon { background: var(--chakra-throat-bg); color: var(--chakra-throat); }
+.room-third-eye .room-icon { background: var(--chakra-third-eye-bg); color: var(--chakra-third-eye); }
+.room-crown .room-icon { background: var(--chakra-crown-bg); color: var(--chakra-crown); }
+
+.room-content {
+  flex: 1;
+}
+
+.room-chakra {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+
+.room-root .room-chakra { color: var(--chakra-root); }
+.room-sacral .room-chakra { color: var(--chakra-sacral); }
+.room-solar .room-chakra { color: var(--chakra-solar); }
+.room-heart .room-chakra { color: var(--chakra-heart); }
+.room-throat .room-chakra { color: var(--chakra-throat); }
+.room-third-eye .room-chakra { color: var(--chakra-third-eye); }
+.room-crown .room-chakra { color: var(--chakra-crown); }
+
+.room-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--temple-navy);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.room-description {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.room-enter {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: var(--transition-gentle);
+  background: var(--temple-navy);
+  color: #fff;
+}
+
+.room-card:hover .room-enter {
+  transform: translateX(5px);
+}
+
+.room-root:hover .room-enter { background: var(--chakra-root); }
+.room-sacral:hover .room-enter { background: var(--chakra-sacral); }
+.room-solar:hover .room-enter { background: var(--chakra-solar); }
+.room-heart:hover .room-enter { background: var(--chakra-heart); }
+.room-throat:hover .room-enter { background: var(--chakra-throat); }
+.room-third-eye:hover .room-enter { background: var(--chakra-third-eye); }
+.room-crown:hover .room-enter { background: var(--chakra-crown); }
+
+.temple-footer-cta {
+  text-align: center;
+  margin-top: 50px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.temple-footer-cta p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.temple-footer-cta a {
+  color: var(--temple-gold);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.temple-footer-cta a:hover {
+  border-bottom-color: var(--temple-gold);
+}
+
+.temple-footer {
+  text-align: center;
+  padding: 25px;
+  background: var(--temple-navy);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.temple-footer-links {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+.temple-footer-links a {
+  color: var(--temple-gold);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.temple-footer-links a:hover {
+  color: #e8cf8a;
+}
+
+.temple-intro-cta {
+  margin-top: 15px;
+  color: #666;
+  font-size: 1rem;
+}
+
+.temple-intro-cta a {
+  color: var(--temple-gold);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.temple-intro-cta a:hover {
+  border-bottom-color: var(--temple-gold);
+}
+
+@media (max-width: 768px) {
+  .temple-header {
+    padding: 12px 20px;
+  }
+  
+  .temple-logo .logo {
+    height: 40px;
+  }
+  
+  .temple-nav {
+    gap: 15px;
+  }
+  
+  .temple-nav a {
+    font-size: 0.9rem;
+  }
+  
+  .temple-main {
+    padding: 30px 15px 50px;
+  }
+  
+  .temple-rooms-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  
+  .room-card {
+    padding: 22px;
+  }
+  
+  .room-icon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .room-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .room-name {
+    font-size: 1.15rem;
+  }
+  
+  .room-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .temple-nav a:not(.nav-signin) {
+    display: none;
+  }
+  
+  .temple-title {
+    font-size: 1.6rem;
+  }
+  
+  .temple-subtitle {
+    font-size: 1rem;
+  }
+}

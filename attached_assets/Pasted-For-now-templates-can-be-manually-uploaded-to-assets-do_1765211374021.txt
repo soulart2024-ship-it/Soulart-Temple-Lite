@@ -1,0 +1,71 @@
+For now, templates can be manually uploaded to /assets/doodle/. Future: could be configurable via JSON.
+
+4.2 Drawing Engine
+	•	Use HTML <canvas> with JavaScript drawing logic.
+	•	Requirements:
+	•	Support mouse + touch input.
+	•	Basic line smoothing (optional but ideal).
+	•	Brush options:
+	•	Sizes: e.g. 2px, 5px, 10px.
+	•	Colour palette: small set of SoulArt colours (e.g. gold, deep blue, soft pink, emerald, white, black).
+	•	Undo:
+	•	Keep a simple stack of canvas states (limited to, say, last 10 actions).
+	•	Clear:
+	•	Clear only user strokes, not the template. Re-render template after clearing.
+	•	Download:
+	•	Export final image as PNG/JPG with both template + strokes combined.
+	•	Trigger browser download.
+
+4.3 Membership / Access Control (Optional Hook)
+	•	If membership logic is already present:
+	•	Free users:
+	•	Access to Blank Canvas + 1–2 basic templates.
+	•	Logged-in members:
+	•	Access all templates (including those flagged access: 'member').
+	•	If membership is not fully ready yet:
+	•	Still implement access field in templates.
+	•	For now, treat all templates as free or lock member ones behind a simple “Coming soon for members” message.
+
+⸻
+
+5. Non-Functional Requirements
+	•	Must work on modern desktop + mobile browsers.
+	•	Keep performance light: no huge image sizes, optimise assets for web.
+	•	Keep UI minimal, calm, and not cluttered — align with SoulArt Temple branding (soft colours, gentle fonts).
+	•	Ensure no external tracking or heavy libraries beyond what’s already used in the app (unless necessary).
+
+⸻
+
+6. AI Integration Hook (Future)
+
+For now:
+	•	Add a small informational/placeholder block above or below the canvas:
+
+“Coming soon: SoulArt AI Companion — gentle prompts and reflections to guide your doodle meditation.”
+
+Future AI ideas (for dev awareness, not to build now unless explicitly asked):
+	•	Text box or sidebar where AI can:
+	•	Suggest prompts like: “Draw how ‘calm’ feels in lines,” or “Trace this mandala while breathing slowly.”
+	•	Respond to user input: “How are you feeling?” → offer a suggested doodle practice.
+	•	Keep the architecture modular:
+	•	DoodleStudio handles drawing.
+	•	DoodleAICompanion (future component) handles text prompts + chat.
+
+⸻
+
+7. Integration with Existing App
+	•	Add a route/view for Art Meditation if not already distinct:
+	•	Example: /art-meditation or /doodle-studio.
+	•	Replace or extend the current Art Meditation page content with:
+	•	Short intro text at top:
+“Welcome to the SoulArt Doodle Studio. Choose a canvas, trace, colour, and let your mind soften into flow.”
+	•	Then embed the Doodle Studio component.
+	•	Ensure navigation back to Home / Emotion Decoding remains visible.
+
+⸻
+
+8. Future Enhancements (Nice to Have, Not Required Now)
+	•	Ability to save doodles to user profile (My Art gallery).
+	•	Option to tag doodles with an emotion or frequency.
+	•	Simple “playback” of user strokes for a meditative animation.
+	•	Print-ready download settings (e.g. square format for printing coasters/baubles).

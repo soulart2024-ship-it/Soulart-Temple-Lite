@@ -1,0 +1,414 @@
+/* Education Centre Specific Styles */
+
+.education-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Hero Section */
+.education-hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #1F1F2E 0%, #2a2a3e 100%);
+  color: #F5E6C3;
+  border-radius: 16px;
+  margin-bottom: 3rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.education-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #C8963E;
+}
+
+.education-hero p {
+  font-size: 1.3rem;
+  color: #F5E6C3;
+}
+
+/* Resource Sections */
+.resource-section {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.resource-section h2 {
+  color: #1F1F2E;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #C8963E;
+  padding-bottom: 0.8rem;
+}
+
+.resource-content h3 {
+  color: #C8963E;
+  font-size: 1.5rem;
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.resource-content p {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.resource-content ul {
+  text-align: left;
+  color: #333;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin: 1rem 0 1rem 2rem;
+}
+
+.resource-content ul li {
+  margin-bottom: 1rem;
+}
+
+.section-intro {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.video-card {
+  background: #F5E6C3;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(200, 150, 62, 0.2);
+}
+
+.video-card h3 {
+  color: #1F1F2E;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.video-card p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.video-card video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Tips Section */
+.tips-section {
+  background: linear-gradient(135deg, #f9f4e8 0%, #F5E6C3 100%);
+  border: 2px solid #C8963E;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.tip-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(200, 150, 62, 0.2);
+}
+
+.tip-card h3 {
+  color: #1F1F2E;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.tip-card p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Education CTA Section */
+.education-cta-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #1F1F2E 0%, #2a2a3e 100%);
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+
+.education-cta-section h2 {
+  color: #C8963E;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.education-cta-section p {
+  color: #F5E6C3;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Emotions Info Grid */
+.emotions-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.emotion-tile {
+  background: linear-gradient(135deg, #F5E6C3 0%, #f9f4e8 100%);
+  border: 2px solid #C8963E;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(200, 150, 62, 0.15);
+}
+
+.emotion-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(200, 150, 62, 0.3);
+  background: linear-gradient(135deg, #C8963E 0%, #d4a84a 100%);
+}
+
+.emotion-tile:hover h3 {
+  color: #fff;
+}
+
+.emotion-tile h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1F1F2E;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.emotion-tile.active {
+  background: linear-gradient(135deg, #C8963E 0%, #d4a84a 100%);
+  box-shadow: 0 6px 16px rgba(200, 150, 62, 0.4);
+}
+
+.emotion-tile.active h3 {
+  color: #fff;
+}
+
+/* Emotion Info Modal */
+.emotion-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(31, 31, 46, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.emotion-modal-content {
+  background: linear-gradient(135deg, #fff 0%, #f9f4e8 100%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(200, 150, 62, 0.4);
+  border: 2px solid #C8963E;
+  animation: slideUp 0.4s ease;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.emotion-modal-content h2 {
+  color: #C8963E;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  padding-right: 2rem;
+  border-bottom: 2px solid #C8963E;
+  padding-bottom: 0.8rem;
+}
+
+.emotion-modal-content p {
+  color: #333;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.emotion-modal-content h3 {
+  color: #1F1F2E;
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.emotion-modal-content ul {
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.emotion-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(200, 150, 62, 0.15);
+  border: none;
+  font-size: 1.8rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #C8963E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.emotion-modal-close:hover {
+  background: rgba(200, 150, 62, 0.25);
+  transform: rotate(90deg);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .emotions-info-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+  
+  .emotion-tile {
+    padding: 1rem 0.5rem;
+  }
+  
+  .emotion-tile h3 {
+    font-size: 0.85rem;
+  }
+  
+  .emotion-modal {
+    padding: 0.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .emotion-modal-content {
+    padding: 1.5rem;
+    margin: 0 auto;
+    width: calc(100% - 1.5rem);
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .emotion-modal-content h2 {
+    font-size: 1.3rem;
+    padding-right: 2.5rem;
+  }
+  
+  .emotion-modal-content p {
+    font-size: 0.95rem;
+  }
+  
+  .emotion-modal-content ul {
+    font-size: 0.9rem;
+    margin-left: 1rem;
+  }
+  
+  .emotion-modal-close {
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  .education-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .education-hero p {
+    font-size: 1.1rem;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-section {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .resource-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .video-card {
+    padding: 1rem;
+  }
+}
