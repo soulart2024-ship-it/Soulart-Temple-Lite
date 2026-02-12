@@ -1,1 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulArt Temple - Sacred Journal</title>
+  <meta name="theme-color" content="#c9a227">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SoulArt">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/journal.css">
+  <link rel="stylesheet" href="../styles/legal.css">
+  <style>
+    /* Quiet Mode Styles */
+    body.quiet-mode {
+      background: #f8f6f1 !important;
+    }
+    
+    body.quiet-mode .journal-hero,
+    body.quiet-mode .prompt-selection,
+    body.quiet-mode .prompt-container,
+    body.quiet-mode .selectors-row,
+    body.quiet-mode .form-row,
+    body.quiet-mode .new-entry-section > h2 {
+      display: none !important;
+    }
+    
+    body.quiet-mode .save-options {
+      display: flex !important;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    
+    body.quiet-mode .save-options .save-option-btn {
+      display: none;
+    }
+    
+    body.quiet-mode .save-options .sacred-space-btn {
+      display: inline-block !important;
+      background: linear-gradient(135deg, #c9a227 0%, #8b6914 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(201, 162, 39, 0.25);
+    }
+    
+    body.quiet-mode .save-options .sacred-space-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(201, 162, 39, 0.35);
+    }
+    
+    body.quiet-mode .page-wrapper {
+      background: transparent !important;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    body.quiet-mode .journal-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+    
+    body.quiet-mode .new-entry-section {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      border: none;
+    }
+    
+    body.quiet-mode .dropdown-container {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    body.quiet-mode .dropdown-container label {
+      color: #6a5a42;
+      font-size: 1rem;
+    }
+    
+    body.quiet-mode .dropdown-container select {
+      max-width: 400px;
+      border-color: #d4c4a8;
+      background: #fdfbf7;
+    }
+    
+    body.quiet-mode .dropdown-container select:focus {
+      border-color: #c9a227;
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+    }
+    
+    body.quiet-mode .affirmation-display {
+      font-size: 1.25rem;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      margin: 0 auto 2rem;
+      font-style: italic;
+      color: #6a5a42;
+      background: linear-gradient(135deg, rgba(244, 228, 188, 0.3), rgba(201, 162, 39, 0.1));
+      border: 1px solid rgba(201, 162, 39, 0.2);
+      border-radius: 12px;
+      max-width: 100%;
+    }
+    
+    body.quiet-mode .general-reflection-group {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    body.quiet-mode .general-reflection-group textarea {
+      min-height: 450px;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      padding: 1.5rem;
+      border: 1px solid #e0d8c8;
+      background: #fdfbf7;
+      border-radius: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    body.quiet-mode .general-reflection-group textarea:focus {
+      border-color: #c9a227;
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+      outline: none;
+    }
+    
+    body.quiet-mode .general-reflection-group label {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: #6a5a42;
+      text-align: center;
+      display: block;
+    }
+    
+    /* Music container styling */
+    .music-container {
+      margin-bottom: 1.5rem;
+    }
+    
+    .music-container label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #6a5a42;
+    }
+    
+    .music-container select {
+      width: 100%;
+      max-width: 300px;
+      padding: 0.75rem;
+      border: 1px solid #d4c4a8;
+      border-radius: 8px;
+      background: #fdfbf7;
+      font-size: 1rem;
+      color: #5a5a5a;
+    }
+    
+    .music-container select:focus {
+      border-color: #c9a227;
+      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+      outline: none;
+    }
+    
+    body.quiet-mode .music-container {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    body.quiet-mode .music-container select {
+      max-width: 250px;
+    }
 
+    .quiet-back-btn {
+      display: none;
+    }
+
+    body.quiet-mode .quiet-back-btn {
+      display: block;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: #777;
+      font-family: Georgia, serif;
+    }
+  </style>
+</head>
+<body>
+  <button class="quiet-back-btn" onclick="window.location.href='/entry.html';">Back</button>
+  <header class="branding-header">
+    <a href="../home.html"><img src="../SoulArt Brand full.png" alt="SoulArt Temple Logo" class="logo" /></a>
+    <h1 class="site-title">SoulArt Temple</h1>
+  </header>
+
+  <nav class="main-nav">
+    <a href="../home.html">Home</a>
+    <a href="education-centre.html">Education Centre</a>
+    <a href="../members-dashboard.html">My Profile</a>
+  </nav>
+
+  <div class="page-wrapper container">
+    <div class="journal-hero">
+      <div class="journal-title-row">
+        <h1>Sacred Journal</h1>
+        <button id="welcome-video-btn" class="video-help-btn" aria-label="Watch welcome video">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+          </svg>
+          <span>Welcome Video</span>
+        </button>
+      </div>
+      <p class="journal-subtitle">A sacred space to document your healing journey, release emotions, and nurture your soul</p>
+      
+      <div class="journal-welcome">
+        <h2>Welcome to Your SoulArt Journal</h2>
+        <p>This is your sacred space — a soft place to land after your emotional release. Whether you felt a shift or not, trust that something within you is already harmonizing. You're invited to return here any time to reflect, express, or simply be with your inner world.</p>
+        
+        <p>If you're unsure where to begin, use the <strong>Journal Prompt dropdown</strong> to explore a guiding question. These prompts are here to gently open new layers of self-awareness and help you connect more deeply to what's moving within.</p>
+        
+        <p>Or, let the <strong>Random Prompt</strong> surprise you — sometimes the soul knows exactly what to reveal when we stop searching.</p>
+        
+        <p class="journal-closing">This is your sanctuary for reflection, feeling, and rising into your truest frequency.<br>
+        <em>Let your words become the bridge between who you were… and who you are becoming.</em></p>
+      </div>
+    </div>
+
+    <div class="journal-container">
+      <div class="new-entry-section">
+        <h2>Create New Entry</h2>
+        
+        <div id="prompt-display" class="prompt-container" style="display: none;">
+          <div class="prompt-content">
+            <p id="current-prompt" class="prompt-text"></p>
+          </div>
+          <button type="button" onclick="skipPrompt()" class="skip-prompt-btn">Skip Prompt</button>
+        </div>
+        
+        <div class="prompt-selection">
+          <div class="form-group">
+            <label for="prompt-selector">Choose a Journal Prompt</label>
+            <select id="prompt-selector" class="prompt-dropdown" onchange="selectPromptFromDropdown()">
+              <option value="">-- Select a prompt to explore --</option>
+            </select>
+          </div>
+          
+          <button type="button" onclick="showNewPrompt()" class="get-prompt-btn">
+            Random Journal Prompt
+          </button>
+        </div>
+        
+        <form id="journal-form" class="journal-form">
+          <input type="hidden" id="prompt-used-hidden" name="prompt_used" value="">
+          
+          <div class="music-container quiet-visible">
+            <label for="music-select">Background Sounds</label>
+            <select id="music-select" onchange="playBackgroundMusic()">
+              <option value="">No music</option>
+              <option value="rain">Gentle Rain</option>
+              <option value="forest">Forest Ambience</option>
+              <option value="ocean">Ocean Waves</option>
+              <option value="singing-bowls">Singing Bowls</option>
+            </select>
+            <audio id="background-audio" loop></audio>
+          </div>
+
+          <div class="dropdown-container">
+            <label for="affirmation-select">Select an Affirmation</label>
+            <select id="affirmation-select" onchange="displayAffirmation()">
+              <option value="">Choose an affirmation</option>
+              <option value="I am safe to feel and release all that no longer serves me.">I am safe to feel and release all that no longer serves me.</option>
+              <option value="I honour my emotions as sacred messengers.">I honour my emotions as sacred messengers.</option>
+              <option value="My body holds wisdom, and I listen with love.">My body holds wisdom, and I listen with love.</option>
+              <option value="I am worthy of peace, healing, and freedom.">I am worthy of peace, healing, and freedom.</option>
+              <option value="My truth is valid, and I express it with clarity.">My truth is valid, and I express it with clarity.</option>
+              <option value="I let go with grace, I rise in power.">I let go with grace, I rise in power.</option>
+              <option value="Each breath brings me deeper into harmony.">Each breath brings me deeper into harmony.</option>
+              <option value="I forgive myself, I forgive the past, I open to the present.">I forgive myself, I forgive the past, I open to the present.</option>
+              <option value="My energy is clear, my heart is light.">My energy is clear, my heart is light.</option>
+              <option value="I remember who I am: a radiant expression of soul.">I remember who I am: a radiant expression of soul.</option>
+            </select>
+          </div>
+
+          <p id="selected-affirmation" class="affirmation-display"></p>
+          
+          <input type="hidden" id="affirmation" name="affirmation" required />
+
+          <div class="form-group general-reflection-group">
+            <label for="general_reflection">
+              Daily Reflection & Insights
+            </label>
+            <textarea 
+              id="general_reflection" 
+              name="general_reflection" 
+              rows="6"
+              placeholder="Use this space for daily reflections, gratitude, insights, or simply to reconnect with your affirmations. No emotion work needed - just you and your thoughts..."
+            ></textarea>
+          </div>
+
+          <div class="selectors-row">
+            <div class="form-group">
+              <label for="emotion-dropdown-trigger">
+                Emotions Just Released (optional)
+              </label>
+              <div class="custom-multi-select">
+                <button type="button" class="multi-select-trigger" id="emotion-dropdown-trigger" onclick="toggleEmotionDropdown()" aria-expanded="false" aria-haspopup="listbox">
+                  <span id="emotion-dropdown-text">Select emotions...</span>
+                  <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="multi-select-dropdown" id="emotion-dropdown" role="listbox" aria-multiselectable="true">
+                  <div class="emotion-group">
+                    <div class="emotion-group-label">Core Emotions</div>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Fear" onchange="updateEmotionSelection()"> Fear</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Guilt" onchange="updateEmotionSelection()"> Guilt</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Shame" onchange="updateEmotionSelection()"> Shame</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Grief" onchange="updateEmotionSelection()"> Grief</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Anger" onchange="updateEmotionSelection()"> Anger</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Despair" onchange="updateEmotionSelection()"> Despair</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Abandonment" onchange="updateEmotionSelection()"> Abandonment</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Rejection" onchange="updateEmotionSelection()"> Rejection</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Hopelessness" onchange="updateEmotionSelection()"> Hopelessness</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Powerlessness" onchange="updateEmotionSelection()"> Powerlessness</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Anxiety" onchange="updateEmotionSelection()"> Anxiety</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Worthlessness" onchange="updateEmotionSelection()"> Worthlessness</label>
+                  </div>
+                  <div class="emotion-group">
+                    <div class="emotion-group-label">Hidden Shadows</div>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Hate" onchange="updateEmotionSelection()"> Hate</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Insecurity" onchange="updateEmotionSelection()"> Insecurity</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Resentment" onchange="updateEmotionSelection()"> Resentment</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Helplessness" onchange="updateEmotionSelection()"> Helplessness</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Loneliness" onchange="updateEmotionSelection()"> Loneliness</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Overwhelm" onchange="updateEmotionSelection()"> Overwhelm</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Disappointment" onchange="updateEmotionSelection()"> Disappointment</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Betrayal" onchange="updateEmotionSelection()"> Betrayal</label>
+                    <label class="emotion-checkbox"><input type="checkbox" value="Unlovable" onchange="updateEmotionSelection()"> Unlovable</label>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" id="emotion_selected" name="emotion_selected" value="">
+            </div>
+
+            <div class="form-group">
+              <label for="frequency_tag">
+                Frequency Tag
+              </label>
+              <select id="frequency_tag" name="frequency_tag">
+                <option value="">Select a frequency...</option>
+                <option value="Be Courage">Be Courage</option>
+                <option value="Be Peace">Be Peace</option>
+                <option value="Be Love">Be Love</option>
+                <option value="Be Joy">Be Joy</option>
+                <option value="Be Gratitude">Be Gratitude</option>
+                <option value="Be Empowered">Be Empowered</option>
+                <option value="Be Free">Be Free</option>
+                <option value="Be Whole">Be Whole</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="vibration_word">
+                Vibration Word
+              </label>
+              <select id="vibration_word" name="vibration_word">
+                <option value="">Select a vibration...</option>
+                <option value="Radiant">Radiant</option>
+                <option value="Grounded">Grounded</option>
+                <option value="Flowing">Flowing</option>
+                <option value="Luminous">Luminous</option>
+                <option value="Peaceful">Peaceful</option>
+                <option value="Vibrant">Vibrant</option>
+                <option value="Clear">Clear</option>
+                <option value="Harmonious">Harmonious</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="feelings">
+                How I'm Feeling
+              </label>
+              <textarea 
+                id="feelings" 
+                name="feelings" 
+                rows="4"
+                placeholder="Describe how you're feeling in this moment..."
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="what_came_up">
+                What Came Up
+              </label>
+              <textarea 
+                id="what_came_up" 
+                name="what_came_up" 
+                rows="4"
+                placeholder="What emotions, memories, or insights surfaced?"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="emotions_released">
+                Emotions Released
+              </label>
+              <textarea 
+                id="emotions_released" 
+                name="emotions_released" 
+                rows="4"
+                placeholder="Which trapped emotions did you identify and release?"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="next_steps">
+                Next Steps
+              </label>
+              <textarea 
+                id="next_steps" 
+                name="next_steps" 
+                rows="4"
+                placeholder="Please allow 5-7 days before doing another session on yourself, drink lots of water, rest well, and each day focus on your affirmations."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="save-options">
+            <button type="button" class="save-option-btn sacred-space-btn" onclick="saveToSacredSpace()">
+              Save to Sacred Space
+            </button>
+            <button type="button" class="save-option-btn drive-btn" onclick="saveAndUploadToDrive()">
+              Save to Drive
+            </button>
+            <button type="button" class="save-option-btn download-btn" onclick="saveAndDownload()">
+              Download
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Welcome Video Modal -->
+  <div id="video-modal" class="video-modal" style="display: none;">
+    <div class="video-modal-content">
+      <button class="video-close-btn" aria-label="Close video">&times;</button>
+      <h2>Welcome to Your Sacred Journal</h2>
+      <video id="welcome-video" controls>
+        <source src="../videos/Welcome to your Journal.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <footer class="site-footer legal-footer">
+    <div class="footer-legal-links">
+      <a href="../medical-disclaimer.html">Medical Disclaimer</a>
+      <span class="divider">|</span>
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <span class="divider">|</span>
+      <a href="#" class="placeholder-link">Liability Insurance Certificate</a>
+    </div>
+    <p class="copyright">&copy; 2026 SoulArt Temple — All rights reserved.</p>
+  </footer>
+
+  <script src="../scripts/journal.js"></script>
+<script>
+  // Check for quiet mode
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('mode') === 'quiet') {
+    document.body.classList.add('quiet-mode');
+    document.title = 'Quiet Journal - SoulArt Temple';
+  }
+  
+  // Music playback
+  function playBackgroundMusic() {
+    const select = document.getElementById('music-select');
+    const audio = document.getElementById('background-audio');
+    const value = select.value;
+    
+    if (!value) {
+      audio.pause();
+      audio.src = '';
+      return;
+    }
+    
+    const musicFiles = {
+      'rain': '../audio/rain.mp3',
+      'forest': '../audio/forest.mp3',
+      'ocean': '../audio/ocean.mp3',
+      'singing-bowls': '../audio/singing-bowls.mp3'
+    };
+    
+    if (musicFiles[value]) {
+      audio.src = musicFiles[value];
+      audio.volume = 0.3;
+      audio.play().catch(e => console.log('Audio playback requires user interaction'));
+    }
+  }
+</script>
+</body>
+</html>
